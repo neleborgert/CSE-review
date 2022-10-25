@@ -1,0 +1,208 @@
+---
+title: "CSE Review"
+subtitle: "Data processing"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output:
+  html_document:
+    code_folding: hide
+    highlight: haddock
+    theme: flatly
+    toc: yes
+    toc_float: yes
+---
+
+```{r setup, include=FALSE}
+
+knitr::opts_chunk$set(message = FALSE, 
+                      warning = FALSE)
+
+```
+
+# Notes
+
+This script was reformatted from CSE Review - Results.
+
+# 1. Dependencies
+
+## Packages
+```{r}
+#create packages vector
+packages <- c("readxl", "psych", "ggplot2", "data.table", "stringr", "data.table", "tidyverse", "dplyr", "tidyr", "qpcR", "hrbrthemes", "imguR", "igraph", "networkD3", "htmlwidgets", "statnet", "jtools", "sna", "apaTables", "Jmisc", "wesanderson", "devtools", "rempsyc", "irr")
+
+#un-comment the following line to install packages
+#install.packages(packages)
+
+#load packages
+for (i in 1:length(packages)){
+  library(packages[i], character.only = T)}
+```
+
+## Reproducibility
+This code used R version 4.1.3 (2022-03-10)
+```{r}
+#un-comment the following line to get R version
+#R.version
+
+#un-comment the following lines to set groundhog (i.e., run the code on the same versions as originally)
+##install.packages("groundhog")
+##library("groundhog")
+#groundhog.library(packages, "2022-03-10")
+```
+
+# 2. General processing 
+
+## Import
+```{r}
+#library("readxl")
+
+#codebook 1
+codebook1 <- read_excel("../data/raw/All_Packages_Final_cleaned_4.xlsx", sheet = "Codebook 1")
+
+#codebook 2
+codebook2 <- read_excel("../data/raw/All_Packages_Final_cleaned_4.xlsx", sheet = "Codebook 2")
+```
+
+## Exclude ID #390
+Due to exclusion decision during coding phase 
+```{r}
+#exclude ID #390 from data set
+codebook1 <- subset(codebook1, id!=390) 
+```
+
+# 3. Demographics prep work
+
+## Subset to exclude double IDs
+Subset: exclude double IDs 
+```{r}
+#identify duplicates (row all, column ID)
+duplicated(codebook1[,1]) 
+
+#create subset without duplicates
+single_id <- codebook1[!duplicated(codebook1[,1]),] 
+```
+
+## Subset for true study number 
+To get the true study number, we have to exclude double IDs that are due to other reasons
+Potential sample duplicates are not subtracted (because they were published as separate studies without further information and cover different research models o.s.)
+```{r}
+single_study <- data.frame(codebook1)
+
+#exclude ID 56 study_samples B,C,D (only new scales)
+single_study <- single_study[single_study$id!=56 | single_study$study_samples!="B",]
+single_study <- single_study[single_study$id!=56 | single_study$study_samples!="C",]
+single_study <- single_study[single_study$id!=56 | single_study$study_samples!="D",]
+
+#exclude ID 94 study_samples B,C (only new scales)
+single_study <- single_study[single_study$id!=94 | single_study$study_samples!="B",]
+single_study <- single_study[single_study$id!=94 | single_study$study_samples!="C",]
+
+#exclude ID 408 study_samples B (control group)
+single_study <- single_study[single_study$id!=408 | single_study$study_samples!="B",]
+
+#exclude ID 438 study_samples B (control group)
+single_study <- single_study[single_study$id!=438 | single_study$study_samples!="B",]
+```
+
+## Prep work for variables
+
+### Sample_size
+Create a new variable with cells only showing numerical data
+Attention: double IDs are ok
+Attention: sample duplicates (ones with and ones without)
+Attention: paper ID 94 had total sample size N = 526
+
+Create reduced sample size data frame (single sample)
+```{r}
+#identify duplicates by reading the "notes" variable and create subset without potential sample duplicates
+##creates subset without duplicates
+##single_sample <- codebook1[-grep("duplicate", codebook1$notes),]
+
+#do not include ID 146, 441, 607 (both), 648, 649 (are potential sample duplicates of other IDs)
+single_sample <- subset(codebook1, id!=146 & id!=441 & id!=607 & id!=648 & id!=649)
+
+#do not include ID 148 study_sample B (is post sample)
+single_sample <- single_sample[single_sample$id!=148 | single_sample$study_samples!="B",]
+
+#do not include ID 94 study_sample B and C (are versions of sub samples)
+single_sample <- single_sample[single_sample$id!=94 | single_sample$study_samples!="B",]
+single_sample <- single_sample[single_sample$id!=94 | single_sample$study_samples!="C",]
+
+#instead of ID 94 study_sample A (i.e., scale_number_new 61A) put: sample_size_new = 526, sample_age_new = 35.52, sample_sex_male = 38, sample_sex_female = 61, sample_sex_noresponse = 1
+#library("tibble")
+single_sample$sample_size_new[single_sample$scale_number_new == "61A"] <- 526
+single_sample$sample_age_new[single_sample$scale_number_new == "61A"] <- 35.52
+single_sample$sample_sex_male[single_sample$scale_number_new == "61A"] <- 38
+single_sample$sample_sex_female[single_sample$scale_number_new == "61A"] <- 61
+single_sample$sample_sex_noresponse[single_sample$scale_number_new == "61A"] <- 1
+
+#un-comment to view head of data subset 
+#head(single_sample)
+
+#as numeric
+single_sample$sample_size_new <- as.numeric(single_sample$sample_size_new)
+```
+
+Take into account ID 94 total sample description (not versions of sub samples)
+```{r}
+#NAs for ID 94 rows sample_size_new
+codebook1$sample_size_new[which(codebook1$id == 94)] <- NA 
+
+#replace ID 94 first row (study_samples A) with: sample_size_new = 526
+codebook1$sample_size_new[codebook1$scale_number_new == "61A"] <- 526
+```
+
+### Sample_age 
+Create a new variable with calculated mean estimations (break everything down to an estimate of the average age)
+
+When given (assumptions: lower bound age 18, upper bound age 60)...
+a median: accept
+an average: accept
+age groups: assume the mean age per age group range and then take a weighted average of all groups
+the largest group: assume the mean age for the given age group range 
+a range: calculate the range mean
+age group > 60 or age group > 65: assume 70 as upper bound age
+age group < 18: assume 14 as lower bound age
+NA: assume the range mean for range 18-60 
+groups of birth years: calculate corresponding age groups based on the year in which the study was conducted, then proceed as above
+
+Attention: paper ID 94 has mean age = 35.52 (N = 526)
+```{r}
+codebook1$sample_age_new[codebook1$scale_number_new == "61A"] <- 35.52
+```
+
+### Sample_sex
+Create four variables out of one: male, female, no-response, and non-binary percentages
+Attention: paper ID 94 has 38%male, 61% female, 1% NA (N = 526)
+```{r}
+codebook1$sample_sex_male[codebook1$scale_number_new == "61A"] <- 38
+codebook1$sample_sex_female[codebook1$scale_number_new == "61A"] <- 61
+codebook1$sample_sex_noresponse[codebook1$scale_number_new == "61A"] <- 1
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
