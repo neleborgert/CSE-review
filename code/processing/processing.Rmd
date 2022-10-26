@@ -19,8 +19,8 @@ knitr::opts_chunk$set(message = FALSE,
 ```
 
 # Notes
-
 This script was reformatted from CSE Review - Results.
+This script must be run before the analysis script.
 
 # 1a. Dependencies
 
@@ -49,18 +49,117 @@ This code used R version 4.1.3 (2022-03-10)
 #groundhog.library(packages, "2022-03-10")
 ```
 
-# 1b. General processing 
+# 1b. Interrater agreement prep work
 
-## TO DO: Import (rename raw data)
+## Import data
+```{r}
+#library("readxl")
+#package 1
+package1_rater1 <- read_excel("../../data/raw/Iota_data_IB_Package1.xlsx")
+package1_rater2 <- read_excel("../../data/raw/Iota_data_NB_Package1.xlsx")
+
+#package 2
+package2_rater1 <- read_excel("../../data/raw/Iota_data_LJ_Package2.xlsx")
+package2_rater2 <- read_excel("../../data/raw/Iota_data_IB_Package2.xlsx")
+
+#package 3
+package3_rater1 <- read_excel("../../data/raw/Iota_data_LJ_Package3.xlsx")
+package3_rater2 <- read_excel("../../data/raw/Iota_data_NB_Package3.xlsx")
+```
+
+## Process data
+Merge data frames of packages
+```{r}
+#rater 1
+rater1_p1_p2 <- rbind(package1_rater1, package2_rater1[,1:5])
+rater1 <- rbind(rater1_p1_p2 , package3_rater1[,1:5])
+rater1[,4:5] <- sapply(rater1[,4:5], as.numeric)
+rater1[,1:3] <- sapply(rater1[,1:3], as.integer)
+
+#rater 2
+rater2_p1_p2 <- rbind(package1_rater2, package2_rater2[,1:5])
+rater2 <- rbind(rater2_p1_p2 , package3_rater2[,1:5])
+rater2[,4:5] <- sapply(rater2[,4:5], as.numeric)
+rater2[,1:3] <- sapply(rater2[,1:3], as.integer)
+```
+
+NAs must be excluded (see irr documentation)
+```{r}
+iota_outcome  <- data.frame(rater1[,1], rater2[,1])
+colnames(iota_outcome) <- c("rater1", "rater2")
+iota_outcome <-  na.omit(iota_outcome)
+
+iota_intervention  <- data.frame(rater1[,2], rater2[,2])
+colnames(iota_intervention) <- c("rater1", "rater2")
+iota_intervention <-  na.omit(iota_intervention)
+
+iota_smarthome  <- data.frame(rater1[,3], rater2[,3])
+colnames(iota_smarthome) <- c("rater1", "rater2")
+iota_smarthome <-  na.omit(iota_smarthome)
+
+iota_sample_size  <- data.frame(rater1[,4], rater2[,4])
+colnames(iota_sample_size) <- c("rater1", "rater2")
+iota_sample_size <-  na.omit(iota_sample_size)
+
+iota_reliability_alpha  <- data.frame(rater1[,5], rater2[,5])
+colnames(iota_reliability_alpha) <- c("rater1", "rater2")
+iota_reliability_alpha <-  na.omit(iota_reliability_alpha)
+```
+
+## Create list elements
+Entries of column to list elements
+```{r}
+#iota_outcome
+##empty list
+iota_outcome_list <- list()
+##store each column as list element
+for (i in 1:ncol(iota_outcome)) {
+  iota_outcome_list[[i]] <- iota_outcome[,i]
+}
+##rename list elements
+names(iota_outcome_list) <- colnames(iota_outcome)
+
+#iota_intervention
+iota_intervention_list <- list()
+for (i in 1:ncol(iota_intervention)) {
+  iota_intervention_list[[i]] <- iota_intervention[,i]
+}
+names(iota_intervention_list) <- colnames(iota_intervention)
+
+#iota_smarthome
+iota_smarthome_list <- list()
+for (i in 1:ncol(iota_smarthome)) {
+  iota_smarthome_list[[i]] <- iota_smarthome[,i]
+}
+names(iota_smarthome_list) <- colnames(iota_smarthome)
+
+#iota_sample_size
+iota_sample_size_list <- list()
+for (i in 1:ncol(iota_sample_size)) {
+  iota_sample_size_list[[i]] <- iota_sample_size[,i]
+}
+names(iota_sample_size_list) <- colnames(iota_sample_size)
+
+#iota_reliability_alpha
+iota_reliability_alpha_list <- list()
+for (i in 1:ncol(iota_reliability_alpha)) {
+  iota_reliability_alpha_list[[i]] <- iota_reliability_alpha[,i]
+}
+names(iota_reliability_alpha_list) <- colnames(iota_reliability_alpha)
+```
+
+# 1c. General processing 
+
+## Import data for all packages
 ```{r}
 #library("readxl")
 
 #codebook 1
-codebook1 <- read_excel("../../data/raw/All_Packages_Final_cleaned_4.xlsx", sheet = "Codebook 1")
+codebook1 <- read_excel("../../data/raw/Review_data_all_packages.xlsx", sheet = "Codebook 1")
 
 
 #codebook 2
-codebook2 <- read_excel("../../data/raw/All_Packages_Final_cleaned_4.xlsx", sheet = "Codebook 2")
+codebook2 <- read_excel("../../data/raw/Review_data_all_packages.xlsx", sheet = "Codebook 2")
 ```
 
 ## Exclude ID #390
@@ -70,7 +169,7 @@ Due to exclusion decision during coding phase
 codebook1 <- subset(codebook1, id!=390) 
 ```
 
-# 1c. Subsets
+# 1d. Subsets
 
 ## Subset to exclude double IDs
 Subset: exclude double IDs 
@@ -147,6 +246,23 @@ codebook1$sample_size_new[which(codebook1$id == 94)] <- NA
 
 #replace ID 94 first row (study_samples A) with: sample_size_new = 526
 codebook1$sample_size_new[codebook1$scale_number_new == "61A"] <- 526
+```
+
+## Subset for demographics
+We are reporting studies (single_study and single_sample) and single_id (records/papers)
+
+Create new variables in excel: sample_size_new, sample_age_new, sample_sex_male, sample_sex_female, sample_sex_nonbinary, sample_sex_noresponse
+```{r}
+#data sets for demographics
+demographics_review <- data.frame(single_id$year, single_id$publication_type)
+
+demographics_sample <- data.frame(codebook1$sample_size_new, codebook1$sample_age_new, 
+                                  codebook1$sample_sex_male, codebook1$sample_sex_female, codebook1$sample_sex_nonbinary, codebook1$sample_sex_noresponse,
+                                  codebook1$sample_profession, codebook1$sample_recruitment, codebook1$sample_country)
+
+demographics_true_sample <- data.frame(single_sample$sample_size_new, single_sample$sample_age_new)
+
+demographics_study <- data.frame(single_study$study_type, single_study$study_setting, single_study$smarthome)
 ```
 
 # 2. Demographics prep work
