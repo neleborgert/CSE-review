@@ -894,7 +894,7 @@ outcome_data
 
 #save as outcome construct counts
 #library("readr")
-write_csv2(outcome_data,"Counts of All Outcome Constructs - Single_Study.csv")
+write_csv2(outcome_data,"../results/Counts of All Outcome Constructs - Single_Study.csv")
 ```
 
 ### Doublets for role (original)
