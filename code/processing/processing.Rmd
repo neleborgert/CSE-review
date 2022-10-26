@@ -19,10 +19,10 @@ knitr::opts_chunk$set(message = FALSE,
 ```
 
 # Notes
-
 This script was reformatted from CSE Review - Results.
+This script must be run before the analysis script.
 
-# 1. Dependencies
+# 1a. Dependencies
 
 ## Packages
 ```{r}
@@ -49,17 +49,117 @@ This code used R version 4.1.3 (2022-03-10)
 #groundhog.library(packages, "2022-03-10")
 ```
 
-# 2. General processing 
+# 1b. Interrater agreement prep work
 
-## Import
+## Import data
+```{r}
+#library("readxl")
+#package 1
+package1_rater1 <- read_excel("../../data/raw/Iota_data_IB_Package1.xlsx")
+package1_rater2 <- read_excel("../../data/raw/Iota_data_NB_Package1.xlsx")
+
+#package 2
+package2_rater1 <- read_excel("../../data/raw/Iota_data_LJ_Package2.xlsx")
+package2_rater2 <- read_excel("../../data/raw/Iota_data_IB_Package2.xlsx")
+
+#package 3
+package3_rater1 <- read_excel("../../data/raw/Iota_data_LJ_Package3.xlsx")
+package3_rater2 <- read_excel("../../data/raw/Iota_data_NB_Package3.xlsx")
+```
+
+## Process data
+Merge data frames of packages
+```{r}
+#rater 1
+rater1_p1_p2 <- rbind(package1_rater1, package2_rater1[,1:5])
+rater1 <- rbind(rater1_p1_p2 , package3_rater1[,1:5])
+rater1[,4:5] <- sapply(rater1[,4:5], as.numeric)
+rater1[,1:3] <- sapply(rater1[,1:3], as.integer)
+
+#rater 2
+rater2_p1_p2 <- rbind(package1_rater2, package2_rater2[,1:5])
+rater2 <- rbind(rater2_p1_p2 , package3_rater2[,1:5])
+rater2[,4:5] <- sapply(rater2[,4:5], as.numeric)
+rater2[,1:3] <- sapply(rater2[,1:3], as.integer)
+```
+
+NAs must be excluded (see irr documentation)
+```{r}
+iota_outcome  <- data.frame(rater1[,1], rater2[,1])
+colnames(iota_outcome) <- c("rater1", "rater2")
+iota_outcome <-  na.omit(iota_outcome)
+
+iota_intervention  <- data.frame(rater1[,2], rater2[,2])
+colnames(iota_intervention) <- c("rater1", "rater2")
+iota_intervention <-  na.omit(iota_intervention)
+
+iota_smarthome  <- data.frame(rater1[,3], rater2[,3])
+colnames(iota_smarthome) <- c("rater1", "rater2")
+iota_smarthome <-  na.omit(iota_smarthome)
+
+iota_sample_size  <- data.frame(rater1[,4], rater2[,4])
+colnames(iota_sample_size) <- c("rater1", "rater2")
+iota_sample_size <-  na.omit(iota_sample_size)
+
+iota_reliability_alpha  <- data.frame(rater1[,5], rater2[,5])
+colnames(iota_reliability_alpha) <- c("rater1", "rater2")
+iota_reliability_alpha <-  na.omit(iota_reliability_alpha)
+```
+
+## Create list elements
+Entries of column to list elements
+```{r}
+#iota_outcome
+##empty list
+iota_outcome_list <- list()
+##store each column as list element
+for (i in 1:ncol(iota_outcome)) {
+  iota_outcome_list[[i]] <- iota_outcome[,i]
+}
+##rename list elements
+names(iota_outcome_list) <- colnames(iota_outcome)
+
+#iota_intervention
+iota_intervention_list <- list()
+for (i in 1:ncol(iota_intervention)) {
+  iota_intervention_list[[i]] <- iota_intervention[,i]
+}
+names(iota_intervention_list) <- colnames(iota_intervention)
+
+#iota_smarthome
+iota_smarthome_list <- list()
+for (i in 1:ncol(iota_smarthome)) {
+  iota_smarthome_list[[i]] <- iota_smarthome[,i]
+}
+names(iota_smarthome_list) <- colnames(iota_smarthome)
+
+#iota_sample_size
+iota_sample_size_list <- list()
+for (i in 1:ncol(iota_sample_size)) {
+  iota_sample_size_list[[i]] <- iota_sample_size[,i]
+}
+names(iota_sample_size_list) <- colnames(iota_sample_size)
+
+#iota_reliability_alpha
+iota_reliability_alpha_list <- list()
+for (i in 1:ncol(iota_reliability_alpha)) {
+  iota_reliability_alpha_list[[i]] <- iota_reliability_alpha[,i]
+}
+names(iota_reliability_alpha_list) <- colnames(iota_reliability_alpha)
+```
+
+# 1c. General processing 
+
+## Import data for all packages
 ```{r}
 #library("readxl")
 
 #codebook 1
-codebook1 <- read_excel("../data/raw/All_Packages_Final_cleaned_4.xlsx", sheet = "Codebook 1")
+codebook1 <- read_excel("../../data/raw/Review_data_all_packages.xlsx", sheet = "Codebook 1")
+
 
 #codebook 2
-codebook2 <- read_excel("../data/raw/All_Packages_Final_cleaned_4.xlsx", sheet = "Codebook 2")
+codebook2 <- read_excel("../../data/raw/Review_data_all_packages.xlsx", sheet = "Codebook 2")
 ```
 
 ## Exclude ID #390
@@ -69,7 +169,7 @@ Due to exclusion decision during coding phase
 codebook1 <- subset(codebook1, id!=390) 
 ```
 
-# 3. Demographics prep work
+# 1d. Subsets
 
 ## Subset to exclude double IDs
 Subset: exclude double IDs 
@@ -103,14 +203,11 @@ single_study <- single_study[single_study$id!=408 | single_study$study_samples!=
 single_study <- single_study[single_study$id!=438 | single_study$study_samples!="B",]
 ```
 
-## Prep work for variables
-
-### Sample_size
+## Subset for single sample size
 Create a new variable with cells only showing numerical data
 Attention: double IDs are ok
 Attention: sample duplicates (ones with and ones without)
 Attention: paper ID 94 had total sample size N = 526
-
 Create reduced sample size data frame (single sample)
 ```{r}
 #identify duplicates by reading the "notes" variable and create subset without potential sample duplicates
@@ -151,7 +248,26 @@ codebook1$sample_size_new[which(codebook1$id == 94)] <- NA
 codebook1$sample_size_new[codebook1$scale_number_new == "61A"] <- 526
 ```
 
-### Sample_age 
+## Subset for demographics
+We are reporting studies (single_study and single_sample) and single_id (records/papers)
+
+Create new variables in excel: sample_size_new, sample_age_new, sample_sex_male, sample_sex_female, sample_sex_nonbinary, sample_sex_noresponse
+```{r}
+#data sets for demographics
+demographics_review <- data.frame(single_id$year, single_id$publication_type)
+
+demographics_sample <- data.frame(codebook1$sample_size_new, codebook1$sample_age_new, 
+                                  codebook1$sample_sex_male, codebook1$sample_sex_female, codebook1$sample_sex_nonbinary, codebook1$sample_sex_noresponse,
+                                  codebook1$sample_profession, codebook1$sample_recruitment, codebook1$sample_country)
+
+demographics_true_sample <- data.frame(single_sample$sample_size_new, single_sample$sample_age_new)
+
+demographics_study <- data.frame(single_study$study_type, single_study$study_setting, single_study$smarthome)
+```
+
+# 2. Demographics prep work
+
+## Sample_age 
 Create a new variable with calculated mean estimations (break everything down to an estimate of the average age)
 
 When given (assumptions: lower bound age 18, upper bound age 60)...
@@ -170,7 +286,7 @@ Attention: paper ID 94 has mean age = 35.52 (N = 526)
 codebook1$sample_age_new[codebook1$scale_number_new == "61A"] <- 35.52
 ```
 
-### Sample_sex
+## Sample_sex
 Create four variables out of one: male, female, no-response, and non-binary percentages
 Attention: paper ID 94 has 38%male, 61% female, 1% NA (N = 526)
 ```{r}
@@ -179,14 +295,406 @@ codebook1$sample_sex_female[codebook1$scale_number_new == "61A"] <- 61
 codebook1$sample_sex_noresponse[codebook1$scale_number_new == "61A"] <- 1
 ```
 
+# 3. Scale prep work
+RQ 1 variables: scale, reliability, validity, and complete codebook 2
+
+## Exclude papers from codebook 2 if not self-developed 
+Identify IDs of those papers (were included in codebook 2 because the referencing scale_number did not exist in codebook 2 [yet]) via: scale_changes = none
+```{r}
+#exclude papers if not self-developed (e.g., id #34) from dataset
+selfdeveloped_scale <- subset(codebook2, scale_changes!="none" | is.na(scale_changes)) 
+```
+
+## Discriminant constructs
+String split into several columns (where you don't know the number of output columns)
+```{r}
+before_discriminant <- data.frame(selfdeveloped_scale$validity_construct_discriminant_type, selfdeveloped_scale$validity_construct_discriminant_description_new)
+
+#rename columns
+colnames(before_discriminant)[1] <- "discriminant_type"
+colnames(before_discriminant)[2] <- "discriminant_description"
+
+max(lengths(strsplit(as.character(before_discriminant$discriminant_description), '; ')))
+#library(data.table)
+setDT(before_discriminant)[, paste0("discriminant_description", 1:15) := tstrsplit(selfdeveloped_scale$validity_construct_discriminant_description_new, "; ")] #15 = number of columns (items are assigned to) 
+before_discriminant
+```
+
+Change data format (into long format)
+```{r}
+#new data set (with added ID)
+m <- nrow(selfdeveloped_scale) #where m is the number of rows
+discriminant_wide_data <- data.frame(id = 1:m, before_discriminant$discriminant_type, before_discriminant$discriminant_description1, before_discriminant$discriminant_description2, before_discriminant$discriminant_description3, before_discriminant$discriminant_description4, before_discriminant$discriminant_description5,
+before_discriminant$discriminant_description6,
+before_discriminant$discriminant_description7,
+before_discriminant$discriminant_description8,
+before_discriminant$discriminant_description9,
+before_discriminant$discriminant_description10,
+before_discriminant$discriminant_description11,
+before_discriminant$discriminant_description12,
+before_discriminant$discriminant_description13,
+before_discriminant$discriminant_description14,
+before_discriminant$discriminant_description15)
+
+#making sure ID column is a factor
+discriminant_wide_data$id <- as.factor(discriminant_wide_data$id)
+
+#changing into long format
+#library(tidyr)
+discriminant_long_data <- gather(discriminant_wide_data, discriminant_description_number, discriminant_description, before_discriminant.discriminant_description1:before_discriminant.discriminant_description15, factor_key = T) 
+discriminant_long_data
+discriminant_long_data <- rename(discriminant_long_data, discriminant_type = before_discriminant.discriminant_type) # rename column
+
+#delete NAs in data frame
+discriminant_long_data_clean <- subset(discriminant_long_data, !is.na(discriminant_long_data[,4])) #column 4 = discriminant description
+```
+
+## Convergent constructs
+String split into several columns (where you don't know the number of output columns)
+```{r}
+before_convergent <- data.frame(selfdeveloped_scale$validity_construct_convergent_type, selfdeveloped_scale$validity_construct_convergent_description_new)
+
+#rename columns
+colnames(before_convergent)[1] <- "convergent_type"
+colnames(before_convergent)[2] <- "convergent_description"
+
+max(lengths(strsplit(as.character(before_convergent$convergent_description), '; ')))
+#library(data.table)
+setDT(before_convergent)[, paste0("convergent_description", 1:15) := tstrsplit(selfdeveloped_scale$validity_construct_convergent_description_new, "; ")] #15 = number of columns (items are assigned to) 
+before_convergent
+```
+
+Change data format (into long format)
+```{r}
+#new data set (with added ID)
+m <- nrow(selfdeveloped_scale) #where m is the number of rows
+convergent_wide_data <- data.frame(id = 1:m, before_convergent$convergent_type, before_convergent$convergent_description1, before_convergent$convergent_description2, before_convergent$convergent_description3, before_convergent$convergent_description4, before_convergent$convergent_description5,
+before_convergent$convergent_description6,
+before_convergent$convergent_description7,
+before_convergent$convergent_description8,
+before_convergent$convergent_description9,
+before_convergent$convergent_description10,
+before_convergent$convergent_description11,
+before_convergent$convergent_description12,
+before_convergent$convergent_description13,
+before_convergent$convergent_description14,
+before_convergent$convergent_description15)
+
+#making sure ID column is a factor
+convergent_wide_data$id <- as.factor(convergent_wide_data$id)
+
+#changing into long format
+#library(tidyr)
+convergent_long_data <- gather(convergent_wide_data, convergent_description_number, convergent_description, before_convergent.convergent_description1:before_convergent.convergent_description15, factor_key = T) 
+convergent_long_data
+convergent_long_data <- rename(convergent_long_data, convergent_type = before_convergent.convergent_type) # rename column
+
+#delete NAs in data frame
+convergent_long_data_clean <- subset(convergent_long_data, !is.na(convergent_long_data[,4])) #column 4 = convergent description
+```
+
+# 4. Network analysis prep work
+
+## Change authors variable
+Change authors variable to display both authors and year in one column
+```{r}
+#combine columns
+codebook2$authors_new <- paste(codebook2$authors, codebook2$year, sep=" (")
+
+#add last ) to new column
+codebook2$authors_new <- paste0(codebook2$authors_new, ")")
+```
+
+## no_scale_authors 
+authors* = authors that have been coded at least twice and second row contains NA in scale_authors (no references to originating scale authors)
+attention: reload data sets if the authors variable does not change variable names correctly to "author*"
+```{r}
+codebook2$authors_new <- as.character(codebook2$authors_new) #change to character
+
+no_scale_authors <- which(duplicated(codebook2$id) & (codebook2$scale_authors=="" | is.na(codebook2$scale_authors))) #identify nodes with rule: must be duplicate ID and have NA in scale_authors variable
+
+codebook2$authors_new[no_scale_authors] <- paste0(codebook2$authors_new[no_scale_authors],"*") #change variables names to: author*
+
+codebook2$authors_new <- factor(codebook2$authors_new) #change back to factor levels
+#print(levels(codebook2$authors_new)) #un-comment to check
+```
+
+## String split
+String split into several columns (where you don't know the number of output columns)
+```{r}
+before <- data.frame(codebook2$authors_new, codebook2$scale_authors)
+#max(lengths(strsplit(as.character(before$scale_authors), '; ')))
+#library(data.table) 
+setDT(before)[, paste0("scale_authors", 1:6) := tstrsplit(codebook2$scale_authors, "; ")] #6 = number of columns (items are assigned to)
+before
+```
+
+## Long format
+Change data frame in order to have no excess NAs and for authors not citing any scale_authors create loop (=insert authors_new in scale_authors) ->in long format for network objects
+```{r}
+#create empty lists
+vector1 <- c()
+vector2 <- c()
+
+#change variables to character
+before <- sapply(before, as.character)
+
+#iterate line by line: if not NA in scale_author1:6 then create author_new and scale_author entry; if NA in first scale_author then create author_new and author_new=scale author
+#print(vektor1)
+for(row in 1:nrow(before)){
+  #line <- before[row,]
+  single_authors_data <- (before[row,1])
+  scale_authors1_data <- (before[row,3])
+  scale_authors2_data <- (before[row,4])
+  scale_authors3_data <- (before[row,5])
+  scale_authors4_data <- (before[row,6])
+  scale_authors5_data <- (before[row,7])
+  scale_authors6_data <- (before[row,8])
+  cite_any <- FALSE
+  if (!is.na(scale_authors1_data)){
+    vector1 <- append(vector1, single_authors_data)
+    vector2 <- append(vector2, scale_authors1_data)
+    cite_any <- TRUE
+  }
+  if (!is.na(scale_authors2_data)){
+    vector1 <- append(vector1, single_authors_data)
+    vector2 <- append(vector2, scale_authors2_data)
+  }
+  if (!is.na(scale_authors3_data)){
+    vector1 <- append(vector1, single_authors_data)
+    vector2 <- append(vector2, scale_authors3_data)
+  }
+  if (!is.na(scale_authors4_data)){
+    vector1 <- append(vector1, single_authors_data)
+    vector2 <- append(vector2, scale_authors4_data)
+  }
+  if (!is.na(scale_authors5_data)){
+    vector1 <- append(vector1, single_authors_data)
+    vector2 <- append(vector2, scale_authors5_data)
+  }
+  #print(cite_any ==FALSE)
+  if (cite_any ==FALSE){
+    vector1 <- append(vector1, single_authors_data)
+    vector2 <- append(vector2, single_authors_data) 
+  }
+}
+
+#create data frame with both lists
+authors_long_data <- do.call(rbind, Map(data.frame, authors=vector1, scale_authors=vector2))
+rownames(authors_long_data) <- c() #delete row names
+authors_long_data
+```
+
+# 5. SE role prep work
+
+## Cause variables (original)
+String split into several columns (where you don't know the number of output columns)
+```{r}
+before_cause <- data.frame(single_study$cause_variables)
+
+#rename columns
+colnames(before_cause)[1] <- "cause_variables"
+
+max(lengths(strsplit(as.character(before_cause$cause_variables), '; ')))
+#library(data.table)
+setDT(before_cause)[, paste0("cause_variables", 1:5) := tstrsplit(single_study$cause_variables, "; ")] #5 = number of columns (items are assigned to) 
+before_cause
+```
+
+Change data format (into long format)
+```{r}
+#new data set (with added ID)
+mc <- nrow(single_study) #where mc is the number of rows
+cause_wide_data <- data.frame(id = 1:mc, before_cause$cause_variables,
+                              before_cause$cause_variables1, 
+                              before_cause$cause_variables2,
+                              before_cause$cause_variables3,
+                              before_cause$cause_variables4,
+                              before_cause$cause_variables5)
+
+#making sure ID column is a factor
+cause_wide_data$id <- as.factor(cause_wide_data$id)
+
+#changing into long format
+#library(tidyr)
+cause_long_data <- gather(cause_wide_data, cause_variables_number, cause_variables, before_cause.cause_variables1:before_cause.cause_variables5, factor_key = T) 
+cause_long_data
+
+#delete NAs in data frame
+cause_long_data_clean <- subset(cause_long_data, !is.na(cause_long_data[,4])) #column 4 
+```
+
+## Outcome variables (original)
+String split into several columns (where you don't know the number of output columns)
+```{r}
+before_outcome <- data.frame(single_study$outcome_variables)
+
+#rename columns
+colnames(before_outcome)[1] <- "outcome_variables"
+
+max(lengths(strsplit(as.character(before_outcome$outcome_variables), '; ')))
+#library(data.table)
+setDT(before_outcome)[, paste0("outcome_variables", 1:6) := tstrsplit(single_study$outcome_variables, "; ")] #6 = number of columns (items are assigned to) 
+before_outcome
+```
+
+Change data format (into long format)
+```{r}
+#new data set (with added ID)
+mo <- nrow(single_study) #where mo is the number of rows
+outcome_wide_data <- data.frame(id = 1:mo, before_outcome$outcome_variables,
+                              before_outcome$outcome_variables1, 
+                              before_outcome$outcome_variables2,
+                              before_outcome$outcome_variables3,
+                              before_outcome$outcome_variables4,
+                              before_outcome$outcome_variables5,
+                              before_outcome$outcome_variables6)
+
+#making sure ID column is a factor
+outcome_wide_data$id <- as.factor(outcome_wide_data$id)
+
+#changing into long format
+#library(tidyr)
+outcome_long_data <- gather(outcome_wide_data, outcome_variables_number, outcome_variables, before_outcome.outcome_variables1:before_outcome.outcome_variables6, factor_key = T) 
+outcome_long_data
+
+#delete NAs in data frame
+outcome_long_data_clean <- subset(outcome_long_data, !is.na(outcome_long_data[,4])) #column 4 
+```
+
+## Cause and outcome variable (paraphrased)
+Use cause_variables_new and outcome_variables_new for (single_study) paraphrased version
+```{r}
+#String split cause_new
+before_cause2 <- data.frame(single_study$cause_variables_new)
+##rename columns
+colnames(before_cause2)[1] <- "cause_variables"
+max(lengths(strsplit(as.character(before_cause2$cause_variables), '; ')))
+#library(data.table)
+setDT(before_cause2)[, paste0("cause_variables", 1:9) := tstrsplit(single_study$cause_variables_new, "; ")] #9 = number of columns (items are assigned to) 
+before_cause2
+
+#String split outcome_new
+before_outcome2 <- data.frame(single_study$outcome_variables_new)
+##rename columns
+colnames(before_outcome2)[1] <- "outcome_variables"
+max(lengths(strsplit(as.character(before_outcome2$outcome_variables), '; ')))
+#library(data.table)
+setDT(before_outcome2)[, paste0("outcome_variables", 1:6) := tstrsplit(single_study$outcome_variables_new, "; ")] #6 = number of columns (items are assigned to) 
+before_outcome2
 
 
+#long data format cause_new
+##new data set (with added ID)
+mc <- nrow(single_study) #where mc is the number of rows
+cause_wide_data2 <- data.frame(id = 1:mc, before_cause2$cause_variables,
+                              before_cause2$cause_variables1, 
+                              before_cause2$cause_variables2,
+                              before_cause2$cause_variables3,
+                              before_cause2$cause_variables4,
+                              before_cause2$cause_variables5,
+                              before_cause2$cause_variables6,
+                              before_cause2$cause_variables7,
+                              before_cause2$cause_variables8,
+                              before_cause2$cause_variables9)
+##making sure ID column is a factor
+cause_wide_data2$id <- as.factor(cause_wide_data2$id)
+##changing into long format
+#library(tidyr)
+cause_long_data2 <- gather(cause_wide_data2, cause_variables_number, cause_variables, before_cause2.cause_variables1:before_cause2.cause_variables9, factor_key = T) 
+cause_long_data2
+##delete NAs in data frame
+cause_long_data_clean2 <- subset(cause_long_data2, !is.na(cause_long_data2[,4])) #column 4 
 
+#long data format outcome_new
+##new data set (with added ID)
+mo <- nrow(single_study) #where mo is the number of rows
+outcome_wide_data2 <- data.frame(id = 1:mo, before_outcome2$outcome_variables,
+                              before_outcome2$outcome_variables1, 
+                              before_outcome2$outcome_variables2,
+                              before_outcome2$outcome_variables3,
+                              before_outcome2$outcome_variables4,
+                              before_outcome2$outcome_variables5,
+                              before_outcome2$outcome_variables6)
+##making sure ID column is a factor
+outcome_wide_data2$id <- as.factor(outcome_wide_data2$id)
+##changing into long format
+#library(tidyr)
+outcome_long_data2 <- gather(outcome_wide_data2, outcome_variables_number, outcome_variables, before_outcome2.outcome_variables1:before_outcome2.outcome_variables6, factor_key = T) 
+outcome_long_data2
+##delete NAs in data frame
+outcome_long_data_clean2 <- subset(outcome_long_data2, !is.na(outcome_long_data2[,4])) #column 4 
+```
 
+# 6. Intervention prep work
 
+## Create table
+```{r}
+#make data frame
+id <- single_study$id[single_study$intervention==1]
 
+type <- c("training", "training", "exposure to messages", "training", "awareness campaign", "course", "game", "exposure to messages", "game", "training", "training", "training", "exposure to messages")
 
+method <- c("instructional strategies of component display theory", "cyber security related activity", "government surveillance news", "instructional control elements", "compliance communication", "cyber security related activity; career awareness", "cyber security related activity", "cyber privacy risk awareness", "cyber security related activity", "text and video", "fear appeals", "in-house and third-party video", "privacy control salience")
 
+intervention_data <- as.data.frame(cbind(id, type, method))
+
+#type as factor
+intervention_data$type <- as.factor(intervention_data$type)
+#type levels and frequencies
+table(intervention_data$type)
+```
+
+## Refine table
+```{r}
+#change authors variable
+##combine columns
+codebook1$authors_new <- paste(codebook1$authors, codebook1$year, sep=" (")
+##add last ) to new column
+codebook1$authors_new <- paste0(codebook1$authors_new, ")")
+
+#data frame
+authors <- subset(codebook1$authors_new, codebook1$intervention == 1)
+study_type <- subset(single_study$study_type, single_study$intervention == 1)
+intervention_type <- intervention_data$type
+intervention_method <- intervention_data$method
+sample_size <- subset(codebook1$sample_size_new, codebook1$intervention == 1)
+
+intervention_table_data <- as.data.frame(cbind(authors, intervention_type, intervention_method, study_type, sample_size))
+
+#recode type factors
+##as factor with levels
+intervention_table_data$study_type <- as.factor(intervention_table_data$study_type)
+intervention_table_data$study_type <- recode_factor(intervention_table_data$study_type,
+                                   '0' = "experiment",
+                                   '1' = "quasi-experiment", #1: Amo = 3x repeated measures; McGill = pre-post; Arachchilage = pre-post; Clark = multiple-pre-post
+                                   '2' = "survey",
+                                   '3' = "other")
+
+intervention_table_data$intervention_type <- recode_factor(intervention_table_data$intervention_type,
+                                   '1' = "awareness campaign",
+                                   '2' = "course",
+                                   '3' = "exposure to messages",
+                                   '4' = "game", 
+                                   '5' = "training")
+
+#rename columns
+colnames(intervention_table_data) <- c("Authors", "Intervention Type", "Intervention Method", "Study Type", "Sample Size")
+```
+
+# 7. Smart home prep work
+## Subset for smart homes
+For the differentiation between RQ 1.-3. and 4., we need a subset of data 
+```{r}
+#create subset only with smarthome paper for RQ 4
+codebook1_smarthome <- subset(codebook1, smarthome==1)
+
+#identify all IDs from codebook1_rq5 and safe them to use in following subset function
+smarthome_ids <- codebook1_smarthome$id 
+
+#create subset only with smarthome paper for RQ 5 (%in%: if id is in smarthome_id than include row in subset)
+codebook2_smarthome <- subset(codebook2, id %in% smarthome_ids) 
+```
 
 
 

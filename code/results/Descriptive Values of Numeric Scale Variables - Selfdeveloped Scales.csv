@@ -1,0 +1,5 @@
+variable;vars;n;mean;sd;median;trimmed;mad;min;max;range;skew;kurtosis;se
+selfdeveloped_scale.reliability_alpha_new;1;102;0,862916666666667;0,0720387369438280;0,8765;0,869847560975610;0,0615279000000001;0,677;0,977;0,300;-0,778049791298672;0,111295649875383;0,00713289783840743
+selfdeveloped_scale.reliability_composite_new;2;76;0,896514473684211;0,0586954051670086;0,9085;0,901001612903226;0,0481845000000000;0,699;1,000;0,301;-0,940679009121916;1,081343603205743;0,00673282472560962
+selfdeveloped_scale.reliability_testretest;3;0;NA;NA;NA;NA;NA;Inf;-Inf;-Inf;NA;NA;NA
+selfdeveloped_scale.reliability_splithalf;4;0;NA;NA;NA;NA;NA;Inf;-Inf;-Inf;NA;NA;NA

@@ -1,0 +1,640 @@
+authors;publication_year;item_list;referenced_scale_authors;scale_name
+Verkijika;2019;"1. I feel confident in my ability to detect phishing emails on a mobile device
+2. I feel confident in my ability to detect mobile apps that are not from trusted sources
+3. I could successfully gain anti-phishing knowledge pertaining to mobile phishing threats if no one else helped me get started
+4. I feel confident in my ability to identify SMSs and mobile app messages with links that are not from trusted sources
+5. I could successfully gain anti-phishing knowledge pertaining to mobile phishing threats if I had never learned it before";"Arachchilage et al. (2014); Sun et al. (2016); Thompson et al. (2017)";Anti-Phishing Self-Efficacy
+Lian;2020;NA;"Rhee et al. (2009); Liang et al. (2010)";BYOD Information Security Self-Efficacy
+Alqarni;2017;"1. I am confident of recognizing a suspicious email.
+2. I am confident of recognizing suspicious email headers.
+3. I am confident of recognizing suspicious email attachement filename.
+4. I can recognize a suspicious email attachment even if there was no one around to help me.";Ng et al. (2009);Computer Self-Efficacy
+Chou et al.;2017;Example: When my computer is infected with viruses, I can manage it calmly and promptly.;NA;Coping Self-Efficacy
+Kusyanti et al.;2019;NA;Tsai et al. (2016);Coping Self-Efficacy
+Shillair et al.;2015;"Participants were asked if they were confident they could 
+1.‘‘identify the terms of software license agreements that pose a threat,’’ 
+2.‘‘download a Trojan scanner,’’ 
+3. ‘‘identify the terms of web site privacy policies that threaten me,’’ 
+4.‘‘identify a new anti-malware program that will improve my safety,’’ 
+5.‘‘tell when it is safe to open an email attachment.’’";NA;Coping Self-Efficacy
+Shillair et al.;2016;"1. I feel comfortable taking measures to secure my primary home computer
+2. Taking the necessary security measures is entirely under my control
+3. I have the resources and the knowledge to take necessary security measures
+4. Taking necessary security measures is easy";NA;Coping Self-Efficacy
+Booth;2019;"1. Overall, my ""cyber self-efficacy"" is: / 1. When interacting with 1Stop online, my ""cyber self-efficacy"" is:";Ajzen (2002);Cyber Self-Efficacy
+Booth et al.;2019;NA;Ajzen (2002);Cyber Self-Efficacy
+Amo;2016;"I am good at problem-solving.
+I persist until a solution is found.
+I am confident in my ability to meet unexpected challenges with success.
+I enjoy being challenged by seemingly unsolvable situations or problems.
+I spend my spare time learning about computers and technology.
+If I encounter a problem with computer hardware, I am confident that I would be able to fix it.
+I want to learn more about cybersecurity in school.
+I envision myself learning more about cybersecurity in the future.
+I would like to explore career options related to cybersecurity.
+I generally have fun when I am learning cybersecurity topics.
+I am happy working on cybersecurity tasks and problems.
+I enjoy acquiring new knowledge in cybersecurity.
+I like learning about cybersecurity.
+(1) I completely understand what this task entails; (2) I am very confident in my ability to perform this task:
+Access system's users and accounts
+Make changes to a user's account (e.g. password, permission)
+Update software program
+View network traffic
+Monitor system logs
+Open the command line interface
+Navigate directories using command line interface
+Describe how computers on the internet communicate with each other
+Make changes to firewall rules
+Find a system's IP address
+Find a system's subnet mask
+Discuss the role of DHCP in a computer network
+Create a web page using HTML
+Manage web server software
+Identify a secure URL
+Find errors in HTML
+Fix errors in HTML
+Recognize tricks that cybercriminals use to
+steal information
+Recognize malware infections
+Identify characteristics of advanced malware";Amo et al. (2015);Cybersecurity Engagement and Self-Efficacy Scale
+McGill et al.;2021;NA;Amo et al. (2015);Cybersecurity Engangement and Self-Efficacy Scale (Cyber Threat Identification Self-Efficacy)
+Sanga;2016;"1. I am confident that I am not a victim of identity-theft.
+2. I feel confident that I have enough knowledge/ awareness about identity-theft.
+3. I feel confident that I am taking necessary measures/precautions to prevent myself from identity-theft.
+4. I feel confident that I can understand different types/methods/schemes of identity-theft.
+5. I feel confident in sharing my personal information.
+6. I feel confident that I am using screen password to lock my laptop, mobile, etc.
+7. I feel confident in storing sensitive information on my laptop, mobile, etc.
+8. I feel confident in performing online transactions over the internet.";NA;Electronic Device Self-Efficacy
+Elhai et al.;2017;1. How capable are you at keeping your personal information and data private from others (e.g. e-mails, texts, photos, and documents on your electronic devices)?;Chai et al. (2009);Electronic Privacy Self-Efficacy
+Carruth et al.;2017;"Summing confidence estimates of three items: 
+1. how to reset profile privacy levels
+2. knowing the currently set level of profile privacy
+3. knowing who may be able to post on the profile";NA;Facebook Self-Efficacy
+Yoo et al.;2020;"1. I have the necessary knowledge to protect the informational assets. 
+2. I have the necessary skills for the organization’s security. 
+3. I have confidence to achieve the security goals.";Bulgurcu et al. (2010);Individual Self-Efficacy
+Ahmad et al.;2019;"1. You know what to do in the event of information security breach.
+2. You know who to contact in the event of information security breach.
+3. You know the standard operating procedures in handling private and confidential information.";NA;Information Security Self-Efficacy
+Cuganesan et al.;2018;"1. I have the necessary skills to secure information the way my organisation requires and/or expects me to.
+2. I have the necessary knowledge to secure information the way my organisation requires and/or expects me to.
+3. I have the necessary competencies to secure information the way my organisation requires and/or expects me to.
+4. For me, securing information the way my organisation requires and/or expects me to is hard.";"Bulgurcu et al. (2010); Workman et al. (2008)";Information Security Self-Efficacy
+Nguyen et al.;2017;NA;NA;Information Security Self-Efficacy
+Safa et al.;2015;"1. I have the skills to protect my business and private data.
+2. I have the expertise to protect my business and private data.
+3. I think the protection of my data is in my control in terms of information security violations.
+4. I have the ability to prevent information security violations.";"Hartono et al. (2014); Ifinedo (2014); Siponen et al. (2014); Tamjidyamcholo et al. (2014)";Information Security Self-Efficacy
+Geil et al.;2018;"1. I can determine the appropriate computer security technology for my computer.
+2. I can correctly install and manage computer security technology for my computer.
+3. I know how to find information on how to respond to a computer security problem.
+4. If my computer were to become infected by a virus, I would know how to fix it.";NA;Information Self-Efficacy
+Belanger et al.;2019;"1. I am confident I know how to protect my personal information on a mobile device.
+2. I know how to evaluate privacy policies on mobile device apps.
+3. I know how to change the settings on my mobile device to protect my privacy.";LaRose et al. (2007);Mobile Privacy Protection Self-Efficacy
+Crossler et al.;2019;"1. I can figure out which apps to trust on my iPhone.
+2. I am confident I know how to prevent receiving targeted ads on my iPhone. 
+3. I believe I know how to limit the information I share with Apple from my iPhone. 
+4. I am confident that I am aware of when my location is being used on my iPhone. 
+5. I know how to change the settings of my iPhone to protect my privacy.
+6. I am able to protect myself against the release of personal information on my iPhone. 
+7. Overall, I am confident that I can protect my privacy on my iPhone.
+8. It is easy to control the sharing of location information on my iPhone.";LaRose et al. (2007);Mobile Privacy Self-Efficacy
+Giwah et al.;2020;"1. I am confident of selecting the appropriate security software to use on my mobile device.
+2. I am confident of selecting the appropriate security settings on my mobile device.
+3. I am confident of correctly installing security software on my mobile device.
+4. I am confident of easily finding information on using security software on my mobile device.";Claar et al. (2012);Mobile Self-Efficacy
+Lee et al.;2011;"Degree of confidence to which they can 
+(a) protect themselves against the release of personal information, 
+(b) figure out Web sites that people trust on the Internet, and 
+(c) protect their privacy online.";LaRose et al. (2007);Online Privacy Self-Efficacy
+Weinberger et al.;2017;1. What is your level of belief in your own ability to browse the Web anonymously if necessary?;NA;Online Privacy Self-Efficacy
+Mwagwabi et al.;2018;"I would be able to create a strong password that is difficult to hack: 
+1.…if I had instructions on how to create a strong password 
+2.…if I had step-by-step instructions on how to memorize a strong password 
+3.…if I had a lot of time to create a strong password 
+4.…if I had used strong passwords before";Compeau et al. (1995);Password Self-Efficacy
+Silic;2017;"1. If I wanted to, I am confident that I could perform proper information security behaviours.
+2. If I wanted to, I could protect my computer by following proper information security behaviours.
+3. If I wanted to, I would be able to perform proper information security behaviours.";Compeau et al. (1995);Perceived Self-Efficacy
+Kwak et al.;2020;"Example items: 
+1. I feel confident that I could quickly retrieve accurate contact information of who to report spear phishing emails to 
+2. I am very confident of my ability to recognize malware infections";Amo (2016);Perceived Self-Efficacy toward Anti-Phishing Behaviors
+Kim et al.;2011;"1. I consider myself to be quite knowledgeable about the Internet in general. 
+2. I am confident in my ability to assess the trustworthiness of websites. 
+3. I am able to protect myself against the unwanted release of personal information.";Bart et al. (2005);Privacy-Protection Self-Efficacy
+Chen;2018;"1. I feel confident dealing with the ways that social media collect and use my personal information.
+2. I feel confident learning skills to protect my privacy on social media.
+3. I feel confident blocking spam or unwanted content on social media.
+4. I feel confident adjusting privacy settings on social media.
+5. I feel confident managing personal profiles on social media.";NA;Privacy Self-Efficacy
+Chen;2018;"1. I feel confident dealing with the ways that social media collect and use my personal information.
+2. I feel confident learning skills to protect my privacy on social media.
+3. I feel confident blocking spam or unwanted content on social media.
+4. I feel confident adjusting privacy settings on social media.
+5. I feel confident managing personal profiles on social media.";NA;Privacy Self-Efficacy
+Cho et al.;2016;I feel confident adjusting the privacy settings on my Facebook account.;Lampe et al. (2011);Privacy Self-Efficacy
+Hichang;2010;I am confident in my ability to protect my personal information online.;"Compeau et al. (1995); Rimal (2000)";Privacy Self-Efficacy
+Kobsa et al.;2016;"1. I know how to identify sites with secure servers. 
+2. I know how to evaluate online privacy policies. 
+3. I know how to change the security settings of my browser to increase privacy. 
+4. I know how to use a virus scanning program. 
+5. I know how to block unwanted E-mails.";LaRose et al. (2007);Privacy Self-Efficacy
+Lee et al.;2013;"I feel confident about 
+1.…dealing with the ways that companies collect and use my personal information through my mobile phone 
+2...dealing with the ways that companies collect and use my location information through my mobile phone 
+3....learning skills to protect the privacy of my mobile phone";Youn (2009);Privacy Self-Efficacy
+Lin;2016;"Example items: 
+1. If you happen to find that some customers’ privacy information is revealed on the network, how confident are you to protect this information immediately?
+2. If you have the means to access the privacy information concerning your customers beyond the delegated situation, how confident are you not to take advantage of this situation?";Kuo et al. (2007);Privacy Self-Efficacy
+Mamonov et al.;2016;"1. For me to control my privacy online is: (1: very difficult; 7: very easy)
+2. If I wanted to, it would be easy for me to control my privacy online. 
+3. I believe I have the ability to have privacy online.";Ajzen (2002);Privacy Self-Efficacy
+Ranzini et al.;2020;"1. I believe I have the ability to protect my personal information online 
+2. It is easy for me to enable privacy features by myself while online";Mohamed et al. (2012);Privacy Self-Efficacy
+Salleh et al.;2012;"1.  I believe I have the ability to protect my personal information in SNS.
+2.  It is easy for me to enable privacy measure features on SNS by myself.
+3.  I believe I could enable privacy measure features in SNS without guide.
+4.  I believe I could enable privacy measures in SNS if only I had manuals for reference.
+5.  I am good at keeping personal information (e.g., name, photo, email, address, telephone number, etc.) in SNS secret from other Internet users I don’t trust.
+6.  I am aware of various computer/ information security problems spread through SNS (e.g., virus, privacy, identity theft, etc.).";"Dinev et al. (2004); Youn (2009)";Privacy Self-Efficacy
+Schade et al.;2018;"I feel confident
+1. … about dealing with the ways that companies collect and use my personal information through my smartphone.
+2. … about dealing with the ways that companies collect and use my location information through my smartphone.
+3. ...because I know how to protect my privacy on the smartphone.";Lee et al. (2013);Privacy Self-Efficacy
+Smith et al.;2018;NA;LaRose et al. (2007);Privacy Self-Efficacy
+Wohn et al.;2012;Example: Do you consider yourself knowledgeable about the security risks and threats to privacy that exist online?;NA;Privacy Self-Efficacy
+Zeissig et al.;2017;"1. I know most privacy settings of the applications I use 
+2. Because I have had no problems with privacy settings so far, I am confident for future privacy tasks 
+3. I do not read privacy policies because I do not understand them 
+4. I always change my privacy settings when I start using a new device 
+5. I always change my privacy settings when I start using a new application 
+6. I feel helpless with privacy settings and measures, so I do not change anything";"Beier (1999); Karrer et al. (2009)";Privacy Self-Efficacy
+Zhang et al.;2018;NA;Kankanhalli et al. (2005);Privacy Self-Efficacy
+Chen et al.;2020;NA;Witte (1996);Risk Beavior Diagnosis Scale
+Anwar et al.;2017;"1. My organization constantly reminds me to practice its computer and Internet security policies.
+2. I know how to apply security patches to operating systems.
+3. I feel confident in setting the Web browser to different security levels.
+4. I feel confident in handling virus-infected files.
+5. I feel confident in getting rid of spyware and malware from my computer. 
+6. I have the skills to implement security measures to stop people from getting my confidential information.
+7. I have the skills to implement security measures to stop people from damaging my computer.";"Rhee et al. (2009); Ifinedo (2014); Ng et al. (2009)";Security Self-Efficacy
+Crossler;2010;I believe I have the ability to perform [recommended response].;"Marakas et al. (2007); Compeau et al. (1995); Witte (1996)";Security Self-Efficacy
+Donalds et al.;2020;"1. I feel confident updating security patches to the operating system.
+2. I feel confident setting the Web browser to different security levels.
+3. I feel confident using different programs to protect my information and information system.
+4. I feel confident handling virus infected files and/or getting rid of malware/spyware.
+5. I feel confident learning the method to protect my information and information system.";"Anwar et al. (2017); Donalds et al. (2017); Rhee et al. (2009)";Security Self-Efficacy
+Faith et al.;2020;NA;"Jeske et al. (2017); Anwar et al. (2017)";Security Self-Efficacy
+Fatokun et al.;2019;NA;NA;Security Self-Efficacy
+He et al.;2020;Example item (3 to 4 items): I feel confident in handling virus-infected files.;NA;Security Self-Efficacy
+Li et al.;2014;"1. I believe that I can protect my personal information on social networking sites.
+2. I know how to apply security patches to operating systems.
+3. I feel confident in setting the Web browser to different security levels.
+4. I feel confident in handling virus-infected files. 
+5. I feel confident in getting rid of spyware and malware from my computer.
+6. I have the skills to implement security measures to stop people from getting my confidential information.
+7. I have the skills to implement security measures to stop people from damaging my computer.";NA;Security Self-Efficacy
+Mat et al.;2019;NA;"Rhee et al. (2009); Ifinedo (2012); Ng et al. (2009)";Security Self-Efficacy
+McGill et al.;2017;"1. I feel comfortable taking measures to secure my device 
+2. Taking the necessary security measures is entirely under my control 
+3. I have the resources and the knowledge to take the necessary security measures 
+4. Taking the necessary security measures is easy
+5. I can protect my device by myself
+6. I can enable security measures on my device";Anderson et al. (2010);Security Self-Efficacy
+Pendegraft et al.;2010;"1. I am confident in my ability to use computer security 
+2. I have the skills to successfully use computer security 
+3. I have the ability to adjust computer security measures 
+4. I have the knowledge to successfully change the security level of my computer";NA;Security Self-Efficacy
+Pham et al.;2019;NA;Rhee et al. (2009);Security Self-Efficacy
+Shappie et al.;2020;Example: I know how to apply security patched on operating systems.;Anwar et al. (2017);Security Self-Efficacy
+Verkijika;2020;NA;"Verkijika (2019); Yoo et al. (2018); Thompson et al. (2017)";Security Self-Efficacy
+Abdallah et al.;2020;NA;NA;Self-Efficacy
+Abraham;2012;I am very confident in my abilities to identify insecure web pages.;"Siponen et al. (2010); Cassidy et al. (2002)";Self-Efficacy
+Abraham et al.;2019;"1. I am very confident in my abilities to identify insecure web pages.
+2. I can take steps that will help protect my computer from being hacked.";"Siponen et al. (2010); Cassidy et al. (2002)";Self-Efficacy
+Addae et al.;2019;NA;Tsai et al. (2016);Self-Efficacy
+Adhikari et al.;2018;"1. I believe I possess the ability to safeguard my personal information in social networks. 
+2. I believe I can enable the privacy protection features in social networks without any assistance. 
+3. I am confident when using privacy protection features in social networks.";"Woon et al. (2005); LaRose et al. (2007); Crossler (2010)";Self-Efficacy
+Al-diabat;2018;"1. I am confident of recognizing a suspicious email.
+2. I am confident of recognizing suspicious email headers.
+3. I am confident of recognizing suspicious email headers.
+4. I can recognize a suspicious email attachment even if there was no one around to help me.";"Ng et al. (2009); Jayanti et al. (1998)";Self-Efficacy
+Alanazi et al.;2020;"1. I have the necessary skills to protect myself from information security violations
+2. I have the expertise to implement preventative measures to stop people from getting my confidential information
+3. I have the skills to implement preventative measures to stop people from damaging my work computer
+4. I can enable security measures on my work computer but only when I have manuals for reference
+5. I have the necessary skills to fulfill the requirements of the ISP
+6. I have the necessary knowledge to fulfill the requirements of the ISP
+7. I have the necessary competencies to fulfill the requirements of the ISP
+8. I would feel comfortable following my organization’s ISSP on my own
+9. If I wanted to, I could easily comply with my organization’s ISSP on my own
+10. I would be able to follow most of ISSP even if there was no one around to help me";NA;Self-Efficacy
+Albladi et al.;2017;"1. The individual is confident that they can avoid any hazards while using Facebook.
+2. The individual is skilled at avoiding dangers while using Facebook.
+3. The individual has the knowledge and the ability to secure their Facebook account by adjusting the account settings.
+4. The individual has the ability to protect themselves from any online threats while using Facebook.";Milne et al. (2009);Self-Efficacy
+Almuqrin;2018;"1. I am confident I can use and regularly update my firewalls, anti-virus, and anti-spyware/phishing software. 
+2. I am confident I can read and understand policies and terms of services of social networks. 
+3. I am confindent I can configure security and privacy settings on my social media accounts. 
+4. I am confident I can set strong passwords on my social media accounts and update them regularly. 
+5. I am confident I can periodically back up my data of my social media accounts. 
+6. I am confident I can know and avoid downloading and opining suspicious and unknown social media links and attachments. 
+7. I am confident I can handle the social media system warning messages.";"Ajzen (1991); Compeau et al. (1991); Taylor et al. (1995)";Self-Efficacy
+Alshboul et al.;2017;NA;Bulgurcu et al. (2010);Self-Efficacy
+Alturki et al.;2020;"1. I can select appropriate gamers for my social gaming network. 
+2. In general, I am safe from social engineering threats. 
+3. I have the knowledge to secure myself against a social engineering attack. 
+4. Taking the necessary security to prevent social engineering attacks while using social gaming networks is easy.";"Claar et al. (2012); Conklin (2006)";Self-Efficacy
+Arachchilage;2016;"1. I could successfully gain anti-phishing knowledge if I had never learned it before. 
+2. I could successfully gain anti-phishing knowledge if I had only related resources for reference. 
+3. I could successfully gain anti-phishing knowledge if someone else helped me get started. 
+4. I could successfully gain anti-phishing knowledge if I had a lot of time to complete the task. 
+5. I could successfully gain anti-phishing knowledge if someone taught me how to do it first. 
+6. I feel gaining anti-phishing knowledge does not help me for detecting phishing attacks.";Compeau et al. (1995);Self-Efficacy
+Arachchilage;2016;"Audio recordings segmented into keywords: ""self-efficacy""";NA;Self-Efficacy
+Aurigemma;2013;"1. I have the necessary skills to fulfill the General ISP requirements of the ISP.
+2. I have the necessary knowledge to fulfill the General ISP requirements of the ISP.
+3. I have the necessary competencies to fulfill the General ISP requirements of the ISP.";"Herath et al. (2009); Peace et al. (2003)";Self-Efficacy
+Aurigemma;2013;"1. I have the necessary skills to fulfill the Removable Flash Media requirements of the ISP.
+2. I have the necessary knowledge to fulfill the Removable Flash Media requirements of the ISP.
+3. I have the necessary competencies to fulfill the Removable Flash Media requirements of the ISP.";NA;Self-Efficacy
+Aurigemma;2013;"1. I have the necessary skills to fulfill the Tailgating requirements of the ISP.
+2. I have the necessary knowledge to fulfill the Tailgating requirements of the ISP.
+3. I have the necessary competencies to fulfill the Tailgating requirements of the ISP.";NA;Self-Efficacy
+Aurigemma;2013;"1. I have the necessary skills to fulfill the Phishing requirements of the ISP.
+2. I have the necessary knowledge to fulfill the Phishing requirements of the ISP.
+3. I have the necessary competencies to fulfill the Phishing requirements of the ISP.";NA;Self-Efficacy
+Aurigemma et al.;2015;NA;Herath et al. (2009);Self-Efficacy
+Bell et al.;2014;NA;NA;Self-Efficacy
+Bell et al.;2015;"I am confident in my ability to undertake and succeed in completing this activity: 
+1. Pursue an advanced degree(s) focused on cybersecurity 
+2. Find ways to exploit vulnerabilities in existing software 
+3. Perform research focused on cybersecurity
+4. Learn how to crack users’ passwords
+5. Take additional courses focused on cybersecurity
+6. Discover ways to protect personal data on the Internet 
+7. Write software that is safe from buffer overflow attacks 
+8. Manage security for a Fortune 500 company
+9. Implement a protocol to allow data to be sent securely over a network 
+10. Perform network penetration tests for companies
+11. Learn how to use SSL certificates
+12. Find a job which involves cybersecurity
+13. Learn how to intercept and read network traffic
+14. Write an algorithm that uses asymmetric encryption to authenticate a user
+15. Work for an organization that researches ways to make computing more secure
+16. Learn how to verify a digital signature
+17. Have cybersecurity concepts incorporated into other courses that I take 
+18. Remove detected threats from a home computer 
+19. Read articles/web posts about cybersecurity on your own 
+20. Install and run malware checking software on a home computer 
+21. Learn how to detect cyber attacks
+22. Find a job which is specifically oriented towards cybersecurity";NA;Self-Efficacy
+Berthevas;2018;NA;Vance et al. (2012);Self-Efficacy
+Beugré;2019;NA;Herath et al. (2009);Self-Efficacy
+Bojmaeh;2015;NA;Karamizadeh et al. (2013);Self-Efficacy
+Chen et al.;2021;"1. I have the capability to take measures to clean information from my discarded smartphone
+2. I have the capability to erase information from my discarded smartphone to avoid it being accessed or stolen
+3. I have the capability to use data wiping software and other methods to prevent others from getting my privacy information from my discarded smartphone
+4. I have the capability to take information erasing measures to prevent data recovery to my private information through the discarded smartphone";"Ng et al. (2009); Tu et al. (2014)";Self-Efficacy
+Chou et al.;2016;"1. I think I'm more skilled than others in protecting the safety of my personal data. 
+2. I have enough skills to protect my personal data from being stolen. 
+3. I think that I have adequate skills to protect myself from disclosing my personal data online. 
+4. I can make good use of technology to protect the safety of my personal data. 
+5. When my computer is infected with viruses, I can tackle it calmly and promptly.";"Yoon et al. (2012); Sangmi et al. (2009); Johnston (2010); Anderson et al. (2010)";Self-Efficacy
+Dang-Pham et al.;2015;"1. I feel confident when performing either of the provided recommendations (refined to: I perform (1) easily).
+2. I perform any of the provided recommendations without being instructed (refined to: I perform (2) easily).
+3. I perform either of the provided recommendations easily (refined to: I perform (3) easily).";"Lee et al. (2008); Herath et al. (2009); Mohamed et al. (2012); Vance et al. (2012)";Self-Efficacy
+Dorsey-Lockett;2014;NA;Chan et al. (2005);Self-Efficacy
+Dupuis;2014;"1. I feel comfortable [threat response] on my own.
+2. I am able to [threat response] reasonably well on my own.
+3. I am able to [threat response] even if there was no one around to help me.
+For threat responses: Maintenance; Malware; Updates; Firewall";Ng et al. (2005);Self-Efficacy
+Dupuis;2014;"1. I feel comfortable [threat response] on my own.
+2. I am able to [threat response] reasonably well on my own.
+3. I am able to [threat response] even if there was no one around to help me.
+For threat responses: Educate; Info Sharing; Connections; Passwords; Malware; Wireless; Email; Financial; Firewall";Ng et al. (2005);Self-Efficacy
+Dupuis;2014;"1. I feel comfortable [threat response] on my own.
+2. I am able to [threat response] reasonably well on my own.
+3. I am able to [threat response] even if there was no one around to help me.
+For threat responses: Backup; Educate; Malware; Permissions; Firewall";Ng et al. (2005);Self-Efficacy
+Dupuis;2019;NA;NA;Self-Efficacy
+Ezuma-Ngwu;2019;"1. I would be able to use Blockchain applications and perform Blockchain private-key management without the help of others.
+2. I have the expertise to implement blockchain to enhance my privacy and protect confidential information
+3. I have the skills to implement preventative measures to safeguard my digital wallet
+4. I believe that it is within my control to protect myself from privacy threats";"Ifinedo (2012); Woon et al. (2007)";Self-Efficacy
+Farooq et al.;2019;I feel comfortable taking measures to secure my information security.;"Thompson et al. (2017); Anderson et al. (2010)";Self-Efficacy
+Farooq et al.;2019;"1. I feel comfortable taking measures to secure my information security.
+deleted: 2. Taking the necessary security measures is entirely under my control.
+3. I have the resources and the knowledge to take the necessary security measures.
+4. Taking the necessary security measures is easy.
+deleted: 5. I can protect my information security by myself.
+6. I can enable security measures on my system (computer/laptop).";"Anderson et al. (2010); Thompson et al. (2017)";Self-Efficacy
+Flores et al.;2016;"1. I am confident about my ability to prevent unauthorized individuals from accessing confidential information, such as my work computer password.
+2. I am confident about my ability to prevent individuals from installing malicious software on my work computer.
+3. I am confident about my ability to identify unauthorized, unexpected or suspicious requests in emails.
+4. I am confident about my ability to identify unauthorized, unexpected or suspicious requests to do with my work computer password.";"Bulgurcu et al. (2010); Ifinedo (2012); Cox (2012)";Self-Efficacy
+Gagne;2020;NA;Workman et al. (2008);Self-Efficacy
+Ghazi-Asgar et al.;2018;NA;Goldberg et al. (n.d.);Self-Efficacy
+Gillam et al.;2020;NA;Samhan (2017);Self-Efficacy
+Halevi et al.;2015;Asking the participants about their security expertise;NA;Self-Efficacy
+Ham;2017;"1. If I wanted to, I could avoid from OBA companies
+2. I know enough to avoid myself from OBA
+3. I would feel comfortable avoiding myself from OBA
+4. I would be able to avoid my behavioral history from OBA companies even if there is no one around to tell me how";"Woon et al. (2005); Crossler (2010); LaRose et al. (2007)";Self-Efficacy
+Hanus et al.;2016;"1. I am able to set up antivirus software on my computer to prevent virus infections on my system
+2. I am able to apply security updates to my operating system 
+3. Installing firewall software is a convenient way of blocking unauthorized access to my computer
+4. I believe I can configure my computer to provide good protection from software attacks";"Crossler (2010); Witte et al. (1996)";Self-Efficacy
+Hewitt et al.;2017;NA;NA;Self-Efficacy
+Hooper et al.;2020;"1. It is difficult for me to perform the information security behaviours required by my organisation.
+2. It is easy for me to perform the information security behaviours required by my organisation.
+3. My organisation provides adequate training for me to perform the information security behaviours expected of me.";"Workman et al. (2008); Herath et al. (2009)";Self-Efficacy
+Hui et al.;2020;NA;"Wills et al. (2011); Avancha et al. (2012); Melzner et al. (2014)";Self-Efficacy
+Humaidi et al.;2014;NA;NA;Self-Efficacy
+Humaidi et al.;2018;"1. I have the necessary skills to recognise many types of information security violations (didn’t change password, suspicious email and didn’t update anti-virus regularly, etc.). 
+2. I have the necessary skills to protect my organisation’s data from information security violations. 
+3. I have the necessary skills to use information security tools if someone tells me what to do as I go along. 
+4. I have the necessary skills to implement the available preventive measures to avoid information security threats.";Ifinedo (2012);Self-Efficacy
+Ifinedo;2012;"1. I have the necessary skills to protect myself from information security violations.
+2. I have the expertise to implement preventative measures to stop people from getting my confidential information.
+3. I have the skills to implement preventative measures to stop people from damaging my work computer.
+4. I believe that it is within my control to protect myself from information security violations.
+5. I can enable security measures on my work computer but only when I have manuals for reference.
+6. For me, taking information security precautions is (hard 1 - easy 7).
+7. My ability to prevent information security violations at my workplace is (inadequate 1 - adequate 7)";"Compeau et al. (1995); Woon et al. (2007); Workman et al. (2008)";Self-Efficacy
+Ismail et al.;2017;NA;NA;Self-Efficacy
+Jansen et al.;2018;"deleted: 1. I am able to comply with the uniform safety rules  
+2. The uniform safety rules are easy to follow
+deleted: 3. Following the uniform safety rules is convenient";Witte (1996);Self-Efficacy
+Johnston et al.;2010;NA;NA;Self-Efficacy
+Johnston et al.;2010;"1. Anti-spyware software is easy to use.
+2. Anti-spyware software is convenient to use.
+3. I am able to use anti-spyware software without much effort.";Witte et al. (1996);Self-Efficacy
+Jung et al.;2015;"1. If you somehow visit a malicious website, do you think you could tell that it is malicious? 
+2. How many of the 8 websites do you think you can accurately differentiate between safe and malicious websites?";NA;Self-Efficacy
+Karlsson et al.;2017;"1. I have the capacity to identify potential threats to the information security in my organisation on my own.
+2. I have the capacity to identify potential threats to the information security in my organisation on my own even if I have not experienced a similar situation before.
+3. I have the capacity to identify potential threats to the information security in my organisation on my own even when the information security policies do not cover the situation.
+4. I have the capacity to counteract potential threats to the information security in my organisation.";NA;Self-Efficacy
+Kim et al.;2014;NA;NA;Self-Efficacy
+Kim et al.;2018;NA;"Kim et al. (2016); Ifinedo (2012)";Self-Efficacy
+Koloseni et al.;2018;"1. My interaction with organization’s information security policy was clear and understandable.
+2. I found organization’s information security policy easy to comply.
+3. I can correctly comply with organization’s information security policy.
+4. I can find the information I need if I have problems to comply with organization’s information security policy.";"Claar et al. (2011); Herath et al. (2009); Ng et al. (2009)";Self-Efficacy
+Koloseni et al.;2019;NA;"Ng et al. (2009); Claar et al. (2012)";Self-Efficacy
+Koohang et al.;2019;"1. I have the necessary skills to achieve the requirements of the ISP.
+2. I have the necessary knowledge to fulfill the requirements of the ISP.
+3. I have the necessary competencies to accomplish the requirements of the ISP.";Bulgurcu et al. (2010);Self-Efficacy
+Kuo et al.;2018;"1. I can comply with EMR privacy policy even if there is no one around to help me.
+2. I can comply with EMR privacy policy if I have adequate time to complete my job.
+3. I can comply with EMR privacy policy using only manuals or documents for reference.
+4. I am confident in my ability to comply with EMR privacy policy.";Taylor et al. (1995);Self-Efficacy
+Kusumastuti et al.;2019;NA;"Rogers (1975); Maddux et al. (1983); Workman et al. (2008)";Self-Efficacy
+Lai et al.;2012;"1. I am confident of my skills to handle a computer security issues.
+2. I am confident of handling computer security issues even if there is no one around to show me how to do it.
+3. I am confident of handling computer security issues even if I have never used such software and tools before.
+4. I am confident of handling computer security issues after observing someone else us the software.";"Lassar et al. (2005); Tan et al. (2000); Venkatesh et al. (2003)";Self-Efficacy
+Lee et al.;2016;"1. I can take steps to protect my privacy when using LBMC.
+2. I can manage my personal information when using LBMC.
+3. I can control how my personal information will be collected and used by LBMC providers.";Sundar et al. (2010);Self-Efficacy
+Leering et al.;2020;"1. I am able to recognise an information security incident, even when there is no one to help me.
+2. I am able to recognise an information security incident, even when I do not have a copy of the rules or procedures to fall back on.
+3. I am able to recognise an information security incident, even when I have not encountered a similar situation.
+4. I know what to do in the event of an information security incident, even when there is no one around to tell me what to do.
+5. I know what to do in the event of an information security incident, even when I do not have a copy of the rules or procedures to fall back on.";Compeau et al. (1995);Self-Efficacy
+LeFebvre;2012;NA;Gurung et al. (2009);Self-Efficacy
+Liu et al.;2020;"1. I have the necessary skills to fulfill the requirements of the ISP. 
+2. I have the necessary knowledge to fulfill the requirements of the ISP.
+3. I have the necessary competencies to fulfill the requirements of the ISP.";Bulgurcu et al. (2010);Self-Efficacy
+Ma et al.;2015;"1. I could easily protect EMRs privacy if I wanted to
+2. I could protect EMRs privacy if there was no one around to tell me what to do as I go
+3. I would feel comfortable in protecting EMRs privacy";Taylor et al. (1995);Self-Efficacy
+Manzano;2012;"I could successfully install and use anti-malware software if…
+1. …There was no one around to tell me what to do.
+2. …I had never used a package like it before.
+3. …I had only the software manuals for reference.
+4. …I had seen someone else doing it before trying it myself.
+5. …I could call someone for help if I got stuck.
+6. …Someone else helped me get started.
+7. …I had a lot of time to complete the job.
+8. …I had just the built-in help facility for assistance.
+9. …Someone showed me how to do it first.
+10. …I had used similar packages like this one before to do the job.";"Liang et al. (2010); Compeau et al. (1995)";Self-Efficacy
+Masrek et al.;2017;NA;NA;Self-Efficacy
+Mitchell;2020;"1. I feel comfortable taking measures to protect my home network: disagree…agree.
+2. I have the resources and the knowledge to protect my home network: disagree…agree.
+3. Protecting my home network is: hard…easy.
+4. I feel nervous when I think about online security issues: agree…disagree
+5. I have the skills to implement preventative measures to keep stop people damaging my home network: disagree…agree.
+6. My skills to stop information security violations on my home network are: inadequate…adequate";"Tsai et al. (2016); Workman et al. (2008)";Self-Efficacy
+Mohamed et al.;2012;"1. I believe I have the ability to protect my personal information in social networking sites. 
+2. It is easy for me to enable privacy measure features on social networking sites by myself.";"Woon et al. (2005); Crossler (2010); LaRose et al. (2007)";Self-Efficacy
+Mousavizadeh et al.;2015;"1. It is easy for me to use privacy assurance mechanisms on this SNS.
+2. It is convenient for me to use privacy assurance mechanisms.
+3. I am able to use privacy assurance mechanisms without much effort.";"Johnston et al. (2010); Compeau et al. (1995)";Self-Efficacy
+Ophoff et al.;2019;"1. Anti-malware software is easy to use 
+2. Anti-malware software is convenient to use 
+3. I am able to use anti-malware software without much effort";Boss et al. (2015);Self-Efficacy
+Poleon;2020;"1. I feel comfortable protecting my personal computer from Internet malware threats (installing antivirus software, creating separate user accounts, not giving anyone my passwords, or free access to my computer, etc...)
+2. I am capable of removing viruses and other malware from my computer.
+3. Jason know the three P’s of Internet Security,
+1)Practices: don’t trust suspicious emails or suspicious links 
+2)Patches: ensure that antivirus software is up to date and apply malware updates when necessary, and
+3)Password: ensure that you have a strong password is the first line of defense to data protection.
+Jason is browsing websites and the antivirus program on his computer alerts him that a virus has been install [on his computer]. Jason decides to take care of the virus problem later. I could easily do the opposite of what Jason did without thinking about it.";Vance et al. (2012);Self-Efficacy
+Raddatz et al.;2020;NA;Anderson et al. (2010);Self-Efficacy
+Sarathchandra et al.;2016;"1. On a day-to-day basis, I do enough to protect my online security and privacy. 
+2. I trust ‘big name’/reputable websites such as Amazon and eBay. 
+3. I have full control over what types of personal information I share online.";NA;Self-Efficacy
+Sedek et al.;2018;NA;NA;Self-Efficacy
+Sher et al.;2017;"1. I would feel comfortable following most of the EMR privacy policy my own.
+2. If I wanted to, I could easily follow EMR privacy policy on my own.
+3. I would be able to follow most of the EMR privacy policy even if there was no one around to help me.";Herath et al. (2009);Self-Efficacy
+Sher et al.;2017;"1. I am confident that I can comply with the privacy policy
+2. I am confident that I can recognise the potential problems of violating EMR privacy
+3. I am confident that I can comply with the privacy policy even if there is no one around to help me";Ng et al. (2009);Self-Efficacy
+Shin et al.;2018;NA;NA;Self-Efficacy
+Siponen et al.;2014;"1. I can use information security measures if I can call for help if I get stuck.
+2. I can use information security measures if someone tells me what to do as I go along.";NA;Self-Efficacy
+Suhaimi et al.;2020;NA;NA;Self-Efficacy
+Tang et al.;2021;"1. Taking the necessary security measures against COVID-19 scams is easy for me.
+2. I feel comfortable taking the necessary security measures against COVID-19 scams.
+3. I can take the necessary security measures against COVID-19 scams without much effort.";"Anderson et al. (2010); Martens et al. (2019)";Self-Efficacy
+Venard;2019;75 [interview] questions covered the key topics of the inquiry: description of the respondents, the use of internet and devices (computer / mobile / others), perception of cybercrimes, experiences of cybercrimes, reflection on the means used to protect oneself;NA;Self-Efficacy
+Verkijika;2018;"1. I feel comfortable taking measures to secure my smartphone
+2. I have the resources and the knowledge to take the necessary security measures on my smartphone
+3. Taking the necessary security measures on my smartphone is easy
+4. I can enable security measures on my smartphone by myself";"Anderson et al. (2010); Thompson et al. (2017)";Self-Efficacy
+Wall et al.;2013;"1. I believe that complying with my organization's information security policy will be ease to do?
+2. I am able to comply with my organization's information security policy without much effort?";Johnston et al. (2010);Self-Efficacy
+Wang et al.;2014;"1. I am confident of my skill to handle online purchasing security issues. 
+2. I am confident of handling online purchasing security issues even if there is no one around to show me how to do it. 
+3. I am confident of handling online purchasing security issues even if I have never used security issues before. 
+4. I am confident of handling online purchasing security issues after observing someone else deal with similar issues.";Lai et al. (2012);Self-Efficacy
+Wohn et al.;2015;Scale asking users how confident they felt (on a seven-point Likert-type scale) in doing privacy protection-related activities. These activities included protecting privacy online, controlling who has access to their information, changing security settings of their browser, and requesting a site not to track behavior.;NA;Self-Efficacy
+Yang et al.;2016;"1. It’s easy for me to take security measures on healthcare information. 
+2. I know how to make security measures on healthcare information. 
+3. I have enough capability to prevent security threat on healthcare information.";NA;Self-Efficacy
+Yoo et al.;2018;"1. I have the necessary skills for good security compliance in the organization. 
+2. I have the necessary knowledge for good security compliance in the organization. 
+3. I have the necessary competencies for good security compliance in the organization.";Bulgurcu et al. (2010);Self-Efficacy
+Yoon et al.;2012;"1. I am able to protect my personal information from external threats.
+2. I am able to protect the data on my computer from being damaged by external threats.
+3. I am capable of responding to malicious software such as viruses.";Ng et al. (2009);Self-Efficacy
+Yoon et al.;2013;"1. I am able to protect my personal information from external threats.
+2. I am able to protect the data on my computer from others.
+3. I am able to protect the data on my computer from being damaged by external threats.";"Ng et al. (2009); Workman et al. (2008); Woon et al. (2005)";Self-Efficacy
+Zarouali et al.;2018;Example item: I am confident in my ability to use the privacy settings for targeted ads;Meuter et al. (2005);Self-Efficacy
+Zhang et al.;2018;"1. Protecting my information privacy is easy for me.
+2. I have the capability to protect my information privacy.
+3. I am able to protect my information privacy without much effort.";"Johnston et al. (2015); Sun et al. (2013)";Self-Efficacy
+Zhen et al.;2020;"1. I have the necessary skills to avoid ISP violations.
+2. I have the expertise to implement preventative measures against information security threats.
+3. I can enable security measures on my work computer or system independently.";"Ifinedo (2014); Johnston et al. (2015)";Self-Efficacy
+Zhu et al.;2018;NA;NA;Self-Efficacy
+Blythe et al.;2018;Example: I feel confident in my ability to <security behaviour> (anti-malware software);Milne et al. (2002);Self-Efficacy (anti-malware software)
+Beldad;2016;"1. I know how to protect my personal information on Facebook.
+2. I feel competent in using Facebook’s privacy settings to limit other people’s access to my personal information.
+3. Using Facebook’s privacy settings is not complicated.
+4. I learn how to use Facebook’s privacy settings without so much time and effort.";"Bandura (1977); Venkatesh (2000)";Self-Efficacy (Ease of Use)
+Blythe et al.;2018;Example: I feel confident in my ability to <security behaviour> (email security);Milne et al. (2002);Self-Efficacy (email security)
+Halevi et al.;2016;"Please rate on a scale from 0 100 on how certain you would be in dealing with the following Internet Security issues on your own without the help from anyone else.
+Response Range: 0 (Cannot do at all) to 100 (Highly likely)
+1. Viruses
+2. Trojan Horses
+3. Worms
+4. Phishing
+5. Spyware
+6. Unsecured Wireless Access
+7. Point
+8. Social Engineering
+9. Database attacks (SQL Injection)
+10. Spoofing
+11. Malware
+12. Rootkits
+13. DoS (Denial of Service)
+14. Man-in-the middle attacks
+15. Internet hoax 
+16. Internet rumor
+17. Fraudulent request for money
+18. Unwanted pictures of you on the internet";NA;Self-Efficacy (Security-Related Confidence)
+Blythe et al.;2018;Example: I feel confident in my ability to <security behaviour> (software update);Milne et al. (2002);Self-Efficacy (software update)
+Cavus et al.;2016;"Factor I: Security on social networking sites: 
+23. To be able to prevent harmful software from infecting your computer. 
+24. To be able to protect my password from key loggers 
+22. To be able to clean my computer when it has been infected with viruses. 
+20. To be able to prevent viruses from entering my computer. 
+25. To be able to take the necessary precautions to prevent Trojan horses from entering my computer. 
+19. To be able to protect my computer from worms. 
+16. To be able to protect myself from spyware software. 
+14. To be able to create a very secure password. 
+27. To be able to use Microsoft Security Essentials. 
+Factor II: Malicious software: 
+29. To be able to do shopping in a secure way via Internet. 
+32. To be able to take the necessary security precautions against spam e-mails. 
+49. To be able to protect myself from built-in camera pens and glasses from social engineering attacks. 
+46. To be able to protect myself from social engineering attacks via e-mails. 
+30. To be able to use the necessary precautions while using interactive banking on the Internet. 
+15. To be able to take the necessary precautions against hoax e-mails. 
+33. To be able to protect myself from phishing e-mails. 
+10. To be able to show the difference between HTTP and HTTPS. 
+Factor III: Web security & social engineering: 
+3. To be able to protect my personal files. 
+1. To be able to take the necessary security measures for logging on to my computer. 
+2. To be able to add a password to my operating Windows system. 
+5. To be able to update my security files.
+4. To be able to add a password to my files. 
+6. To be able to create backup files in case of problems. 
+Factor IV: Computer security: 
+36. To be able to hide the information that I share on social networking sites from people.
+38. To be able to block requests from people I don’t know/want on social networking sites.
+42. To be able to hide my profile information from people I don’t want on social networking sites.
+35. To be able to protect personal information I share with people on social networking sites.
+37. To be able to contact the necessary people if my password is taken by someone on social networking sites.
+44. To be able to share videos and photos on social networking sites that will not harm my reputation.
+45. To be able to share information about others on social networking sites that will not harm their reputation.
+34. To be able to use social networking sites like Facebook and Twitter in a safe way.
+39. To be able to protect myself from infected videos on social networking sites.
+40. To be able to take necessary safety precautions against security breaches on social networking sites.
+41. To be able to prevent theft of personal photo albums on social networking sites. 
+43. To be able to create a secure password on social networking sites.";NA;Self-Efficacy and Perceptions in the Safe Use of the Internet for Teachers
+Kropczynski et al.;2020;"1. I know that if I worked hard to learn about online privacy and security, I could make good decisions. 
+2. Online privacy and security decision-making is not too complicated for me to understand. 
+3. I think I am the kind of person who would learn to use best practices for good online privacy and security decision-making. 
+4. I think I am capable of learning to help others make good online privacy and security decisions. 
+5. Given a little time and training, I know I could learn about best practices for good online privacy and security decision-making for myself and my community.";Bandura (1982);Self-Efficacy for Privacy and Security
+Zahedi et al.;2011;NA;NA;Self-efficacy in Dealing with Threat
+Ayaburi et al.;2019;"1. I feel confident detecting viruses on my smartphone, tablet or Ipad
+2. I feel confident getting rid of any spyware on my smartphone, tablet or Ipad
+3. I feel confident setting the security level on the browser when surfing the net on my smartphone, tablet or IPad
+4. I feel confident protecting my personal information when connecting to unknown wireless networks";Chen et al. (2015);Self-Efficacy in Information Security
+Shahri et al.;2016;NA;"Rhee et al. (2009); Workman et al. (2008); Brady (2010); Mussa (2012); Chan et al. (2005); Taneja (2007)";Self-Efficacy in Information Security
+Chen et al.;2015;"Asking respondents to what extent they are confident in 
+1. blocking spam or unwanted content
+2. adjusting privacy settings
+3. managing personal profiles on SNSs";NA;Self-Efficacy in Privacy Management
+Clark;2013;"1. I have the necessary knowledge to fulfill the security compliance requirements.
+2. I have the necessary skills to fulfill the security compliance requirements.";Bulgurcu et al. (2010);Self-Efficacy of Security Policy
+Zhou et al.;2020;"To what extent do you believe you can successfully adopt smartphone security behavior?
+1. I have the necessary knowledge and skills to protect my mobile phone. 
+2. Adopting smartphone protection is easy for me.
+3. I believe I am capable of protecting my phone from hackers. 
+4. Adopting smartphone protection is under my control.";"Zhou et al. (2015); Zhou et al. (2016)";Self-Efficacy of Smartphone Security Use
+Bulgurcu et al.;2010;"1. I have the necessary skills to fulfill the requirements of the ISP.
+2. I have the necessary knowledge to fulfill the requirements of the ISP.
+3. I have the necessary competencies to fulfill the requirements of the ISP.";NA;Self-Efficacy to Comply
+Devgan;2012;"I have the necessary _ to comply with the requirements of the ISP.
+_ = 1. skills; 2. knowledge; 3. competencies";Bulgurcu et al. (2010);Self-Efficacy to Comply
+Day;2018;NA;Bulgurcu et al. (2010);Self-Efficacy to Comply with ISPs
+Wee et al.;2016;"Rate their confidence in completing tasks:
+1. Encrypt data transmissions to conceal confidential information
+2. Identify and address information security threats in an organization 
+3. Educate clients about computer security threats
+4. Erect firewalls to protect against intrusion
+5. Remove malware from computer systems
+6. Monitor current reports of computer viruses and update virus protection systems
+7. Perform reverse engineering 
+8. Work with different operating systems
+9. Back up data in a computer
+10. Spoof MAC addresses
+11. Modify user account permissions
+12. Decode encrypted data
+13. Perform penetration tests to verify network security
+14. Counter denial of service attacks.
+15. Develop proof of concept exploits of vulnerabilities
+16. Install and upgrade network hardware
+17. Set up a virtual private network (VPN)
+18. Interpret and resolve exploits 
+19. Write secure network protocols 
+20. Harden network embedded devices";NA;Specific Self-Efficacy in Cybersecurity
+Dzidzah et al.;2020;"mastery experience:
+1. I am aware of security threats associated with MFSs.
+2. I have sufficient knowledge on security threats associated with MFSs.
+3. I am confident in the use of security software/techniques to avoid MFSs security threats.
+4. I have gained knowledge on MFS security threats through personal experience.
+5. I am confident about my security consciousness using MFSs.
+6. I really enjoy learning how to use the various technologies required for MFS security.
+vicarious experience:
+7. I feel comfortable using security software/techniques when using MFSs.
+8. I take security precautions because I understand security implications in using MFSs.
+9. I do not feel anxious about my security when using MFSs.
+10. I have witnessed the effect of security risk from the experience of other individuals using MFSs.
+11. I have gained knowledge on security threats from other MFS users.
+12. I have personally witnessed the effect of security threats from using MFSs.
+emotional state:
+13. I have more willpower to protect myself from MFS security threat.
+14. I find it extremely unpleasant to get threats on my MFS account.
+15. I become frustrated when I experience security threat on my MFS account.
+16. I would endure physical discomfort to complete a security task because I just do not like to give up.
+verbal persuasion:
+17. I discuss security issues with a peer first, to get some feedback.
+18. People have advised me on using security software/techniques for MFSs.
+19. I am aware of MFS security threats because my friends/family told me about its effect.
+20. I am conscious about MFS security threats because my friends advised me to be.";NA;NA
+LeFebvre;2012;The field notes from each observation were coded for any evidence of the five PMT factors (risk, vulnerability, self-efficacy, response efficacy, response cost);NA;NA
+LeFebvre;2012;Transcripts of the interviews were coded for the five PMT factors, any demographic factors noted, and any other motivational themes that arose;NA;NA
