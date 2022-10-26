@@ -1,0 +1,1168 @@
+---
+title: "CSE Review"
+subtitle: "Data processing"
+date: "`r format(Sys.time(), '%d %B %Y')`"
+output:
+  html_document:
+    code_folding: hide
+    highlight: haddock
+    theme: flatly
+    toc: yes
+    toc_float: yes
+---
+
+```{r, include=FALSE}
+knitr::opts_chunk$set(message=FALSE,
+                      warning=FALSE,
+                      cache.lazy=FALSE)
+```
+
+# 1. Dependencies
+
+## Packages
+```{r}
+#create packages vector
+packages <- c("readxl", "psych", "ggplot2", "data.table", "stringr", "data.table", "tidyverse", "dplyr", "tidyr", "qpcR", "hrbrthemes", "imguR", "igraph", "networkD3", "htmlwidgets", "statnet", "jtools", "sna", "apaTables", "Jmisc", "wesanderson", "devtools", "rempsyc", "irr")
+
+#un-comment the following line to install packages
+#install.packages(packages)
+
+#load packages
+for (i in 1:length(packages)){
+  library(packages[i], character.only = T)}
+```
+
+## Reproducibility
+This code used R version 4.1.3 (2022-03-10)
+```{r}
+#un-comment the following line to get R version
+#R.version
+
+#un-comment the following lines to set groundhog (i.e., run the code on the same versions as originally)
+##install.packages("groundhog")
+##library("groundhog")
+#groundhog.library(packages, "2022-03-10")
+```
+
+# 2. Demographics
+
+Variables: publication_type, year, study_type, study_setting, smarthome, sample_size, sample_age, sample_sex, sample_profession, sample_recruitment, sample_country
+
+## Data set
+We are reporting studies (single_study and single_sample) and single_id (records/papers)
+
+Create new variables in excel: sample_size_new, sample_age_new, sample_sex_male, sample_sex_female, sample_sex_nonbinary, sample_sex_noresponse
+```{r}
+#data sets for demographics
+demographics_review <- data.frame(single_id$year, single_id$publication_type)
+
+demographics_sample <- data.frame(codebook1$sample_size_new, codebook1$sample_age_new, 
+                                  codebook1$sample_sex_male, codebook1$sample_sex_female, codebook1$sample_sex_nonbinary, codebook1$sample_sex_noresponse,
+                                  codebook1$sample_profession, codebook1$sample_recruitment, codebook1$sample_country)
+
+demographics_true_sample <- data.frame(single_sample$sample_size_new, single_sample$sample_age_new)
+
+demographics_study <- data.frame(single_study$study_type, single_study$study_setting, single_study$smarthome)
+```
+
+## Numeric demographics
+year, size, age, sex
+```{r}
+#set as numeric
+demographics_review[,1] <- sapply(demographics_review[,1], as.numeric)
+demographics_sample[,1:6] <- sapply(demographics_sample[,1:6], as.numeric)
+demographics_true_sample <- sapply(demographics_true_sample, as.numeric)
+
+#get descriptive statistics
+#library("psych")
+description_review <- describe(demographics_review[,1])
+description_sample <- describe(demographics_sample[,1:6])
+description_true_sample <- describe(demographics_true_sample)
+
+#set row name to first column
+#library(tibble)
+description_review <- tibble::rownames_to_column(description_review, "variable")
+description_sample <- tibble::rownames_to_column(description_sample, "variable")
+description_true_sample <- tibble::rownames_to_column(description_true_sample, "variable")
+
+#create results folder
+#dir.create("../results")
+
+#save descriptive values in table
+#library("readr")
+write_csv2(description_review,"../results/Descriptive Values of Numeric Demographics - Year.csv")
+write_csv2(description_sample,"../results/Descriptive Values of Numeric Demographics - Sample.csv")
+write_csv2(description_true_sample,"../results/Descriptive Values of Numeric Demographics - True Sample.csv")
+```
+
+## Two total sample sizes
+Calculate sum of sample sizes for codebook1 and single_sample
+```{r}
+#total sample size
+sum_sample <- sum(codebook1$sample_size_new, na.rm = T)
+sum_sample
+
+#total sample size without potential duplicate samples 
+sum_single_sample <- sum(single_sample$sample_size_new, na.rm = T)
+sum_single_sample
+```
+
+Calculate median sample size
+```{r}
+#total sample size
+median_sample <- median(codebook1$sample_size_new, na.rm = T)
+median_sample
+
+#total sample size without potential duplicate samples 
+median_single_sample <- median(single_sample$sample_size_new, na.rm = T)
+median_single_sample
+```
+
+## Weighted gender
+Calculate the gender proportions weighted for samples size
+```{r}
+#n of sample distribution
+codebook1$male_n <- codebook1$sample_size_new * (codebook1$sample_sex_male / 100)
+codebook1$female_n <- codebook1$sample_size_new * (codebook1$sample_sex_female / 100)
+codebook1$nonbinary_n <- codebook1$sample_size_new * (codebook1$sample_sex_nonbinary / 100)
+codebook1$noresponse_n <- codebook1$sample_size_new * (codebook1$sample_sex_noresponse / 100)
+
+#sum of columns
+sum_male <- sum(codebook1$male_n, na.rm = T)
+sum_female <- sum(codebook1$female_n, na.rm = T)
+sum_nonbinary <- sum(codebook1$nonbinary_n, na.rm = T)
+sum_noresponse <- sum(codebook1$noresponse_n, na.rm = T)
+
+#studies with NAs in sex get subtracted from sum_sample
+#identify rows with NA in sample_sex_male and exclude from data
+sum_sex_data <- codebook1[complete.cases(codebook1$sample_sex_male),]
+
+#calculate N sum
+sum_sample_sex <- sum(sum_sex_data$sample_size_new)
+#sum_sample_sex 
+
+#percentages
+male_percentage <- (sum_male/ sum_sample_sex) * 100
+male_percentage
+female_percentage <- (sum_female/ sum_sample_sex) * 100
+female_percentage
+nonbinary_percentage <- (sum_nonbinary/ sum_sample_sex) * 100
+nonbinary_percentage
+noresponse_percentage <- (sum_noresponse/ sum_sample_sex) * 100
+noresponse_percentage
+```
+
+## Factor demographics
+Variables: publication, type, setting, smarthome, profession, recruitment, country
+```{r}
+#set as vector
+demographics_review[,2] <- sapply(demographics_review[,2] , as.vector)
+demographics_sample[,7:9] <- sapply(demographics_sample[,7:9] , as.vector)
+demographics_study <- sapply(demographics_study, as.vector)
+
+#distribution (incl NA and only percentages)
+pubtype <- data.frame(prop.table(table(demographics_review[,2], exclude = NULL)))
+stutype <- data.frame(prop.table(table(demographics_study[,1], exclude = NULL)))
+setting <- data.frame(prop.table(table(demographics_study[,2], exclude = NULL)))
+smart <- data.frame(prop.table(table(demographics_study[,3], exclude = NULL)))
+prof <- data.frame(prop.table(table(demographics_sample[,7], exclude = NULL)))
+recruit <- data.frame(prop.table(table(demographics_sample[,8], exclude = NULL)))
+country <- data.frame(prop.table(table(demographics_sample[,9], exclude = NULL)))
+
+#get totals of distribution
+table(demographics_review[,2], exclude = NULL)
+table(demographics_study[,1], exclude = NULL)
+table(demographics_study[,2], exclude = NULL)
+table(demographics_study[,3], exclude = NULL)
+table(demographics_sample[,7], exclude = NULL)
+table(demographics_sample[,8], exclude = NULL)
+table(demographics_sample[,9], exclude = NULL)
+
+#merge data frames 
+prop1 <- merge(data.frame(pubtype, row.names=NULL), data.frame(stutype, row.names=NULL), 
+  by = 0, all = TRUE)[-1]
+prop2 <- merge(data.frame(setting, row.names=NULL), data.frame(smart, row.names=NULL), 
+  by = 0, all = TRUE)[-1]
+prop3 <- merge(data.frame(prof, row.names=NULL), data.frame(recruit, row.names=NULL), 
+  by = 0, all = TRUE)[-1]
+prop_merg1 <- merge(data.frame(prop1, row.names=NULL), data.frame(prop2, row.names=NULL), 
+  by = 0, all = TRUE)[-1]
+prop_merg2 <- merge(data.frame(prop_merg1, row.names=NULL), data.frame(prop3, row.names=NULL),   by = 0, all = TRUE)[-1]
+proportions <- merge(data.frame(prop_merg2, row.names=NULL), data.frame(country, row.names=NULL), 
+  by = 0, all = TRUE)[-1]
+
+#rename columns 
+colnames(proportions) <- c("publication_type","Freq",
+                           "study_type","Freq",
+                           "study_setting","Freq",
+                           "smarthome","Freq",
+                           "sample_profession","Freq",
+                           "sample_recruitment","Freq",
+                           "sample_country","Freq")
+
+#save descriptive values in table
+#library("readr")
+write_csv2(proportions,"../results/Conditional Proportions of Factor Demographics (incl. NA).csv")
+```
+
+# 3. Scale
+
+## Descriptive statistics for the scales
+
+### Scale variables (factor) 1
+```{r}
+#create data frame
+scale_factors <- data.frame(selfdeveloped_scale$scale_development,
+                            selfdeveloped_scale$validity_content,
+                            selfdeveloped_scale$validity_construct_factor_new,
+                            selfdeveloped_scale$validity_construct_discriminant_type,
+                            selfdeveloped_scale$validity_construct_convergent_type,
+                            selfdeveloped_scale$validity_criterion_type,
+                            selfdeveloped_scale$validity_incremental)
+
+#set as vector
+scale_factors <- sapply(scale_factors, as.vector)
+
+#distribution (incl NA and only percentages)
+development <- data.frame(prop.table(table(scale_factors[,1], exclude = NULL)))
+content <- data.frame(prop.table(table(scale_factors[,2], exclude = NULL)))
+factor_type <- data.frame(prop.table(table(scale_factors[,3], exclude = NULL)))
+discr_type <- data.frame(prop.table(table(scale_factors[,4], exclude = NULL)))
+conv_type <- data.frame(prop.table(table(scale_factors[,5], exclude = NULL)))
+criterion_type <- data.frame(prop.table(table(scale_factors[,6], exclude = NULL)))
+incremental <- data.frame(prop.table(table(scale_factors[,7], exclude = NULL)))
+
+#get totals of distribution
+table(scale_factors[,1], exclude = NULL)
+table(scale_factors[,2], exclude = NULL)
+table(scale_factors[,3], exclude = NULL)
+table(scale_factors[,4], exclude = NULL)
+table(scale_factors[,5], exclude = NULL)
+table(scale_factors[,6], exclude = NULL)
+table(scale_factors[,7], exclude = NULL)
+
+#merge data frames
+s_prop1 <- merge(data.frame(development, row.names=NULL), data.frame(content, row.names=NULL),
+  by = 0, all = TRUE)[-1]
+s_prop2 <- merge(data.frame(factor_type, row.names=NULL), data.frame(discr_type, row.names=NULL),
+  by = 0, all = TRUE)[-1]
+s_prop3 <- merge(data.frame(conv_type, row.names=NULL), data.frame(criterion_type, row.names=NULL),
+  by = 0, all = TRUE)[-1]
+s_prop_merg1 <- merge(data.frame(s_prop1, row.names=NULL), data.frame(s_prop2, row.names=NULL),
+  by = 0, all = TRUE)[-1]
+s_prop_merg2 <- merge(data.frame(s_prop_merg1, row.names=NULL), data.frame(s_prop3, row.names=NULL),   by = 0, all = TRUE)[-1]
+s_proportions <- merge(data.frame(s_prop_merg2, row.names=NULL), data.frame(incremental, row.names=NULL),   by = 0, all = TRUE)[-1]
+
+#rename columns
+colnames(s_proportions) <- c("development","Freq",
+                           "content","Freq",
+                           "factor_type","Freq",
+                           "discr_type","Freq",
+                           "conv_type","Freq",
+                           "criterion_type","Freq",
+                           "incremental","Freq")
+
+#save descriptive values in table
+#library("readr")
+write_csv2(s_proportions,"../results/Conditional Proportions of Factor Scale Variables (incl. NA).csv")
+```
+
+### Scales with validity information
+```{r}
+#create sub data frame if any information provided in validity variables (content, factor, discriminant, convergent, criterion, incremental) for a row
+#to know how many studies provided info
+
+#create data frame
+scale_valid <- data.frame(selfdeveloped_scale$id,
+                          selfdeveloped_scale$scale_number_new,
+                          selfdeveloped_scale$validity_content,
+                          selfdeveloped_scale$validity_construct_factor_new,
+                          selfdeveloped_scale$validity_construct_discriminant_type,
+                          selfdeveloped_scale$validity_construct_convergent_type,
+                          selfdeveloped_scale$validity_criterion_type,
+                          selfdeveloped_scale$validity_incremental)
+colnames(scale_valid) <- c("id","scale_number","content", "factor","discriminant","convergent","criterion","incremental")
+
+#change content factor labels: 0 = NA
+scale_valid["content"][scale_valid["content"] == 0] <- NA
+
+#keep rows with at least one value
+#library(dplyr)
+scale_valid_with_info <- scale_valid %>% filter_at(vars(content, factor, discriminant, convergent, criterion, incremental),any_vars(!is.na(.)))
+
+#count rows
+nrow(scale_valid_with_info)
+
+#check if same id has multiple studies with single_study data frame
+#id 56: 4 scales but only 1 study
+#id 180: 3 scales and 3 studies
+nrow(scale_valid_with_info)-3
+```
+
+### Scale variables (factor) 2
+```{r}
+#create data frame
+scale_factors2 <- data.frame(single_study$scale_origin)
+scale_factors3 <- data.frame(codebook2$scale_name,
+                             codebook2$scale_language,
+                             codebook2$facets)
+
+#set as vector
+scale_factors2 <- sapply(scale_factors2, as.vector)
+scale_factors3 <- sapply(scale_factors3, as.vector)
+
+#distribution (incl NA and only percentages)
+origin <- data.frame(prop.table(table(scale_factors2[,1], exclude = NULL)))
+name <- data.frame(prop.table(table(scale_factors3[,1], exclude = NULL)))
+language <- data.frame(prop.table(table(scale_factors3[,2], exclude = NULL)))
+facets <- data.frame(prop.table(table(scale_factors3[,3], exclude = NULL)))
+
+#get totals of distribution
+table(scale_factors2[,1], exclude = NULL)
+table(scale_factors3[,1], exclude = NULL)
+table(scale_factors3[,2], exclude = NULL)
+table(scale_factors3[,3], exclude = NULL)
+
+
+#merge data frames
+s2_prop1 <- merge(data.frame(origin, row.names=NULL), data.frame(name, row.names=NULL),
+  by = 0, all = TRUE)[-1]
+s2_prop2 <- merge(data.frame(language, row.names=NULL), data.frame(facets, row.names=NULL),
+  by = 0, all = TRUE)[-1]
+s2_proportions <- merge(data.frame(s2_prop1, row.names=NULL), data.frame(s2_prop2, row.names=NULL),
+  by = 0, all = TRUE)[-1]
+
+#rename columns
+colnames(s2_proportions) <- c("origin","Freq",
+                           "name","Freq",
+                           "language","Freq",
+                           "facets","Freq")
+
+#save descriptive values in table
+#library("readr")
+write_csv2(s2_proportions,"../results/Conditional Proportions of Factor Scale Variables 2 (incl. NA).csv")
+```
+
+### Scale variables (numeric)
+```{r}
+#data frame
+scale_numerics_studypaper <- data.frame(codebook1$reliability_alpha_studypaper_new,
+                             codebook1$reliability_composite_studypaper)
+scale_numerics_all_scales <- data.frame(codebook2$item_number,
+                             codebook2$factors)
+scale_numerics_selfdeveloped <- data.frame(selfdeveloped_scale$reliability_alpha_new,
+                             selfdeveloped_scale$reliability_composite_new,
+                             selfdeveloped_scale$reliability_testretest,
+                             selfdeveloped_scale$reliability_splithalf)
+
+#set as numeric
+scale_numerics_studypaper <- sapply(scale_numerics_studypaper, as.numeric)
+scale_numerics_all_scales <- sapply(scale_numerics_all_scales, as.numeric)
+scale_numerics_selfdeveloped <- sapply(scale_numerics_selfdeveloped, as.numeric)
+
+#get descriptive statistics
+#library("psych")
+description_scale_studypaper <- describe(scale_numerics_studypaper)
+description_all_scales <- describe(scale_numerics_all_scales)
+description_selfdeveloped <- describe(scale_numerics_selfdeveloped)
+
+#set row name to first column
+#library(tibble)
+description_scale_studypaper <- tibble::rownames_to_column(description_scale_studypaper, "variable")
+description_all_scales <- tibble::rownames_to_column(description_all_scales, "variable")
+description_selfdeveloped <- tibble::rownames_to_column(description_selfdeveloped, "variable")
+
+#save descriptive values in table
+#library("readr")
+write_csv2(description_scale_studypaper,"../results/Descriptive Values of Numeric Scale Variables - Study Paper.csv")
+write_csv2(description_all_scales,"../results/Descriptive Values of Numeric Scale Variables - All Scales.csv")
+write_csv2(description_selfdeveloped,"../results/Descriptive Values of Numeric Scale Variables - Selfdeveloped Scales.csv")
+
+#median of codebook2.item_number
+median(codebook2$item_number, na.rm = T)
+```
+
+## Scale number
+Find out (1) how many scale numbers where used (2) how many more than one time, (3) which, and (4) how often
+```{r}
+duplicated(codebook1$scale_number_new) #identify duplicates 
+sum(table(codebook1$scale_number_new)-1) #count total number of duplicates
+duplicated_scales <- codebook1[duplicated(codebook1[,23]),] #create subset with duplicates (column #23 = scale_number_new) ->still includes NAs
+duplicated_scales <- subset(duplicated_scales, !is.na(scale_number_new)) #exclude NAs in column 23
+
+#library(data.table) 
+#counting number of duplicates for a column in whole data frame (n = scale number is n-times in review dataset)
+data_copy = copy(codebook1) #make a copy of data because set* function modifies the input data
+scale_count <- setDT(data_copy)[, .N, scale_number_new] #count each scale number
+
+#save as scale counts
+#library("readr")
+write_csv2(scale_count,"../results/Total Count of Each Scale.csv")
+
+#counting number of duplicates only in duplicated scales data frame (n = scale number is n-times duplicated [e.g., n=1: scale appears twice in the column])
+duplicated_scales_copy = copy(duplicated_scales) #make a copy of data because set* function modifies the input data
+scale_count_duplicates <- setDT(duplicated_scales_copy)[, .N, scale_number_new] #count each scale number only for duplicated scales data
+
+#save as scale number of duplicates
+#library("readr")
+write_csv2(scale_count_duplicates,"../results/Recurrence Count of Duplicate Scales.csv")
+```
+
+## Published study number vs used scale number per year graph
+Compare number of published papers vs number of used scales (all used scales = codebook 2)
+```{r}
+#codebook1$year and codebook2$year in one overlapping graph
+#create data set
+graph_data_year <- qpcR:::cbind.na(single_study$year, codebook2$year) 
+graph_data_year <- as.data.frame(graph_data_year)
+colnames(graph_data_year)[1] <- "study_year"
+colnames(graph_data_year)[2] <- "scale_year"
+head(graph_data_year)
+
+#long format
+graph_data_year_long <- reshape(graph_data_year, direction = "long", varying = list(1:2))
+#1   paper year; 2 scale yeardat=="Cannot do at all"] <- "1"
+graph_data_year_long[graph_data_year_long == 1] <- "study"
+graph_data_year_long[graph_data_year_long == 2] <- "measure"
+graph_data_year_long <- graph_data_year_long[,-3]
+
+#rename columns
+colnames(graph_data_year_long)[1] <- "category"
+colnames(graph_data_year_long)[2] <- "year"
+#remove NAs
+graph_data_year_long <- na.omit(graph_data_year_long)
+```
+
+Plot histograms: Dodge position
+```{r}
+#with transparency
+#library(wesanderson)
+wes_color <- wes_palette("FantasticFox1", 4, type = c("discrete"))[3:4]
+
+#library(hrbrthemes)
+comp_year_graph <- graph_data_year_long %>%
+  ggplot(aes(x= year, fill = category)) +
+  geom_histogram(color="#e9ecef", alpha=0.7, position = 'dodge', stat = "count") + #alpha for transparency
+  scale_fill_manual(values=wes_color) +
+  #theme_ipsum() +
+  labs(fill="") +
+  scale_x_continuous(breaks = c(2010:2021)) 
+comp_year_graph
+
+#save graph
+ggsave("../results/Study_Scale_Year_Histogram_dodged.jpg")
+```
+
+## Reliability alpha studypaper
+Create a variable with numerics only, not ">0.7"
+
+Weighted alpha with sample size:
+```{r}
+#reliability as numeric
+codebook1$reliability_alpha_studypaper_new <- as.numeric(codebook1$reliability_alpha_studypaper_new)
+
+weighted.mean(codebook1$reliability_alpha_studypaper_new, codebook1$sample_size_new, na.rm = TRUE) #NA values in x (=alpha) stripped before computation
+
+#library(jtools)
+wtd.sd(codebook1$reliability_alpha_studypaper_new, codebook1$sample_size_new)
+```
+
+## Reliability composite studypaper
+Weighted composite with sample size:
+```{r}
+#reliability as numeric
+codebook1$reliability_composite_studypaper <- as.numeric(codebook1$reliability_composite_studypaper)
+
+weighted.mean(codebook1$reliability_composite_studypaper, codebook1$sample_size_new, na.rm = TRUE) #NA values in x (=CR) stripped before computation
+
+#library(jtools)
+wtd.sd(codebook1$reliability_composite_studypaper, codebook1$sample_size_new)
+```
+
+## validity_information_studypaper
+clean merged variable (attention: "factor"; "criterion" only for validity type - others will be deleted as words)
+
+String search and count for different validities: content, construct_factor (vs. calculation method), construct_discriminant, construct_convergent, criterion (vs. calculation method), incremental, internal, external
+```{r}
+#library(stringr)
+str_count(codebook1$validity_information_studypaper, "content") #occurences of the pattern
+content_sum <- sum(str_count(codebook1$validity_information_studypaper, "content"), na.rm = TRUE) #summing it up 
+
+str_count(codebook1$validity_information_studypaper, "factor") #occurences of the pattern
+factor_sum <- sum(str_count(codebook1$validity_information_studypaper, "factor"), na.rm = TRUE) #summing it up 
+
+str_count(codebook1$validity_information_studypaper, "discriminant") #occurences of the pattern
+discriminant_sum <- sum(str_count(codebook1$validity_information_studypaper, "discriminant"), na.rm = TRUE) #summing it up 
+
+str_count(codebook1$validity_information_studypaper, "convergent") #occurences of the pattern
+convergent_sum <- sum(str_count(codebook1$validity_information_studypaper, "convergent"), na.rm = TRUE) #summing it up 
+
+str_count(codebook1$validity_information_studypaper, "criterion") #occurences of the pattern
+criterion_sum <- sum(str_count(codebook1$validity_information_studypaper, "criterion"), na.rm = TRUE) #summing it up 
+
+str_count(codebook1$validity_information_studypaper, "incremental") #occurences of the pattern
+incremental_sum <- sum(str_count(codebook1$validity_information_studypaper, "incremental"), na.rm = TRUE) #summing it up 
+
+str_count(codebook1$validity_information_studypaper, "internal") #occurences of the pattern
+internal_sum <- sum(str_count(codebook1$validity_information_studypaper, "internal"), na.rm = TRUE) #summing it up 
+
+str_count(codebook1$validity_information_studypaper, "external") #occurences of the pattern
+external_sum <- sum(str_count(codebook1$validity_information_studypaper, "external"), na.rm = TRUE) #summing it up 
+```
+
+Fancy table of validity_information_studypaper:
+```{r}
+data_valid_info_result <- data.frame(content_sum, factor_sum, discriminant_sum, convergent_sum, criterion_sum, incremental_sum, internal_sum, external_sum)
+
+colnames(data_valid_info_result) <- c("content validity", "factor validity", "discriminant validity", "convergent validity", "criterion validity", "inremental validity", "internal validity", "external validity")
+
+#save as validity type counts
+#library("readr")
+write_csv2(data_valid_info_result,"../results/Validity Type Counts from Scales without Changes - Codebook 1.csv")
+```
+
+## Scale number in codebook 2 for self-developed scales
+How many scales were self-developed (in whatever way)
+```{r}
+#use selfdeveloped_scale as data frame
+nrow(selfdeveloped_scale) 
+```
+
+## Scale changes
+Count string occurence: wording / item quantity / translation / modifications / NA
+```{r}
+#selfdeveloped_scale as data frame (scale_changes_new = none are excluded)
+#library(stringr)
+
+str_count(selfdeveloped_scale$scale_changes_new, "wording") #occurences of the pattern
+wording_sum <- sum(str_count(selfdeveloped_scale$scale_changes_new, "wording"), na.rm = TRUE) #summing it up 
+
+str_count(selfdeveloped_scale$scale_changes_new, "item quantity") #occurences of the pattern
+quantity_sum <- sum(str_count(selfdeveloped_scale$scale_changes_new, "item quantity"), na.rm = TRUE) #summing it up 
+
+str_count(selfdeveloped_scale$scale_changes_new, "translation") #occurences of the pattern
+translation_sum <- sum(str_count(selfdeveloped_scale$scale_changes_new, "translation"), na.rm = TRUE) #summing it up 
+
+str_count(selfdeveloped_scale$scale_changes_new, "modification") #occurences of the pattern
+modification_sum <- sum(str_count(selfdeveloped_scale$scale_changes_new, "modification"), na.rm = TRUE) #summing it up 
+
+NA_sum <- sum(is.na(selfdeveloped_scale$scale_changes_new)) #summing it up 
+
+```
+
+Fancy table of scale_changes_new:
+```{r}
+data_scale_changes_result <- data.frame(wording_sum, quantity_sum, translation_sum, modification_sum, NA_sum)
+
+colnames(data_scale_changes_result) <- c("changed wording", "changed item quantity", "translation", "modifications", "NA")
+data_scale_changes_result
+
+#save as validity type counts
+#library("readr")
+write_csv2(data_scale_changes_result,"../results/Scale Changes Type Counts - Codebook 2 (only ad-hoc).csv")
+```
+
+## Item list
+Only for appendix. 
+Table with Author, year, items, scale_authors, and scale name sorted by scale_name
+```{r}
+#build new data frame
+items_data <- data.frame(codebook2$authors, codebook2$year, codebook2$item_list, codebook2$scale_authors, codebook2$scale_name)
+
+#rename columns
+colnames(items_data)[1] <- "authors"
+colnames(items_data)[2] <- "publication_year"
+colnames(items_data)[3] <- "item_list"
+colnames(items_data)[4] <- "referenced_scale_authors"
+colnames(items_data)[5] <- "scale_name"
+
+#transform scale_name variable
+items_data$scale_name <- as.factor(items_data$scale_name)
+
+#sort data by scale_name, then authors, then year
+items_data_sorted <- with(items_data, items_data[order(items_data$scale_name, items_data$authors, items_data$publication_year),])
+items_data_sorted
+#build table
+items_data_sorted_copy <-items_data_sorted
+setDT(items_data_sorted_copy)
+
+#save as item list
+#library("readr")
+write_csv2(items_data_sorted_copy,"../results/List of All Measures including Items - Codebook 2.csv")
+```
+
+## Reliability alpha
+weighted mean
+create new data frame to assign correct sample_size via scale_number
+```{r}
+reliability_data <- data.frame(selfdeveloped_scale$scale_number_new, selfdeveloped_scale$reliability_alpha_new, selfdeveloped_scale$reliability_composite_new, selfdeveloped_scale$reliability_testretest, selfdeveloped_scale$reliability_splithalf)
+size_data <- data.frame(codebook1$scale_number_new, codebook1$sample_size_new)
+#left join (return all rows from the left table, and any rows with matching keys from the right table)
+reliability_size_data <- merge(x = reliability_data, y = size_data, by.x = "selfdeveloped_scale.scale_number_new", by.y = "codebook1.scale_number_new", all.x = TRUE)
+#rename columns
+colnames(reliability_size_data)[1] <- "scale_number"
+colnames(reliability_size_data)[2] <- "reliability_alpha"
+colnames(reliability_size_data)[3] <- "reliability_composite"
+colnames(reliability_size_data)[4] <- "reliability_testretest"
+colnames(reliability_size_data)[5] <- "reliability_splithalf"
+colnames(reliability_size_data)[6] <- "sample_size"
+```
+
+weighted alpha with sample size:
+```{r}
+#without NA in data frame
+alpha_data <- subset(reliability_size_data, !is.na(reliability_size_data$reliability_alpha))
+alpha_data <- subset(alpha_data, !is.na(alpha_data$sample_size))
+
+#weighted mean
+weighted.mean(alpha_data$reliability_alpha, alpha_data$sample_size) 
+#library(jtools)
+wtd.sd(alpha_data$reliability_alpha, alpha_data$sample_size)
+```
+
+## Reliability composite
+weighted composite with sample size:
+```{r}
+#without NA in data frame
+composite_data <- subset(reliability_size_data, !is.na(reliability_size_data$reliability_composite))
+composite_data <- subset(composite_data, !is.na(composite_data$sample_size))
+
+#weighted mean
+weighted.mean(composite_data$reliability_composite, composite_data$sample_size) 
+#library(jtools)
+wtd.sd(composite_data$reliability_composite, composite_data$sample_size)
+```
+
+## validity construct (discriminant)
+How many papers studied discriminant validity and what methods were used?
+
+Create data frame with construct and count/frequency
+->summary macht nur bis 100 constructs
+```{r}
+#as factor
+discriminant_long_data_clean$discriminant_description <- as.factor(discriminant_long_data_clean$discriminant_description)
+
+#data frame
+discriminant_data <- data.frame(unclass(summary(discriminant_long_data_clean$discriminant_description, maxsum = 579))) #579 number of observations in discriminant_long_data_clean
+setDT(discriminant_data, keep.rownames = TRUE)[] #convert row names into first column
+
+#rename columns
+colnames(discriminant_data)[1] <- "construct_name"
+colnames(discriminant_data)[2] <- "construct_frequency"
+discriminant_data
+#check for spelling mistakes
+
+#save as discriminant construct counts
+#library("readr")
+write_csv2(discriminant_data,"../results/Counts of All Discriminant Constructs - Only Selfdeveloped Scales.csv")
+```
+
+
+## validity construct (convergent)
+Create data frame with construct and count/frequency
+```{r}
+#as factor
+convergent_long_data_clean$convergent_description <- as.factor(convergent_long_data_clean$convergent_description)
+convergent_data <- data.frame(unclass(summary(convergent_long_data_clean$convergent_description, maxsum = 587))) #587 number of observations in convergent_long_data_clean
+setDT(convergent_data, keep.rownames = TRUE)[] #convert row names into first column
+
+#rename columns
+colnames(convergent_data)[1] <- "construct_name"
+colnames(convergent_data)[2] <- "construct_frequency"
+convergent_data
+#check for spelling mistakes
+#delete row 92 "information security behavior" and give additional count to row 91 "information security behavior"
+convergent_data <- convergent_data[-92,]
+convergent_data$construct_frequency[convergent_data$construct_name == "information security behavior"] <- 2
+
+#save as convergent construct counts
+#library("readr")
+write_csv2(convergent_data,"../results/Counts of All Convergent Constructs - Only Selfdeveloped Scales.csv")
+```
+
+## Discriminant and convergent validity variables
+
+### Find doublets (with frequency)
+```{r}
+#as an index to discriminant_data$construct_name
+#doublets
+dou <- data.frame(discriminant_data$construct_name[discriminant_data$construct_name %in% convergent_data$construct_name]) #save returned values in dou
+as.vector(dou)
+copy_discriminant_data <- discriminant_data
+copy_convergent_data <- convergent_data
+d_freq1 <- setDT(copy_discriminant_data, key = 'construct_name')[dou]
+d_freq2 <- setDT(copy_convergent_data, key = 'construct_name')[dou]
+doublets_data <- data.frame(d_freq1[, 1], d_freq1[, 2] + d_freq2[, 2]) #make new data frame: take freq1 country_name and sum frq1 + freq1 construct_frequency
+doublets_data
+
+#only discriminant data
+dis <- data.frame(discriminant_data$construct_name[!discriminant_data$construct_name %in% convergent_data$construct_name]) #save returned values in dis
+as.vector(dis)
+only_discriminant_data <- setDT(copy_discriminant_data, key = 'construct_name')[dis] #select row based on dis (for discriminant_data) #only when the key is a factor/character variable
+
+#only convergent data
+con <- data.frame(convergent_data$construct_name[!convergent_data$construct_name %in% discriminant_data$construct_name]) #save returned values in con
+as.vector(con)
+only_convergent_data <- setDT(copy_convergent_data, key = 'construct_name')[con] #select row based on con (for convergent data) #only when the key is a factor/character variable
+```
+
+### Number and frequencies of constructs
+Save data frames
+```{r}
+#check frequencies
+
+#library("readr")
+write_csv2(only_convergent_data,"../results/Only Convergent Constructs - Only Selfdeveloped Scales.csv")
+write_csv2(only_discriminant_data,"../results/Only Discriminant Constructs - Only Selfdeveloped Scales.csv")
+write_csv2(doublets_data,"../results/Only Convergent and Discriminant Constructs - Only Selfdeveloped Scales.csv")
+```
+
+Number of constructs
+```{r}
+#only_discriminant
+nrow(only_discriminant_data)
+
+#only convergent
+nrow(only_convergent_data)
+
+#doublets
+nrow(doublets_data)
+```
+
+# 4. Scale author network
+
+## Nodges and edges
+Create lists and data frames (nodes and edges)
+```{r}
+#node list
+#rename column
+#library(dplyr)
+sources <- authors_long_data %>%
+  distinct(authors) %>%
+  rename(label = authors)
+
+destinations <- authors_long_data %>%
+  distinct(scale_authors) %>% 
+  rename(label = scale_authors)
+
+#include all unique authors and scale_authors
+nodes <- full_join(sources, destinations, by = "label")
+#add IDs to nodes data frame for each unique author
+nodes <- nodes %>% rowid_to_column("id")
+
+#edge list
+#group data by both sources and destinations
+per_scale <- authors_long_data %>%
+  group_by(authors, scale_authors) %>%
+  summarise(weight = n()) %>% #counts number of observations per group 
+  ungroup() #remove grouping
+per_scale
+
+#changes column labels to IDs (->edges data frame has from and to columns with node IDs)
+edges <- per_scale %>%
+  left_join(nodes, by = c("authors" = "label")) %>%
+  rename(from = id)
+edges <- edges %>%
+  left_join(nodes, by = c("scale_authors" = "label"))  %>%
+  rename(to = id)
+```
+
+## Interactive network graph
+Create network objects (networkD3)
+(includes authors that did not cite any other authors as sources for their scale development [single points in graph] and all that did both [cited and did not cite] for two different measures [single points in graph with *])
+```{r}
+#library(networkD3)
+#IDs must be a series of numeric integers beginning with 0
+nodes_d3 <- mutate(nodes, id = id -1)
+edges_d3 <- mutate(edges, from = from -1, to = to-1)
+#group argument: no groups = each node be its own group / own color
+fancy_network <- forceNetwork(Links = edges_d3, Nodes = nodes_d3, Source = "from", Target = "to", 
+             NodeID = "label", Group = "id", Value = "weight",
+             opacity = 1, fontSize = 16, zoom = T, arrows = T)
+fancy_network
+#library(htmlwidgets)
+saveWidget(fancy_network, "../results/authors_network_graph.html") #save html widget
+```
+
+## Network analysis
+Preparing another network type
+```{r}
+#clean edges data
+edges <- data.frame(edges$from, edges$to, edges$weight)
+names(edges) <- c("from", "to", "weights")
+
+##please uncomment to use package qgraph
+library(qgraph)
+#qgraph network object 
+qgraph_network <- qgraph(edges)
+```
+
+Network size (number of authors) and network density (interconnectedness)
+```{r}
+#network size
+#number of nodes, i.e. vertices/actors/members
+nrow(nodes)
+```
+
+### Node strength (inward degree centrality)
+sum of all edge weights connected to a given node (how many publications cite these authors)
+```{r}
+#loops are removed
+Centrality <- centrality(qgraph_network, all.shortest.paths = TRUE)
+
+#un-comment to inspect all centrality measures
+#Centrality
+
+#InDegree
+max_degrees <- which(Centrality$InDegree==max(Centrality$InDegree))
+Centrality$InDegree[max_degrees]
+nodes[c(max_degrees),2]
+```
+
+### Betweenness
+how often a node is in shortest paths between other nodes): bridge information (interdisciplinarity: from one field to another)
+```{r}
+#Betweenness
+max_between <- which(Centrality$Betweenness==max(Centrality$Betweenness))
+Centrality$Betweenness[max_between]
+nodes[c(max_between),2]
+```
+
+### Small-worldness 
+Higher than 3 is typically interpreted as a small world
+(investigates if a network is clustered, but also has a short average shortest path between all nodes)
+```{r}
+#Small-worldness index
+#weights are removed
+smallworldIndex(qgraph_network)
+```
+
+# 5. SE Role
+
+## Factor role variables
+```{r}
+#create data frame
+role_factors <- data.frame(single_study$as_outcome_variable,
+                            single_study$as_cause_variable)
+
+#set as vector
+role_factors <- sapply(role_factors, as.vector)
+
+#distribution (incl NA and only percentages)
+outcome <- data.frame(prop.table(table(role_factors[,1], exclude = NULL)))
+cause <- data.frame(prop.table(table(role_factors[,2], exclude = NULL)))
+
+#get totals of distribution
+table(role_factors[,1], exclude = NULL)
+table(role_factors[,2], exclude = NULL)
+
+#merge data frames
+r_proportions <- merge(data.frame(outcome, row.names=NULL), data.frame(cause, row.names=NULL),
+  by = 0, all = TRUE)[-1]
+
+#rename columns
+colnames(r_proportions) <- c("outcome","Freq",
+                           "cause","Freq")
+
+#save descriptive values in table
+#library("readr")
+write_csv2(r_proportions,"../results/Conditional Proportions of Factor Role Variables (incl. NA).csv")
+```
+
+## Original framework variables
+
+### Cause variables (original)
+Create data frame with construct and count/frequency
+```{r}
+#as factor
+cause_long_data_clean$cause_variables <- as.factor(cause_long_data_clean$cause_variables)
+cause_data <- data.frame(unclass(summary(cause_long_data_clean$cause_variables, maxsum = 335))) #335 number of observations in cause_long_data_clean
+setDT(cause_data, keep.rownames = TRUE)[] #convert row names into first column
+
+#rename columns
+colnames(cause_data)[1] <- "construct_name"
+colnames(cause_data)[2] <- "construct_frequency"
+cause_data
+#check for spelling mistakes
+
+
+#save as cause construct counts
+#library("readr")
+write_csv2(cause_data,"../results/Counts of All Cause Constructs - Single_Study.csv")
+```
+
+### Outcome variables (original)
+Create data frame with construct and count/frequency
+```{r}
+#as factor
+outcome_long_data_clean$outcome_variables <- as.factor(outcome_long_data_clean$outcome_variables)
+outcome_data <- data.frame(unclass(summary(outcome_long_data_clean$outcome_variables, maxsum = 229))) #229 number of observations in outcome_long_data_clean
+setDT(outcome_data, keep.rownames = TRUE)[] #convert row names into first column
+
+#rename columns
+colnames(outcome_data)[1] <- "construct_name"
+colnames(outcome_data)[2] <- "construct_frequency"
+outcome_data
+#check for spelling mistakes
+
+
+#save as outcome construct counts
+#library("readr")
+write_csv2(outcome_data,"Counts of All Outcome Constructs - Single_Study.csv")
+```
+
+### Doublets for role (original)
+```{r}
+#as an index to cause_data2$construct_name
+#doublets
+double <- data.frame(cause_data$construct_name[cause_data$construct_name %in% outcome_data$construct_name]) #save returned values in dou2
+as.vector(double)
+copy_cause_data <- cause_data
+copy_outcome_data <- outcome_data
+double_freq1 <- setDT(copy_cause_data, key = 'construct_name')[double]
+double_freq2 <- setDT(copy_outcome_data, key = 'construct_name')[double]
+doublets_data_role <- data.frame(double_freq1[, 1], double_freq1[, 2] + double_freq2[, 2]) #make new data frame: take freq1 construct_name and sum freq1 + freq1 construct_frequency
+doublets_data_role
+```
+
+## Paraphrased framework variables
+
+### Cause and outcome variables (paraphrased)
+Use cause_variables_new and outcome_variables_new for (single_study) paraphrased version
+```{r}
+#create data frame for cause_new
+##as factor
+cause_long_data_clean2$cause_variables <- as.factor(cause_long_data_clean2$cause_variables)
+cause_data2 <- data.frame(unclass(summary(cause_long_data_clean2$cause_variables, maxsum = 129))) #129 number of observations in cause_long_data_clean2
+setDT(cause_data2, keep.rownames = TRUE)[] #convert row names into first column
+##rename columns
+colnames(cause_data2)[1] <- "construct_name"
+colnames(cause_data2)[2] <- "construct_frequency"
+cause_data2
+#check for spelling mistakes
+##save as cause construct counts
+#library("readr")
+write_csv2(cause_data2,"../results/Counts of All Cause Constructs - Paraphrased.csv")
+
+#create data frame for outcome_new
+##as factor
+outcome_long_data_clean2$outcome_variables <- as.factor(outcome_long_data_clean2$outcome_variables)
+outcome_data2 <- data.frame(unclass(summary(outcome_long_data_clean2$outcome_variables, maxsum = 230))) #230 number of observations in outcome_long_data_clean2
+setDT(outcome_data2, keep.rownames = TRUE)[] #convert row names into first column
+##rename columns
+colnames(outcome_data2)[1] <- "construct_name"
+colnames(outcome_data2)[2] <- "construct_frequency"
+outcome_data2
+#check for spelling mistakes
+##save as outcome construct counts
+#library("readr")
+write_csv2(outcome_data2,"../results/Counts of All Outcome Constructs - Paraphrased.csv")
+```
+
+### Doublets (paraphrased) with frequency
+```{r}
+#as an index to cause_data2$construct_name
+#doublets
+dou2 <- data.frame(cause_data2$construct_name[cause_data2$construct_name %in% outcome_data2$construct_name]) #save returned values in dou2
+as.vector(dou2)
+copy_cause_data2 <- cause_data2
+copy_outcome_data2 <- outcome_data2
+d2_freq1 <- setDT(copy_cause_data2, key = 'construct_name')[dou2]
+d2_freq2 <- setDT(copy_outcome_data2, key = 'construct_name')[dou2]
+doublets_data2 <- data.frame(d2_freq1[, 1], d2_freq1[, 2] + d2_freq2[, 2]) #make new data frame: take freq1 construct_name and sum freq1 + freq1 construct_frequency
+doublets_data2
+#save
+write_csv2(doublets_data2,"../results/Counts of All Cause and Outcome Constructs - Paraphrased.csv")
+
+#only cause data
+cau <- data.frame(cause_data2$construct_name[!cause_data2$construct_name %in% outcome_data2$construct_name]) #save returned values in cau
+as.vector(cau)
+only_cause_data2 <- setDT(copy_cause_data2, key = 'construct_name')[cau] #select row based on cau (for cause_data2) #only when the key is a factor/character variable
+
+#only outcome data
+out <- data.frame(outcome_data2$construct_name[!outcome_data2$construct_name %in% cause_data2$construct_name]) #save returned values in out
+as.vector(out)
+only_outcome_data2 <- setDT(copy_outcome_data2, key = 'construct_name')[out] #select row based on out (for outcome data) #only when the key is a factor/character variable
+```
+
+### Frequencies of variables (paraphrased)
+```{r}
+#check for most frequent variables
+#library("readr")
+write_csv2(only_cause_data2,"../results/Only Cause Variables - Single_Study.csv")
+write_csv2(only_outcome_data2,"../results/Only Outcome Variables - Single_Study.csv")
+write_csv2(doublets_data2,"../results/Only Cause and Outcome Variables - Single_Study.csv")
+
+#only_cause_data2: training, gender, experience
+#only_outcome_data2: security behavior, compliance intention, security intention, protection intention, compliance behavior
+#doublets_data2: awareness, concerns, expertise, protection behavior
+```
+
+### Graph of paraphrased framework variables: only cause vs. only outcome vs. both
+Create group factor
+```{r}
+#library(tidyverse)
+
+#create group variable
+#library(Jmisc)
+doublets_data2 <- addCol(doublets_data2, group = "Both")
+only_cause_data2 <- addCol(only_cause_data2, group = "Cause")
+only_outcome_data2 <- addCol(only_outcome_data2, group = "Outcome")
+
+#create dataset
+variable_data <- rbind(doublets_data2, only_cause_data2, only_outcome_data2)
+# variable_data[3] <- NULL
+# variable_data[4] <- NULL
+
+#make group a factor
+variable_data$group <- factor(variable_data$group, levels = c("Both","Cause","Outcome"))
+nlevels(variable_data$group)
+```
+
+Make space between groups
+```{r}
+#set a number of empty bar to add at the end of each group
+empty_bar <- 4
+to_add2 <- data.frame(matrix(NA, empty_bar*nlevels(variable_data$group), ncol(variable_data)))
+colnames(to_add2) <- colnames(variable_data)
+to_add2$group <- rep(levels(variable_data$group), each = empty_bar)
+variable_data <- rbind(variable_data, to_add2)
+variable_data <- variable_data %>% arrange(group)
+variable_data$id <- seq(1,nrow(variable_data))
+
+#get the name and the y position of each label
+label_data2 <- variable_data
+#calculate the angle of the labels
+number_of_bar <- nrow(label_data2)
+angle <- 90 - 360 * (label_data2$id-0.5) / number_of_bar
+#left part of plot: labels have angle < -90
+label_data2$hjust <- ifelse(angle < -90,1,0)
+#flip angle
+label_data2$angle <- ifelse(angle < -90, angle+180, angle)
+```
+
+Customize bar chart
+(labels are straight when graph saved/exported)
+```{r}
+#prepare a data frame for base lines
+base_data2 <- variable_data %>%
+  group_by(group) %>%
+  summarize(start=min(id), end=max(id) - empty_bar) %>%
+  rowwise() %>%
+  mutate(title=mean(c(start, end)))
+
+#prepare a data frame for grid/scales
+grid_data2 <- base_data2
+grid_data2$end <- grid_data2$end[c(nrow(grid_data2), 1:nrow(grid_data2)-1)]+1
+grid_data2$start <- grid_data2$start - 1
+grid_data2 <- grid_data2[-1,]
+
+#make the plot
+variables_polar_barchart <- ggplot(variable_data, aes(x=as.factor(id), y=variable_data$construct_frequency, fill=group)) + #if x would stay numeric, there is some space between the first bar
+  geom_bar(aes(x=as.factor(id), y=construct_frequency, fill=group), stat="identity", alpha=0.5) + #add bars
+  #add a value = lines
+  #!!! needs final adjustment
+  geom_segment(data=grid_data2, aes(x = end, y = 20, xend = start, yend = 20), colour = "grey", alpha=1, size=0.3 , inherit.aes = FALSE ) +
+  geom_segment(data=grid_data2, aes(x = end, y = 15, xend = start, yend = 15), colour = "grey", alpha=1, size=0.3 , inherit.aes = FALSE ) +
+  geom_segment(data=grid_data2, aes(x = end, y = 10, xend = start, yend = 10), colour = "grey", alpha=1, size=0.3 , inherit.aes = FALSE ) +
+  geom_segment(data=grid_data2, aes(x = end, y = 5, xend = start, yend = 5), colour = "grey", alpha=1, size=0.3 , inherit.aes = FALSE ) +
+
+  # Add text showing the value of each 100/75/50/25 lines
+  annotate("text", x = rep(max(variable_data$id),4), y = c(5, 10, 15, 20), label = c("5", "10", "15", "20"), color="grey", size=3 , angle=0, fontface="bold", hjust=1) +
+
+  #like above
+  geom_bar(aes(x=as.factor(id), y = construct_frequency, fill = group), stat="identity", color = "gray50", alpha= 0.5) +
+  scale_fill_manual(values = wes_palette("FantasticFox1")) + #specify color
+  ylim(-100,120) + #limits of the plot: negative value controls the size of the inner circle (white, bars don't start at the center of the circle), the positive one is useful to add size over each bar
+  theme_minimal() +
+  theme(
+    legend.position = "none",
+    axis.text = element_blank(),
+    axis.title = element_blank(),
+    panel.grid = element_blank(),
+    plot.margin = unit(rep(-1,4), "cm") #removes unnecessary margin around plot
+  ) +
+  coord_polar() + #to make the chart circular
+  geom_text(data=label_data2, aes(x=id, y=construct_frequency+10, label=construct_name, hjust=hjust), color="black", fontface="bold",alpha=0.6, size=2.5, angle= label_data2$angle, inherit.aes = FALSE) + #+10 makes space between bars and their labels
+
+  #add base line info
+  geom_segment(data=base_data2, aes(x = start, y = -5, xend = end, yend = -5), colour = "black", alpha=0.8, size=0.6 , inherit.aes = FALSE )  +
+  geom_text(data=base_data2, aes(x = title, y = -18, label=group), hjust=c(1,1,0), colour = "black", alpha=0.8, size=4, fontface="bold", inherit.aes = FALSE) #hjust controls horizontal justification
+
+variables_polar_barchart
+
+#safe circular bar plot
+ggsave("../results/framework_variables_polar_barchart.png", width=15, height=15) #attention: saves last gg plot
+```
+
+## TO DO: Cause variables (theory)
+Frequencies: String split, long format, create data frame
+```{r}
+
+```
+
+Calculate certainty
+```{r}
+
+```
+
+
+## TO DO: Outcome variables (theory)
+String split into several columns (where you don't know the number of output columns)
+```{r}
+# before_outcome_theory <- data.frame(single_study$outcome_variables_theory)
+# 
+# #rename columns
+# colnames(before_outcome_theory)[1] <- "outcome_variables_theory"
+# 
+# max(lengths(strsplit(as.character(before_outcome_theory$outcome_variables_theory), '; ')))
+# #library(data.table)
+# setDT(before_outcome_theory)[, paste0("outcome_variables_theory", 1:3) := tstrsplit(single_study$outcome_variables_theory, "; ")] #3 = number of columns (items are assigned to)
+# before_outcome_theory
+```
+
+Change data format (into long format)
+```{r}
+# #new data set (with added ID)
+# mo <- nrow(single_study) #where mo is the number of rows
+# outcome_theory_wide_data <- data.frame(id = 1:mo,
+#                               before_outcome_theory$outcome_variables_theory,
+#                               before_outcome_theory$outcome_variables_theory1,
+#                               before_outcome_theory$outcome_variables_theory2,
+#                               before_outcome_theory$outcome_variables_theory3)
+# 
+# #making sure ID column is a factor
+# outcome_theory_wide_data$id <- as.factor(outcome_theory_wide_data$id)
+# 
+# #changing into long format
+# #library(tidyr)
+# outcome_theory_long_data <- gather(outcome_theory_wide_data, outcome_variables_theory_number, outcome_variables_theory, before_outcome_theory.outcome_variables_theory1:before_outcome_theory.outcome_variables_theory3, factor_key = T)
+# outcome_theory_long_data
+# 
+# #delete NAs in data frame
+# outcome_theory_long_data_clean <- subset(outcome_theory_long_data, !is.na(outcome_theory_long_data[,4])) #column 4
+```
+
+Create data frame with construct and count/frequency
+```{r}
+# #as factor
+# outcome_theory_long_data_clean$outcome_variables_theory <- as.factor(outcome_theory_long_data_clean$outcome_variables_theory)
+# outcome_theory_data <- data.frame(unclass(summary(outcome_theory_long_data_clean$outcome_variables_theory, maxsum = 181))) #181 number of observations in outcome_theory_long_data_clean
+# setDT(outcome_theory_data, keep.rownames = TRUE)[] #convert row names into first column
+# 
+# #rename columns
+# colnames(outcome_theory_data)[1] <- "construct_name"
+# colnames(outcome_theory_data)[2] <- "construct_frequency"
+# outcome_theory_data
+# #check for spelling mistakes
+# 
+# 
+# #save as outcome construct counts
+# #library("readr")
+# write_csv2(outcome_theory_data,"../results/Counts of Outcome Constructs According to Theories - Single_Study.csv")
+```
+
+
+
+
+
