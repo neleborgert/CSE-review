@@ -1095,7 +1095,9 @@ variables_polar_barchart
 ggsave("../results/framework_variables_polar_barchart.png", width=15, height=15) #attention: saves last gg plot
 ```
 
-## TO DO: Cause variables (theory)
+## TO DO: Theory framework variables
+
+### TO DO: Cause variables (theory)
 Frequencies: String split, long format, create data frame
 ```{r}
 
@@ -1107,7 +1109,7 @@ Calculate certainty
 ```
 
 
-## TO DO: Outcome variables (theory)
+### TO DO: Outcome variables (theory)
 String split into several columns (where you don't know the number of output columns)
 ```{r}
 # before_outcome_theory <- data.frame(single_study$outcome_variables_theory)
@@ -1162,7 +1164,53 @@ Create data frame with construct and count/frequency
 # write_csv2(outcome_theory_data,"../results/Counts of Outcome Constructs According to Theories - Single_Study.csv")
 ```
 
+# 6. Interventions
 
+## Intervention frequency
+```{r}
+#create data frame
+interv_factor <- data.frame(single_study$intervention)
+
+#set as vector
+interv_factor <- sapply(interv_factor, as.vector)
+
+#distribution (incl NA and only percentages)
+interv<- data.frame(prop.table(table(interv_factor[,1], exclude = NULL)))
+
+#get totals of distribution
+table(interv_factor[,1], exclude = NULL)
+
+#merge data frames
+#r_proportions <- merge(data.frame(outcome, row.names=NULL), data.frame(cause, row.names=NULL), by = 0, all = TRUE)[-1]
+
+#rename columns
+colnames(interv) <- c("Intervention","Freq")
+
+#save descriptive values in table
+#library("readr")
+write_csv2(interv,"../results/Conditional Proportions of Factor Intervention (incl. NA).csv")
+```
+
+## Intervention description table
+Save table
+```{r}
+#library("devtools")
+#devtools::install_github("rempsyc/rempsyc")
+#library(rempsyc)
+#edit via package: flextable functions
+intervention_table <- nice_table(intervention_table_data)
+intervention_table
+
+#save table
+save_as_docx(intervention_table, path = "../results/intervention_table.docx")
+```
+
+# 7. Smart home
+Check out codebook1_smarthome and codebook2_smarthome
+```{r}
+#visual inspection of data sets
+View(codebook1_smarthome$outcome_variables_new)
+```
 
 
 
