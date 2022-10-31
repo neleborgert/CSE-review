@@ -1091,7 +1091,14 @@ Frequencies: String split, long format, create data frame
 
 Calculate certainty
 ```{r}
+#set as vector
+single_study$cause_variables_theory_certainty <- as.vector(single_study$cause_variables_theory_certainty)
 
+#distribution (incl NA and only percentages)
+prop.table(table(single_study$cause_variables_theory_certainty, exclude = NULL))
+
+#get totals of distribution
+table(single_study$cause_variables_theory_certainty, exclude = NULL)
 ```
 
 
@@ -1195,7 +1202,7 @@ save_as_docx(intervention_table, path = "../results/intervention_table.docx")
 Check out codebook1_smarthome and codebook2_smarthome
 ```{r}
 #visual inspection of data sets
-View(codebook1_smarthome$outcome_variables_new)
+#View(codebook1_smarthome$outcome_variables_new)
 ```
 
 
