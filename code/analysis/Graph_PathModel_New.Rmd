@@ -1,0 +1,168 @@
+---
+title: "Graph_New"
+author: "Luisa Jansen"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+#### Load Packages
+
+```{r Pakete, message = FALSE}
+library(remotes)
+library(ggpattern)
+library(dplyr)
+library(ggplot2)
+library(readxl)
+library(data.table)
+library(tidyr)
+library(stringr)
+library(wesanderson)
+```
+
+## Preparation 
+
+Read Dataframes with Cause Variables and their groups as well as Outcome Variables and their groups
+```{r}
+data_outcome <- read_excel("C:/Users/luisa/Documents/Arbeit/Nele/Review Self-Efficacy/Grafik/Aktualisierter Versuch/ListOfOutcomeVariables.xlsx")
+
+data_cause <- read_excel("C:/Users/luisa/Documents/Arbeit/Nele/Review Self-Efficacy/Grafik/Aktualisierter Versuch/ListOfCauseVariables.xlsx")
+# Separate Cause Variables with multiple groups (each variable can now have multiple groups) 
+data_cause_multiple <- separate_rows(data_cause, Group, sep = ",")
+data_cause_multiple$Group <- gsub(" ", "", data_cause_multiple$Group)
+
+```
+
+Create dataframes with variables that are both outcome as well as cause variables
+```{r}
+data_both <- na.omit(left_join(data_outcome, data_cause_multiple, by = "Construct"))
+
+# Create List with "both variables" 
+ListOfBothConstructs <- data.frame(data_both$Construct) %>% distinct()
+
+# Convert to String
+BothVariables <- c(toString(ListOfBothConstructs$data_both.Construct))
+BothVariables
+
+# Align List (copied in with " " around each word) with "outcome variables"
+data_outcome_both <- data_outcome[data_outcome$Construct %in% c("attitude", "awareness", "competition effectiveness for recruitment", "competition performance and satisfaction", "concerns", "expertise", "hearsay", "interest", "job satisfaction", "literacy", "organizational fit", "perceived risk", "problematic behavior", "protection behavior", "satisfaction", "sharing"),]
+
+# Align List (coped in with " " around each word) with "cause variables"
+data_cause_both <- data_cause_multiple[data_cause_multiple$Construct %in% c("attitude", "awareness", "competition effectiveness for recruitment", "competition performance and satisfaction", "concerns", "expertise", "hearsay", "interest", "job satisfaction", "literacy", "organizational fit", "perceived risk", "problematic behavior", "protection behavior", "satisfaction", "sharing"),]
+
+```
+
+Calculate frequency of constructs in each group
+```{r}
+# Outcome Groups
+table(data_outcome$Group)
+outcome_frequency <- as.data.frame(table(data_outcome$Group))
+outcome_frequency <- outcome_frequency %>% rename(group = Var1, frequency = Freq)
+
+# Cause Groups (each variable can have multiple groups)
+table(data_cause_multiple$Group)
+cause_frequency <- as.data.frame(table(data_cause_multiple$Group))
+cause_frequency <- cause_frequency %>% rename(group = Var1, frequency = Freq)
+
+# Outcome in Both
+table(data_outcome_both$Group)
+outcome_both_frequency <- as.data.frame(table(data_outcome_both$Group))
+outcome_both_frequency <- outcome_both_frequency %>% rename(group = Var1, frequency = Freq)
+
+# Cause in Both (each variable can have multiple groups)
+table(data_cause_both$Group)
+cause_both_frequency <- as.data.frame(table(data_cause_both$Group))
+cause_both_frequency <- cause_both_frequency %>% rename(group = Var1, frequency = Freq)
+```
+
+
+## Create Graphs
+
+### Outcome Variables 
+
+```{r}
+wes_color <- wes_palette("FantasticFox1", 4, type = c("discrete"))[3:4]
+
+barplot_outcome <- ggplot(data = outcome_frequency, aes(x = group, y = frequency))+
+  geom_bar(stat = "identity", fill = wes_color[1]) +
+  coord_flip() +
+  theme_void() +
+  ggtitle("Outcome Variables \n") +
+  ylim(0,100) +
+  theme(plot.title = element_text(hjust = 0.5, family = "serif", size = 30)) +
+  scale_x_discrete(limits = c("other", "control", "motivation", "intention", "behavior"))+
+  # geom_text(aes(label = frequency), vjust = 0.3, size = 4, nudge_y = -2.5, col = "white", family = "serif")+ 
+  geom_text(aes(label = c("Behavior", "Control", "Intention", "Motivation", "Other")),family = "serif", 
+            vjust = 0.3, size = 5, nudge_y = c(10,9,10,12,6), col = "black")
+
+ggsave("C:/Users/luisa/Documents/Arbeit/Nele/Review Self-Efficacy/Grafik/Aktualisierter Versuch/Abbildungen/outcome.test.png", bg = "white")
+
+barplot_outcome
+```
+
+### Cause Variables
+
+```{r, message = FALSE}
+barplot_cause <- ggplot(data = cause_frequency, aes(x = group, y = frequency))+
+  geom_bar(stat = "identity", fill = wes_color[2], width = 0.9) +
+  coord_flip() +
+  theme_void() +
+  ggtitle("Cause Variables \n") +
+  theme(plot.title = element_text(hjust = 0.5, family = "serif", size = 30)) +
+  scale_x_discrete(limits = c("demographics", "cognitive", "vicariousexperience", "emotionalarousal", "persuasion", "mastery"))+
+  # geom_text(aes(label = frequency), vjust = 0.3, size = 4, nudge_y = 2.5, col = "white", family = "serif")+ 
+  geom_text(aes(label = c("Cognitive", "Demographics", "Emotional Arousal", "Mastery", "Persuasion", "Vicarious Experience")),family = "serif", vjust = 0.3, size = 5, nudge_y = c(-10,-14,-18,-10,-12,-19), col = "black")+
+  scale_y_reverse(limits=c(100,0)) 
+
+
+ggsave("C:/Users/luisa/Documents/Arbeit/Nele/Review Self-Efficacy/Grafik/Aktualisierter Versuch/Abbildungen/cause.test.png", bg = "white")
+
+barplot_cause
+```
+
+### Both Variables
+#### Outcome Both
+```{r}
+barplot_outcome_both <- ggplot(data = outcome_both_frequency, aes(x = group, y = frequency))+
+  geom_bar(stat = "identity", fill = wes_color[1], width = 0.9) +
+  geom_col_pattern(fill = wes_color[1], colour = "white",
+                   pattern='stripe', pattern_size = 0.1, pattern_spacing = 0.02) +
+  coord_flip() +
+  theme_void() +
+  ggtitle("Both Variables in Outcome Groups\n") +
+  ylim(0,100) +
+  theme(plot.title = element_text(hjust = 0.5, family = "serif", size = 30)) +
+  scale_x_discrete(limits = c("other", "intention", "behavior"))+
+  #geom_text(aes(label = frequency), vjust = 0.3, size = 4, nudge_y = -2.5, col = "white", family = "serif")+ 
+  geom_text(aes(label = c("Behavior", "Intention", "Other")),family = "serif", vjust = 0.3, size = 5, nudge_y = c(9,9,10), col = "black")
+
+ggsave("C:/Users/luisa/Documents/Arbeit/Nele/Review Self-Efficacy/Grafik/Aktualisierter Versuch/Abbildungen/outcome_both.test.png", bg = "white")
+
+barplot_outcome_both
+```
+#### Cause Both
+```{r, message = FALSE}
+barplot_cause_both <- ggplot(data = cause_both_frequency, aes(x = group, y = frequency))+
+  geom_bar(stat = "identity", fill = wes_color[2], width = 0.9) +
+  geom_col_pattern(fill = wes_color[2], colour = "white",
+                   pattern='stripe', pattern_size = 0.1, pattern_spacing = 0.02) +
+  coord_flip() +
+  theme_void() +
+  ggtitle("Both Variables in Cause Groups \n") +
+  theme(plot.title = element_text(hjust = 0.5, family = "serif", size = 30)) +
+  scale_x_discrete(limits = c("cognitive", "vicariousexperience", "persuasion", "mastery"))+
+  # geom_text(aes(label = frequency), vjust = 0.3, size = 4, nudge_y = 2.5, col = "white", family = "serif")+ 
+  geom_text(aes(label = c("Cognitive", "Mastery", "Persuasion", "Vicarious Experience")),family = "serif",  
+            vjust = 0.3, size = 5, nudge_y = c(-16,-12,-10,-20), col = "black")+
+  scale_y_reverse(limits=c(100,0)) 
+
+
+ggsave("C:/Users/luisa/Documents/Arbeit/Nele/Review Self-Efficacy/Grafik/Aktualisierter Versuch/Abbildungen/cause_both.test.png", bg = "white")
+
+barplot_cause_both
+```
+
+
