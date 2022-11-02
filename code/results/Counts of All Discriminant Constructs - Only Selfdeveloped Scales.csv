@@ -1,5 +1,4 @@
 construct_name;construct_frequency
-actual compliance;1
 advertisement avoidance;1
 advertising value;1
 anti-malware protection;1
@@ -23,6 +22,7 @@ brand trust;1
 bring your own device information security protect intention;1
 commitment;1
 compatibility;1
+compliance;1
 compliance behavior;2
 compliance intention;7
 compliance intention regarding security policy;1
@@ -166,7 +166,6 @@ perceived personalization;1
 perceived privacy protection;1
 perceived probability;1
 perceived relevance;1
-perceived rewards;1
 perceived risk;4
 perceived sanction probability;4
 perceived sanction severity;4
@@ -220,7 +219,7 @@ resistance to influence from others;1
 response benefits;1
 response cost;16
 response efficacy;36
-rewards;6
+rewards;7
 risk-taking;1
 routine use of unknown wireless network;1
 safety of resources;1
@@ -233,8 +232,8 @@ satisfaction with technology compliance supporting higher objectives;1
 security attitude;1
 security awareness;1
 security behavior;5
-security compliance;1
 security compliance burnout;1
+security compliance intention;1
 security compliance overload;1
 security education, training, and awareness effectiveness;1
 security exposure;1

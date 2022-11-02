@@ -1,5 +1,4 @@
 construct_name;construct_frequency
-actual compliance;2
 advertisement avoidance;2
 advertising value;2
 anti-malware protection;2
@@ -23,6 +22,7 @@ brand trust;2
 bring your own device information security protect intention;2
 commitment;2
 compatibility;2
+compliance;2
 compliance behavior;4
 compliance intention;14
 compliance intention regarding security policy;2
@@ -79,10 +79,10 @@ information security behavior;4
 information security compliance behavior;3
 information security conscious care behavior;2
 information security culture;2
+information security experience and involvement;2
 information security issues awareness;2
 information security organization policy;2
 information security policy awareness;6
-information security policy compliance intention;4
 information security system quality;2
 information security technologies awareness;2
 informational support;2
@@ -130,15 +130,15 @@ peer influence;2
 people influence;2
 perceived anonymity of others;2
 perceived anonymity of self;2
-perceived barriers;12
+perceived barriers;13
 perceived behavioral control;12
-perceived benefits;12
+perceived benefits;13
 perceived benefits of compliance;2
 perceived control;2
 perceived controllability;8
 perceived convenience;2
 perceived cost;4
-perceived cost of compliance;4
+perceived cost of compliance;5
 perceived cost of non-compliance;4
 perceived detector effort requirement;2
 perceived detector usefulness;2
@@ -157,8 +157,7 @@ perceived personalization;2
 perceived privacy protection;2
 perceived probability;2
 perceived relevance;2
-perceived rewards;2
-perceived risk;6
+perceived risk;7
 perceived sanction probability;8
 perceived sanction severity;8
 perceived security threats;2
@@ -167,7 +166,7 @@ perceived severity;55
 perceived susceptibility;11
 perceived threat;6
 perceived threat severity;33
-perceived threat susceptibility;10
+perceived threat susceptibility;11
 perceived threat vulnerability;12
 perceived trust;8
 perceived usefulness;12
@@ -210,7 +209,7 @@ resistance to influence from others;2
 response benefits;2
 response cost;32
 response efficacy;70
-rewards;13
+rewards;15
 risk-taking;2
 routine use of unknown wireless network;2
 safety of resources;2
@@ -222,7 +221,7 @@ satisfaction with technology;2
 satisfaction with technology compliance supporting higher objectives;2
 security attitude;2
 security awareness;2
-security behavior;8
+security behavior;9
 security compliance burnout;2
 security compliance overload;2
 security exposure;2
