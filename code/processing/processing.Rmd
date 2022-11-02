@@ -580,7 +580,7 @@ before_outcome2 <- data.frame(single_study$outcome_variables_new)
 colnames(before_outcome2)[1] <- "outcome_variables"
 max(lengths(strsplit(as.character(before_outcome2$outcome_variables), '; ')))
 #library(data.table)
-setDT(before_outcome2)[, paste0("outcome_variables", 1:6) := tstrsplit(single_study$outcome_variables_new, "; ")] #6 = number of columns (items are assigned to) 
+setDT(before_outcome2)[, paste0("outcome_variables", 1:5) := tstrsplit(single_study$outcome_variables_new, "; ")] #6 = number of columns (items are assigned to) 
 before_outcome2
 
 
@@ -614,13 +614,12 @@ outcome_wide_data2 <- data.frame(id = 1:mo, before_outcome2$outcome_variables,
                               before_outcome2$outcome_variables2,
                               before_outcome2$outcome_variables3,
                               before_outcome2$outcome_variables4,
-                              before_outcome2$outcome_variables5,
-                              before_outcome2$outcome_variables6)
+                              before_outcome2$outcome_variables5)
 ##making sure ID column is a factor
 outcome_wide_data2$id <- as.factor(outcome_wide_data2$id)
 ##changing into long format
 #library(tidyr)
-outcome_long_data2 <- gather(outcome_wide_data2, outcome_variables_number, outcome_variables, before_outcome2.outcome_variables1:before_outcome2.outcome_variables6, factor_key = T) 
+outcome_long_data2 <- gather(outcome_wide_data2, outcome_variables_number, outcome_variables, before_outcome2.outcome_variables1:before_outcome2.outcome_variables5, factor_key = T) 
 outcome_long_data2
 ##delete NAs in data frame
 outcome_long_data_clean2 <- subset(outcome_long_data2, !is.na(outcome_long_data2[,4])) #column 4 
