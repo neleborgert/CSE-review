@@ -709,7 +709,7 @@ Number of constructs
 nrow(only_discriminant_data)
 
 #only convergent
-nrow(only_convergent_data)
+nrow(only_convergent_data)-1 #due to one empty cell
 
 #doublets
 nrow(doublets_data)
