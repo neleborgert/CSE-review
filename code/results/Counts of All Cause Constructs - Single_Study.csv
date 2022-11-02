@@ -31,7 +31,7 @@ habit;1
 have had a security and privacy problem on the Internet;1
 having heard of someone who had a security and privacy problem on the Internet;1
 imposition of sanctions (formal control);1
-information /= threat awareness;1
+information (threat awareness);1
 information ethics course;1
 information security issues awareness;1
 information security policy;1
@@ -56,11 +56,11 @@ perceived loss due to detector error;1
 perceived threat severity;2
 perceived threat susceptibility;2
 performance and satisfaction within the cybersecurity competition;1
-personal motivation /= security attitude;1
-personality traits (neuroticism, extroversion, openess, agreeableness, conscientiousness);1
+personal motivation (security attitude);1
+personality traits (neuroticism, extroversion, openness, agreeableness, conscientiousness);1
 persuasion knowledge;1
 playing game;1
-positive emotions (moderator: information security awareness);1
+positive emotions;1
 prior malware experience;1
 privacy concern;1
 privacy control salience;1
@@ -86,20 +86,19 @@ self-technical controllability;1
 SETA (security education, training, and awareness) effectiveness;1
 sharing preferences;1
 situational support;1
-social motivation /= social support;1
+social motivation (social support);1
 social online privacy literacy;1
 specification of information security policies and procedures (formal control);1
 subjective norm;1
 technological online privacy literacy;1
-training (learner control and feedback);1
-training method (learner control and feedback);1
+training method (learner control and feedback);2
 training to use security;1
 trait negative affect;3
 trait negative affect (fear, hostility, guilt, sadness);1
 trait positive affect;3
 trait positive affect (joviality, self-assurance, attentiveness);1
 verbal persuasion;1
-vicarious experience (moderator: self-monitoring);1
+vicarious experience;1
 vicarious experience of enactive mastery training;1
 victim of hacking;1
 work arrangement (in-house vs. remote employee);1

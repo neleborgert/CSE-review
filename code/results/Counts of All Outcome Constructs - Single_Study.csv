@@ -1,11 +1,10 @@
 construct_name;construct_frequency
 adoption intention;1
+approach intention;1
 attitude toward computer security behaviors;1
-avoidance behavior (interaction: self-efficacy * anticipated regret);1
-avoidance behavior (moderator: gender);1
-avoidance motivation;6
-avoidance motivation (interaction: self-efficacy * anticipated regret);1
-avoidance motivation (moderator: gender);1
+avoidance behavior;1
+avoidance intention;1
+avoidance motivation;7
 awareness of information security policies;1
 backup data;1
 behavioral control;1
@@ -14,8 +13,8 @@ behavioral intent to comply with information security best practices;1
 behavioral intention to practice information security;1
 behavioral security intention;1
 bring your own device information security protect intention;1
-community collective efficacy (moderator: community belonging);1
-compliance behavior (moderator: organizational commitment);1
+community collective efficacy;1
+compliance behavior;1
 compliance intention;4
 computer security practices;1
 consumer typology based on response pattern to the personalization privacy paradox;1
@@ -25,7 +24,7 @@ coping appraisal;3
 critical processing;1
 customization outcome expectations;1
 cyber security behavior;5
-cyber security behavior /= usage (moderators: gender, age, education);1
+cyber security behavior (usage);1
 cyber security self-monitoring;1
 danger control;1
 decision to deviate from information security policy;1
@@ -38,7 +37,7 @@ expected negative outcome from reporting spear phishing emails;1
 extent of actual detector use;1
 fear control;1
 formation of habit to continue compliance with privacy policy;1
-friending (moderator: social capital [expected benefits]);2
+friending;3
 general security compliance behavior;1
 have had a security and privacy problem on the Internet;1
 having a security and privacy problem on the Internet;1
@@ -52,9 +51,8 @@ information disclosure behavior;1
 information disclosure intention;2
 information privacy concern;2
 information security awareness;1
-information security awareness /= intention to practice IT security;1
-information security behavior;5
-information security behavior (moderator: locus of control);1
+information security awareness (intention to practice IT security);1
+information security behavior;6
 information security compliance;1
 information security compliance behavior;1
 information security conscious care behavior;1
@@ -66,7 +64,7 @@ Instagram sharing;1
 intent to place personal data in a blockchain application;1
 intention;1
 intention and behavior to use own device;1
-intention to carry out computer security behavior (moderators: gender, age, ethnicity);2
+intention to carry out computer security behavior;2
 intention to comply;2
 intention to comply with information security policies;3
 intention to comply with information security policy (regarding phishing threat);1
@@ -88,26 +86,12 @@ intention to protect organizational data;1
 interest in cybersecurity activities;1
 job satisfaction in cybersecurity;1
 likelihood of reporting spear phishing emails;1
-limiting profile visibility (moderator: social capital [expected benefits]);2
+limiting profile visibility;3
 mobile information protection intention;1
-mobile security behavior (moderator: psychological ownership);1
-mobile security intention (moderator: psychological ownership);1
-moderator (habit - privacy disclosure);1
-moderator (impulse - privacy disclosure);1
-moderator (perceived relevance - approach);1
-moderator (perceived relevance - avoidance);1
-moderator (perceived vulnerability - approach);1
-moderator (perceived vulnerability - avoidance);1
-moderator (privacy concern - frieding);1
-moderator (privacy concern - limiting profile visibility);1
-moderator (privacy concern - self-disclosure);1
-moderator (provider characteristics - perceived privacy protection);1
-"moderator (systematic specific privacy concern - self-anticipated satisfaction with check-out);";1
-moderator (third party seal - perceived privacy empowerment);1
-moderator (third party seal - trusting beliefs);1
-moderator (thrid party seal - trusting intentions);1
+mobile security behavior;1
+mobile security intention;1
 online privacy literacy;1
-online privacy paradox behavior /= online privacy protection behavior;1
+online privacy paradox behavior (online privacy protection behavior);1
 password compliance behavior;1
 perceived ad persuasiveness;1
 perceived behavioral control;1
@@ -117,6 +101,8 @@ perceived behavioral control (regarding tailgaiting threats);1
 perceived control;1
 perceived fit within cybersecurity organizations;1
 perceived importance of online privacy;1
+perceived privacy empowerment;1
+perceived privacy protection;1
 perceived risk;1
 perceived threat;1
 perceived threat of new entry;1
@@ -125,29 +111,29 @@ perceived value;1
 perceptions of cybersecurity;1
 performance within the cybersecurity competition;1
 personal information compromise;1
-power usage;1
 precautionary online behavior;1
 privacy attitude;1
 privacy behavior;3
 privacy concern;5
+privacy disclosure;2
 privacy intention;1
 privacy management strategies;1
 privacy protection behavior;3
+proactive technology users with high knowledge (power usage);1
 problematic information security behavior;1
 proficiency in security;1
-protection-motivated behaviors (moderator: information security awareness);1
+protection-motivated behaviors;1
 protection action;1
 protection motivation;3
-protection motivation /= privacy concern;1
-protection motivation theory /= behavioral intention;1
+protection motivation (privacy concern);1
+protection motivation theory (behavioral intention);1
 response cost;1
 response efficacy;1
 risky cybersecurity behavior;1
-risky online behavior (moderators: gender, social norms);1
+risky online behavior;1
 satisfaction within the cybersecurity competition;1
 scaling coefficient (rate of stolen passwords, cost, password expiration time, password complexity);1
-secure smartphone usage;1
-secure smartphone usage (interaction: risk awareness * self-efficacy * social support);1
+secure smartphone usage;2
 security assurance behavior;1
 security attitudes;1
 security behavior;2
@@ -162,8 +148,9 @@ security intention future internet of things protection changes;1
 security intention future security changes;1
 security knowledge coordination;1
 security outcome expectancy;1
+"self-anticipated satisfaction with check-out;";1
 self-defense intention;1
-self-disclosure;2
+self-disclosure;3
 self-regulation;1
 self-reportes cyber security behavior;1
 sharenting;1
@@ -174,6 +161,8 @@ social trust outcome expectations;1
 specific concerns about Facebook social media privacy;1
 technological coping;1
 technology compliance intentions;1
+trusting beliefs;1
+trusting intentions;1
 unwillingness in information sharing in mobile health;1
 use of Facebook's privacy settings;1
 user's compliance behavior;1
