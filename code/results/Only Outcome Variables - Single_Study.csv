@@ -2,84 +2,59 @@ construct_name;construct_frequency
 adoption intention;1
 advertisement persuasiveness;1
 anxiety;1
+approach intention;1
 assurance behavior;1
-avoidance behavior (interaction: self-efficacy * anticipated regret);1
-avoidance behavior (moderator: gender);1
-avoidance intention;1
-avoidance motivation;6
-avoidance motivation (interaction: self-efficacy * anticipated regret);1
-avoidance motivation (moderator: gender);1
+avoidance intention;2
+avoidance motivation;7
 behavioral control;5
 behavioral intention;2
-collective efficacy;1
-collective efficacy (moderator: community belonging);1
-compliance behavior;6
-compliance behavior (moderator: organizational commitment);1
+collective efficacy;2
+compliance behavior;7
 compliance habit;1
 compliance intention;19
 consumer typology;1
+coordination;1
 coping;4
 critical processing;1
 danger control;1
+disclosure;1
 disclosure behavior;1
 disclosure intention;5
 fear control;1
-friending (moderator: social capital);2
-information;1
+friending;3
 information security problem;3
-information security problem hearsay;1
 intention;1
-moderator (concerns - frieding);1
-moderator (concerns - profile visibility);1
-"moderator (concerns - satisfaction);";1
-moderator (concerns - self-disclosure);1
-moderator (habit - disclosure);1
-moderator (impulse - disclosure);1
-moderator (perceived relevance - approach);1
-moderator (perceived relevance - avoidance);1
-moderator (perceived vulnerability - approach);1
-moderator (perceived vulnerability - avoidance);1
-moderator (provider - perceived protection);1
-moderator (seal - empowerment);1
-moderator (seal - trust beliefs);1
-moderator (seal - trust intention);1
 outcome expectation;6
 password metrics;1
 perceived control;1
 perceived importance;1
+perceived protection;1
 perceived threat;3
 perceived value;1
 perceptions;1
 policy deviation decision;1
+power usage;1
 privacy behavior;3
+privacy empowerment;1
 privacy intention;1
 privacy management strategies;1
-profile visibility (moderator: social capital);2
-protection behavior (moderator: awareness);1
-protection changes;1
+profile visibility;3
 protection intention;10
-protection measures;2
 protection motivation;3
 reinforcement intention;1
 reporting;1
 response cost;1
-risky behavior;1
-risky behavior (moderators: gender, norms);1
-security behavior;22
-security behavior (moderator: locus of control);1
-security behavior (moderator: psychological ownership);1
-security behavior (moderators: gender, age, education);1
-security changes;1
+risky behavior;2
+security behavior;25
 security effectiveness;2
-security intention;12
-security intention (moderator: psychological ownership);1
-security intention (moderators: gender, age, ethnicity);2
-self-disclosure;2
+security intention;19
+self-disclosure;3
 self-monitoring;1
 self-regulation;1
 sharenting;1
 sharing willingness;2
-use behavior;5
-use behavior (interaction: awareness * self-efficacy * support);1
+trust beliefs;1
+trust intention;1
+use behavior;4
 use intention;1
 victimization;1
