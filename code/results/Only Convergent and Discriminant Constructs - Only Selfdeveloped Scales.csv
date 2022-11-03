@@ -1,36 +1,36 @@
 construct_name;construct_frequency
-actual compliance;2
-actual password compliance;2
-actual security behavior;2
 advertisement avoidance;2
 advertising value;2
 anti-malware protection;2
 anticipated regret;4
 assurance mechanisms efficacy;2
-attachment;2
-attitude;22
+attachment to online presence;2
+attitude toward compliance;12
 attitude toward computer security behavior;2
-attitude towards information sharing;2
-attitude towards privacy protection;2
-attitudes towards compliance;2
-attitudes towards security compliance;2
+attitude toward information security;2
+attitude toward information security policy compliance;2
+attitude toward information sharing;2
+attitude toward privacy measures;2
+attitude toward privacy protection;2
+attitude toward resisting social engineering;2
+attitude toward security compliance;2
 automatic use of unknown wireless network;2
 autonomy;2
 avoidance behavior;2
-awareness;2
+awareness of policies;2
 backing up data;2
-barriers;2
-behavior;3
 behavioral compliance intention;2
-behavioral intention;25
-benefits;2
+behavioral intention to adopt recommended security actions;2
+behavioral intention to comply with information security best practices;2
+behavioral intention to comply with information systems security policy;2
+behavioral intention to practice information security;2
+behavioral intention to protect privacy of electronic medical records;2
+behavioral intention to select application for privacy;2
 brand trust;2
 bring your own device information security protect intention;2
-commitment;2
-compatibility;2
-compliance behavior;4
+compatibility of protection and values, needs, or experiences;2
+compliance behavior;10
 compliance intention;14
-compliance intention regarding security policy;2
 compliance knowledge of security policies;2
 computer anxiety;2
 computer security behavioral intention;2
@@ -38,19 +38,16 @@ continuation of non-compliant behavior;2
 continuous privacy policy compliance intention;2
 conventional coping;2
 coping efficacy;2
-cost-benefit analysis;8
-cost of compliance;3
-cost of non-compliance;2
+cost-benefit analysis of compliance behavior;8
 countermeasure awareness;2
-cues;2
-cues to action;10
+cues to action;12
 customization outcome expectations;2
 defense of ubiquity;2
 deficient self-regulation;2
 descriptive information disclosure intention;2
 descriptive norms;4
 desktop security behavior;2
-detection;2
+detection of non-compliance;2
 difficult access to security requirements;2
 electronic device usage;2
 embarassment outcome expectations;2
@@ -62,33 +59,36 @@ faciliating conditions;4
 fear;3
 fear arousal;2
 fear of threat;2
-general information policy;3
-general information security;3
+general information policy;2
+general information security;2
 general information security awareness;4
 general online privacy concerns;2
-general privacy concern;2
+general privacy concerns;2
 general security orientation;3
-government intrusion concern;2
+government intrusion concerns;2
 government social media participation;2
-habit;4
+habit of self-disclosure;2
+habit to continue compliance;2
 health information privacy concerns;2
 high security skills requirements;2
-immediacy;2
-impact;2
+impact of threat;2
 impact on the system performance;2
-impulse;2
+impulse of self-disclosure;2
 induction control intention;2
 information abuse outcome expectations;2
 information assurance awareness;2
+information collection privacy concerns;2
 information disclosure intention;2
-information privacy concerns;5
+information privacy concerns;7
+information security attitude;2
 information security awareness;6
 information security behavior;4
-information security compliance behavior;3
+information security compliance behavior;2
 information security conscious care behavior;2
 information security culture;2
 information security experience and involvement;2
 information security issues awareness;2
+information security norms;2
 information security organization policy;2
 information security policy awareness;6
 information security policy compliance intention;4
@@ -96,24 +96,27 @@ information security system quality;2
 information security technologies awareness;2
 informational support;2
 injunctive norms;2
-innovativeness;2
-intention;6
-intention continuance;2
+intention to comply with security policy;2
+intention to continue to comply with information security policies;2
 intention to disclose biographical information;2
 intention to disclose feedback information;2
 intention to disclose personal identifiers;2
 intention to disclose usage context;2
 intention to disclose usage patterns;2
+intention to perform information security policy-related behavior;8
 intention to perform malware avoidance behaviors;2
+intention to practice security behaviors;2
+intention to pratice information security;2
 intention to protect electronic medical records privacy;2
 intention to protect organizational data;2
+intention to resist social engineering;2
 intention to use location-based advertising;2
 intrinsic benefit;2
 intrinsic cost;2
 leadership;2
 learner control;2
-legal/punishment;3
-likelihood;2
+legal consequences/punishment;2
+likelihood of threat;2
 locus of control;4
 maladaptive rewards;2
 management support;2
@@ -123,81 +126,87 @@ mobile device security usage;2
 mobile information protection intention;2
 mobile phishing avoidance behavior;2
 mobile phishing avoidance motivation;2
-mobile privacy concern;2
+mobile privacy concerns;2
 mobile protection settings awareness;2
 monitoring and evaluation;2
 moral obligation;2
 normative beliefs;12
-norms;2
 optimism bias;2
-organizational commitment;10
+organizational commitment;12
 organizational norms;2
-past performance;2
+password compliance behavior;3
+past performance (technical and security ability);2
 peer influence;2
 people influence;2
 perceived anonymity of others;2
 perceived anonymity of self;2
-perceived barriers;11
+perceived barriers;13
 perceived behavioral control;12
-perceived benefits;11
+perceived benefits;13
 perceived benefits of compliance;2
 perceived control;2
 perceived controllability;8
 perceived convenience;2
 perceived cost;4
+perceived cost of (non-)compliance;2
 perceived cost of compliance;2
-perceived cost of non-compliance;2
+perceived cost of non-compliance;4
 perceived detector effort requirement;2
 perceived detector usefulness;2
 perceived ease of protection;2
-perceived ease of use;2
-perceived ease of use of technology;2
-perceived effectiveness;6
+perceived ease of use;4
+perceived effectiveness of coping;2
 perceived effectiveness of privacy settings;2
+perceived effectiveness of website security;2
+perceived effectiveness on information security policy compliance behavior;2
 perceived enhancement of organizational mission achievement;2
 perceived enhancement of personal mission achievement;2
 perceived expense;2
 perceived fairness of reward;2
+perceived information privacy risk;2
 perceived intrusiveness;2
 perceived justice of punishment;2
 perceived loss due to detector error;2
 perceived password effectiveness;2
 perceived personalization;2
 perceived privacy protection;2
-perceived probability;2
+perceived probability of security breach or risk;2
 perceived relevance;2
-perceived response cost;2
-perceived response efficacy;8
-perceived risk;5
+perceived risk of online banking;2
+perceived risk of privacy infringement;2
+perceived risks of sharing information;2
 perceived sanction probability;8
 perceived sanction severity;8
 perceived security threats;2
 perceived security vulnerabilities;2
-perceived severity;46
-perceived subjective norms;8
-perceived susceptibility;9
+perceived severity;88
+perceived susceptibility;22
 perceived threat;6
-perceived threat severity;17
-perceived threat susceptibility;3
-perceived threat vulnerability;4
-perceived trust;2
-perceived usefulness;12
+perceived trust in information security policies;2
+perceived usefulness of compliance;2
+perceived usefulness of information security;2
 perceived usefulness of information security policy;2
+perceived usefulness of information security protection;2
+perceived usefulness of protecting privacy;2
+perceived usefulness of security technology for job performance;2
+perceived usefulness of system;2
 perceived usefulness of technology;2
 perceived value;2
-perceived vulnerability;47
+perceived vulnerability;66
 perceived vulnerability in security;2
+perceived vulnerability of resources;2
 perceived working experience;2
 personal health information disclosure intention;2
 personal information compromise;2
-personality;3
+personal innovativeness;2
+personality (big five);2
+personalized social cues of immediacy;2
 persuasion knowledge;2
 positive emotions;2
 prevention cost;2
-privacy;3
 privacy assurance statement;2
 privacy behavior;4
-privacy concern-information collection;2
+privacy beliefs;2
 privacy concerns;10
 privacy customization;2
 privacy disclosure;2
@@ -208,87 +217,79 @@ privacy risk awareness;2
 privacy settings use;2
 privacy valuation;2
 protection-motivated behaviors;2
+protection intention;2
 protection motivation;9
 psychological ownership;5
 purchasing intention;2
-reactance;2
 reactance to compliance;2
+reactance to persuasion;2
 reactance toward advice and recommendations;2
-religion/moral;3
+religion/moral;2
 resistance to influence from others;2
 response benefits;2
-response cost;31
-response efficacy;62
+response cost;32
+response efficacy;70
 rewards;15
 risk-taking;2
-risk perception;2
 routine use of unknown wireless network;2
 safety of resources;2
 sanctions;6
-satisfaction;2
 satisfaction with information security policy and security practices;2
 satisfaction with management interventions of technology compliance;2
+satisfaction with prior compliance;2
 satisfaction with technology;2
 satisfaction with technology compliance supporting higher objectives;2
-security attitude;2
+security attitude;4
 security awareness;2
-security behavior;4
+security behavior;9
 security compliance burnout;2
 security compliance overload;2
 security exposure;2
 security familiarity;2
 security habit;4
+security intention;6
 security intention (existing);2
-security intentions;4
-security intentions (future);2
+security intention (future);2
 security knowledge coordination;2
 security policy;2
 security system satisfaction;2
-self-anticipated satisfaction;2
+self-anticipated satisfaction with system;2
 self-determination;2
 self-disclosure;2
 self defense intention;2
 senior management support;2
-severity;9
 sharing preferences;2
-social bond theory;2
+social bond theory (attachment, commitment, involvement, personal beliefs);2
 social connectedness;2
 social influence;4
 social interaction anxiety;2
 social norms;2
-social support;3
+social support;4
 social trust outcome expectations;2
-specification;2
-subjective norms;21
+specification of information security policies and procedures;2
+subjective norms;28
 superior influence;2
 supervisor-subordinate guanxi;2
-susceptibility;2
 system-specific privacy concerns;2
 technical controls;2
 technological coping;2
-technology awareness;3
+technology awareness;2
 technology compliance;2
 technology compliance intention;2
 technology faciliation;2
 technology security awareness;2
 threat appraisal;2
 threat awareness;2
-threat severity;16
-threat susceptibility;8
-threat vulnerability;8
 training perfomance;2
 training satisfaction;2
 trait negative affect;8
 trait positive affect;8
 transformational leadership;2
-trust;6
+trust in online banking;2
+trust in technology;4
 trust of mobile platform;2
 trusting beliefs;2
 understanding of resource vulnerability;2
-user's compliance behavior;4
-users' information privacy concerns;2
-vulnerability;7
-vulnerability of resources;2
 willingness to delay;2
 willingness to pretest;2
 willingness to refuse;2

@@ -649,7 +649,7 @@ Create data frame with construct and count/frequency
 ```{r}
 #as factor
 convergent_long_data_clean$convergent_description <- as.factor(convergent_long_data_clean$convergent_description)
-convergent_data <- data.frame(unclass(summary(convergent_long_data_clean$convergent_description, maxsum = 587))) #587 number of observations in convergent_long_data_clean
+convergent_data <- data.frame(unclass(summary(convergent_long_data_clean$convergent_description, maxsum = 577))) #577 number of observations in convergent_long_data_clean
 setDT(convergent_data, keep.rownames = TRUE)[] #convert row names into first column
 
 #rename columns
@@ -657,9 +657,6 @@ colnames(convergent_data)[1] <- "construct_name"
 colnames(convergent_data)[2] <- "construct_frequency"
 convergent_data
 #check for spelling mistakes
-#delete row 92 "information security behavior" and give additional count to row 91 "information security behavior"
-convergent_data <- convergent_data[-92,]
-convergent_data$construct_frequency[convergent_data$construct_name == "information security behavior"] <- 2
 
 #save as convergent construct counts
 #library("readr")
