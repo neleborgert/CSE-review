@@ -33,7 +33,7 @@ data_cause <- read_excel("C:/Users/luisa/Documents/Arbeit/Nele/Review Self-Effic
 # Separate Cause Variables with multiple groups (each variable can now have multiple groups) 
 data_cause_multiple <- separate_rows(data_cause, Group, sep = ",")
 data_cause_multiple$Group <- gsub(" ", "", data_cause_multiple$Group)
-
+data_cause_multiple$GroupNew <- ifelse(data_cause_multiple$Group == "cognitive" | data_cause_multiple$Group == "demographics", "other", data_cause_multiple$Group)
 ```
 
 Create dataframes with variables that are both outcome as well as cause variables
@@ -52,6 +52,7 @@ data_outcome_both <- data_outcome[data_outcome$Construct %in% c("attitude", "awa
 
 # Align List (coped in with " " around each word) with "cause variables"
 data_cause_both <- data_cause_multiple[data_cause_multiple$Construct %in% c("attitude", "awareness", "competition effectiveness for recruitment", "competition performance and satisfaction", "concerns", "expertise", "hearsay", "interest", "job satisfaction", "literacy", "organizational fit", "perceived risk", "problematic behavior", "protection behavior", "satisfaction", "sharing"),]
+data_cause_both$GroupNew <- ifelse(data_cause_both$Group == "cognitive" | data_cause_both$Group == "demographics", "other", data_cause_both$Group)
 
 ```
 
@@ -63,8 +64,8 @@ outcome_frequency <- as.data.frame(table(data_outcome$Group))
 outcome_frequency <- outcome_frequency %>% rename(group = Var1, frequency = Freq)
 
 # Cause Groups (each variable can have multiple groups)
-table(data_cause_multiple$Group)
-cause_frequency <- as.data.frame(table(data_cause_multiple$Group))
+table(data_cause_multiple$GroupNew)
+cause_frequency <- as.data.frame(table(data_cause_multiple$GroupNew))
 cause_frequency <- cause_frequency %>% rename(group = Var1, frequency = Freq)
 
 # Outcome in Both
@@ -73,8 +74,8 @@ outcome_both_frequency <- as.data.frame(table(data_outcome_both$Group))
 outcome_both_frequency <- outcome_both_frequency %>% rename(group = Var1, frequency = Freq)
 
 # Cause in Both (each variable can have multiple groups)
-table(data_cause_both$Group)
-cause_both_frequency <- as.data.frame(table(data_cause_both$Group))
+table(data_cause_both$GroupNew)
+cause_both_frequency <- as.data.frame(table(data_cause_both$GroupNew))
 cause_both_frequency <- cause_both_frequency %>% rename(group = Var1, frequency = Freq)
 ```
 
@@ -112,9 +113,9 @@ barplot_cause <- ggplot(data = cause_frequency, aes(x = group, y = frequency))+
   theme_void() +
   ggtitle("Cause Variables \n") +
   theme(plot.title = element_text(hjust = 0.5, family = "serif", size = 30)) +
-  scale_x_discrete(limits = c("demographics", "cognitive", "vicariousexperience", "emotionalarousal", "persuasion", "mastery"))+
+  scale_x_discrete(limits = c("other", "vicariousexperience", "emotionalarousal", "persuasion", "mastery"))+
   # geom_text(aes(label = frequency), vjust = 0.3, size = 4, nudge_y = 2.5, col = "white", family = "serif")+ 
-  geom_text(aes(label = c("Cognitive", "Demographics", "Emotional Arousal", "Mastery", "Persuasion", "Vicarious Experience")),family = "serif", vjust = 0.3, size = 5, nudge_y = c(-10,-14,-18,-10,-12,-19), col = "black")+
+  geom_text(aes(label = c("Emotional Arousal", "Mastery", "Other", "Persuasion", "Vicarious Experience")),family = "serif", vjust = 0.3, size = 5, nudge_y = c(-18,-12,-10,-12,-19), col = "black")+
   scale_y_reverse(limits=c(100,0)) 
 
 
@@ -129,7 +130,7 @@ barplot_cause
 barplot_outcome_both <- ggplot(data = outcome_both_frequency, aes(x = group, y = frequency))+
   geom_bar(stat = "identity", fill = wes_color[1], width = 0.9) +
   geom_col_pattern(fill = wes_color[1], colour = "white",
-                   pattern='stripe', pattern_size = 0.1, pattern_spacing = 0.02) +
+                   pattern='stripe', pattern_size = 0.1, pattern_spacing = 0.07) +
   coord_flip() +
   theme_void() +
   ggtitle("Both Variables in Outcome Groups\n") +
@@ -148,14 +149,14 @@ barplot_outcome_both
 barplot_cause_both <- ggplot(data = cause_both_frequency, aes(x = group, y = frequency))+
   geom_bar(stat = "identity", fill = wes_color[2], width = 0.9) +
   geom_col_pattern(fill = wes_color[2], colour = "white",
-                   pattern='stripe', pattern_size = 0.1, pattern_spacing = 0.02) +
+                   pattern='stripe', pattern_size = .1, pattern_spacing = 0.07) +
   coord_flip() +
   theme_void() +
   ggtitle("Both Variables in Cause Groups \n") +
   theme(plot.title = element_text(hjust = 0.5, family = "serif", size = 30)) +
-  scale_x_discrete(limits = c("cognitive", "vicariousexperience", "persuasion", "mastery"))+
+  scale_x_discrete(limits = c("other", "vicariousexperience", "persuasion", "mastery"))+
   # geom_text(aes(label = frequency), vjust = 0.3, size = 4, nudge_y = 2.5, col = "white", family = "serif")+ 
-  geom_text(aes(label = c("Cognitive", "Mastery", "Persuasion", "Vicarious Experience")),family = "serif",  
+  geom_text(aes(label = c("Mastery", "Other", "Persuasion", "Vicarious Experience")),family = "serif",  
             vjust = 0.3, size = 5, nudge_y = c(-16,-12,-10,-20), col = "black")+
   scale_y_reverse(limits=c(100,0)) 
 
