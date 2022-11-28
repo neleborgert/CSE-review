@@ -104,6 +104,15 @@ median_single_sample <- median(single_sample$sample_size_new, na.rm = T)
 median_single_sample
 ```
 
+## Weighted age
+```{r}
+#age weighted for sample size
+weighted.mean(codebook1$sample_age_new, codebook1$sample_size_new, na.rm = TRUE) #NA values in x (=age) stripped before computation
+#library(jtools)
+wtd.sd(codebook1$sample_age_new, codebook1$sample_size_new)
+```
+
+
 ## Weighted gender
 Calculate the gender proportions weighted for samples size
 ```{r}
