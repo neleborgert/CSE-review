@@ -201,6 +201,12 @@ single_study <- single_study[single_study$id!=408 | single_study$study_samples!=
 
 #exclude ID 438 study_samples B (control group)
 single_study <- single_study[single_study$id!=438 | single_study$study_samples!="B",]
+
+#exclude ID 569 study_sample B (only second sample: India)
+single_study <- single_study[single_study$id!=569 | single_study$study_samples!="B",]
+
+#exclude ID 607 study_sample B (only second sample: mobile)
+single_study <- single_study[single_study$id!=607 | single_study$study_samples!="B",]
 ```
 
 ## Subset for single sample size

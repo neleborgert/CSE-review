@@ -384,10 +384,17 @@ duplicated(codebook1$scale_number_new) #identify duplicates
 sum(table(codebook1$scale_number_new)-1) #count total number of duplicates
 duplicated_scales <- codebook1[duplicated(codebook1[,23]),] #create subset with duplicates (column #23 = scale_number_new) ->still includes NAs
 duplicated_scales <- subset(duplicated_scales, !is.na(scale_number_new)) #exclude NAs in column 23
+#exclude  all study_sample = B (only new samples not duplicated scale use, IDs: 408, 438, 569, 607)
+duplicated_scales <- duplicated_scales[-grep("B",duplicated_scales$study_samples),]
 
 #library(data.table) 
 #counting number of duplicates for a column in whole data frame (n = scale number is n-times in review dataset)
 data_copy = copy(codebook1) #make a copy of data because set* function modifies the input data
+#exclude  study_sample = B (only new samples not duplicated scale use, IDs: 408, 438, 569, 607)
+data_copy <- data_copy[data_copy$id!=408 | data_copy$study_samples!="B",]
+data_copy <- data_copy[data_copy$id!=438 | data_copy$study_samples!="B",]
+data_copy <- data_copy[data_copy$id!=569 | data_copy$study_samples!="B",]
+data_copy <- data_copy[data_copy$id!=607 | data_copy$study_samples!="B",]
 scale_count <- setDT(data_copy)[, .N, scale_number_new] #count each scale number
 
 #save as scale counts
