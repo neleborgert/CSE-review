@@ -607,6 +607,14 @@ write_csv2(items_data_sorted_copy,"../results/List of All Measures including Ite
 
 ## Reliability alpha
 weighted mean
+
+change sample size for ID 408, 438, 569 to total size because alphas of multiple samples are already weighted and merged
+```{r}
+codebook1$sample_size_new[codebook1$id == "408" & codebook1$study_samples == "A"] <- (49+32)
+codebook1$sample_size_new[codebook1$id == "438" & codebook1$study_samples == "A"] <- (210+209)
+codebook1$sample_size_new[codebook1$id == "569" & codebook1$study_samples == "A"] <- (169+84)
+```
+
 create new data frame to assign correct sample_size via scale_number
 ```{r}
 reliability_data <- data.frame(selfdeveloped_scale$scale_number_new, selfdeveloped_scale$reliability_alpha_new, selfdeveloped_scale$reliability_composite_new, selfdeveloped_scale$reliability_testretest, selfdeveloped_scale$reliability_splithalf)
@@ -646,6 +654,15 @@ weighted.mean(composite_data$reliability_composite, composite_data$sample_size)
 #library(jtools)
 wtd.sd(composite_data$reliability_composite, composite_data$sample_size)
 ```
+
+change total sample size for ID 408, 430, 569 back to single sample sizes
+```{r}
+#change sample size for ID 408, 438, 569 to total size because alphas of multiple samples are already weighted and merged
+codebook1$sample_size_new[codebook1$id == "408" & codebook1$study_samples == "A"] <- (49)
+codebook1$sample_size_new[codebook1$id == "438" & codebook1$study_samples == "A"] <- (210)
+codebook1$sample_size_new[codebook1$id == "569" & codebook1$study_samples == "A"] <- (169)
+```
+
 
 ## Validity construct (discriminant)
 How many papers studied discriminant validity and what methods were used?
@@ -1106,14 +1123,7 @@ variables_polar_barchart
 ggsave("../results/framework_variables_polar_barchart.png", width=15, height=15) #attention: saves last gg plot
 ```
 
-## TO DO: Theory framework variables
-
-### TO DO: Cause variables (theory)
-Frequencies: String split, long format, create data frame
-```{r}
-
-```
-
+## Theory framework variables
 Calculate certainty
 ```{r}
 #set as vector
@@ -1126,61 +1136,6 @@ prop.table(table(single_study$cause_variables_theory_certainty, exclude = NULL))
 table(single_study$cause_variables_theory_certainty, exclude = NULL)
 ```
 
-
-### TO DO: Outcome variables (theory)
-String split into several columns (where you don't know the number of output columns)
-```{r}
-# before_outcome_theory <- data.frame(single_study$outcome_variables_theory)
-# 
-# #rename columns
-# colnames(before_outcome_theory)[1] <- "outcome_variables_theory"
-# 
-# max(lengths(strsplit(as.character(before_outcome_theory$outcome_variables_theory), '; ')))
-# #library(data.table)
-# setDT(before_outcome_theory)[, paste0("outcome_variables_theory", 1:3) := tstrsplit(single_study$outcome_variables_theory, "; ")] #3 = number of columns (items are assigned to)
-# before_outcome_theory
-```
-
-Change data format (into long format)
-```{r}
-# #new data set (with added ID)
-# mo <- nrow(single_study) #where mo is the number of rows
-# outcome_theory_wide_data <- data.frame(id = 1:mo,
-#                               before_outcome_theory$outcome_variables_theory,
-#                               before_outcome_theory$outcome_variables_theory1,
-#                               before_outcome_theory$outcome_variables_theory2,
-#                               before_outcome_theory$outcome_variables_theory3)
-# 
-# #making sure ID column is a factor
-# outcome_theory_wide_data$id <- as.factor(outcome_theory_wide_data$id)
-# 
-# #changing into long format
-# #library(tidyr)
-# outcome_theory_long_data <- gather(outcome_theory_wide_data, outcome_variables_theory_number, outcome_variables_theory, before_outcome_theory.outcome_variables_theory1:before_outcome_theory.outcome_variables_theory3, factor_key = T)
-# outcome_theory_long_data
-# 
-# #delete NAs in data frame
-# outcome_theory_long_data_clean <- subset(outcome_theory_long_data, !is.na(outcome_theory_long_data[,4])) #column 4
-```
-
-Create data frame with construct and count/frequency
-```{r}
-# #as factor
-# outcome_theory_long_data_clean$outcome_variables_theory <- as.factor(outcome_theory_long_data_clean$outcome_variables_theory)
-# outcome_theory_data <- data.frame(unclass(summary(outcome_theory_long_data_clean$outcome_variables_theory, maxsum = 181))) #181 number of observations in outcome_theory_long_data_clean
-# setDT(outcome_theory_data, keep.rownames = TRUE)[] #convert row names into first column
-# 
-# #rename columns
-# colnames(outcome_theory_data)[1] <- "construct_name"
-# colnames(outcome_theory_data)[2] <- "construct_frequency"
-# outcome_theory_data
-# #check for spelling mistakes
-# 
-# 
-# #save as outcome construct counts
-# #library("readr")
-# write_csv2(outcome_theory_data,"../results/Counts of Outcome Constructs According to Theories - Single_Study.csv")
-```
 
 # 6. Interventions
 
