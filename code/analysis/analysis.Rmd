@@ -456,7 +456,6 @@ ggsave("../results/Study_Scale_Year_Histogram_dodged.jpg")
 ```
 
 ## Reliability alpha studypaper
-## TO DO: add 12 scales from scale_changes = none
 Create a variable with numerics only, not ">0.7"
 
 Create data frame
@@ -466,7 +465,7 @@ codebook1$reliability_alpha_studypaper_new <- as.numeric(codebook1$reliability_a
 
 #change ID 607 sample_size_new for this computation (to include EG and CG)
 codebook1$sample_size_new[codebook1$id == "607" & codebook1$study_samples == "A"] <- (322+307)
-
+#includes both recurring categories (within and scale_changes)
 ```
 
 Weighted alpha with sample size:
