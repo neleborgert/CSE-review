@@ -28,7 +28,7 @@ library(wesanderson)
 #### Load Data
 
 ```{r}
-wholedata <- read_excel("C:/Users/luisa/Documents/Arbeit/Nele/Review Self-Efficacy/Grafik/Aktualisierter Versuch/Review_data_all_packages.xlsx")
+wholedata <- read_csv2("../results/Single Study.csv")
 
 data_cause <- wholedata[, c("cause_variables_new", "cause_variables_theory", "cause_variables_theory_other")]
 data_cause <- rowid_to_column(data_cause, "ID")
@@ -59,7 +59,7 @@ for (i in 1:186) {
 # create new column with groups 
 data_cause <- unite(data_cause, col='cause_variables_groups', c('cause_variables_theory1', 'cause_variables_theory2', 'cause_variables_theory3', 'cause_variables_theory4', 'cause_variables_theory5', 'cause_variables_theory6', 'cause_variables_theory7', 'cause_variables_theory8', 'cause_variables_theory9'), sep=';', na.rm = TRUE)
 
-# create new dataframe with only relevant variables
+# create new dataframe with only relevant columns
 data_cause_short <- data_cause[, c("cause_variables_new", "cause_variables_groups")]
 
 # convert into long format
@@ -75,7 +75,7 @@ data_cause_short <- data_cause_short[complete.cases(data_cause_short), ]
 data_cause_short <- data_cause_short[order(data_cause_short$cause_variables_new),]
 
 # Save data
-write.csv2(data_cause_short, file =  "C:/Users/luisa/Documents/Arbeit/Nele/Review Self-Efficacy/Grafik/Aktualisierter Versuch/ListOfCauseVariables.csv")
+write.csv2(data_cause_short, "../ListOfCauseVariables.csv")
 
 ```
 
@@ -100,8 +100,7 @@ data_outcome <- data_outcome[complete.cases(data_outcome), ]
 data_outcome <- data_outcome[order(data_outcome$outcome_variables_new),]
 
 # Save dataframe
-write.csv2(data_outcome, file = "C:/Users/luisa/Documents/Arbeit/Nele/Review Self-Efficacy/Grafik/Aktualisierter Versuch/ListOfOutcomeVariables.csv")
-
+write.csv2(data_outcome, "../ListOfOutcomeVariables.csv")
 ```
 
 
@@ -111,9 +110,9 @@ write.csv2(data_outcome, file = "C:/Users/luisa/Documents/Arbeit/Nele/Review Sel
 
 Read Dataframes with Cause Variables and their groups as well as Outcome Variables and their groups
 ```{r}
-data_outcome <- read.csv2("C:/Users/luisa/Documents/Arbeit/Nele/Review Self-Efficacy/Grafik/Aktualisierter Versuch/ListOfOutcomeVariables.csv")
+data_outcome <- read.csv2("../ListOfOutcomeVariables.csv")
 
-data_cause <- read.csv2("C:/Users/luisa/Documents/Arbeit/Nele/Review Self-Efficacy/Grafik/Aktualisierter Versuch/ListOfCauseVariables.csv")
+data_cause <- read.csv2("../ListOfCauseVariables.csv")
 
 # Delete ID columns
 data_outcome <- subset(data_outcome, select = -X)
@@ -157,10 +156,10 @@ BothVariables <-
 BothVariables
 
 # Align List (copied in with " " around each word) with "outcome variables"
-data_outcome_both <- data_outcome[data_outcome$Construct %in% c("attitude", "avoidance behavior", "awareness", "competition effectiveness for recruitment", "competition performance and satisfaction", "concerns", "effort", "expertise", "hearsay", "interest", "job satisfaction", "literacy", "organizational fit", "perceived risk", "problematic behavior", "protection behavior", "response efficacy", "satisfaction", "sharing"),]
+data_outcome_both <- data_outcome[data_outcome$Construct %in% c("attitude", "avoidance behavior", "awareness", "competition effectiveness for recruitment", "competition performance and satisfaction", "concerns", "effort", "expertise", "hearsay", "interest", "job satisfaction", "literacy", "organizational fit", "perceived risk", "problematic behavior", "protection behavior", "response efficacy", "sharing", "system satisfaction"),]
 
 # Align List (coped in with " " around each word) with "cause variables"
-data_cause_both <- data_cause_multiple[data_cause_multiple$Construct %in% c("attitude", "avoidance behavior", "awareness", "competition effectiveness for recruitment", "competition performance and satisfaction", "concerns", "effort", "expertise", "hearsay", "interest", "job satisfaction", "literacy", "organizational fit", "perceived risk", "problematic behavior", "protection behavior", "response efficacy", "satisfaction", "sharing"),]
+data_cause_both <- data_cause_multiple[data_cause_multiple$Construct %in% c("attitude", "avoidance behavior", "awareness", "competition effectiveness for recruitment", "competition performance and satisfaction", "concerns", "effort", "expertise", "hearsay", "interest", "job satisfaction", "literacy", "organizational fit", "perceived risk", "problematic behavior", "protection behavior", "response efficacy", "sharing", "system satisfaction"),]
 ```
 
 Calculate frequency of constructs in each group
@@ -222,7 +221,7 @@ barplot_outcome <-
   geom_text(aes(label = c("Behavior", "Control", "Intention", "Motivation", "Other")),family = "serif", 
             vjust = 0.3, size = 5, nudge_y = c(10,9,10,12,6), col = "black")
 
-ggsave("C:/Users/luisa/Documents/Arbeit/Nele/Review Self-Efficacy/Grafik/Aktualisierter Versuch/Abbildungen/outcome.test.png", bg = "white")
+ggsave("../outcome.png", bg = "white")
 
 barplot_outcome
 ```
@@ -242,7 +241,7 @@ barplot_cause <- ggplot(data = cause_frequency, aes(x = group, y = frequency))+
   scale_y_reverse(limits=c(100,0)) 
 
 
-ggsave("C:/Users/luisa/Documents/Arbeit/Nele/Review Self-Efficacy/Grafik/Aktualisierter Versuch/Abbildungen/cause.test.png", bg = "white")
+ggsave("../cause.png", bg = "white")
 
 barplot_cause
 ```
@@ -263,7 +262,7 @@ barplot_outcome_both <- ggplot(data = outcome_both_frequency, aes(x = group, y =
   #geom_text(aes(label = frequency), vjust = 0.3, size = 4, nudge_y = -2.5, col = "white", family = "serif")+ 
   geom_text(aes(label = c("Behavior", "Other")),family = "serif", vjust = 0.3, size = 5, nudge_y = c(9,10), col = "black")
 
-ggsave("C:/Users/luisa/Documents/Arbeit/Nele/Review Self-Efficacy/Grafik/Aktualisierter Versuch/Abbildungen/outcome_both.test.png", bg = "white")
+ggsave("../outcome_both.png", bg = "white")
 
 barplot_outcome_both
 ```
@@ -284,7 +283,7 @@ barplot_cause_both <- ggplot(data = cause_both_frequency, aes(x = group, y = fre
   scale_y_reverse(limits=c(100,0)) 
 
 
-ggsave("C:/Users/luisa/Documents/Arbeit/Nele/Review Self-Efficacy/Grafik/Aktualisierter Versuch/Abbildungen/cause_both.test.png", bg = "white")
+ggsave("../cause_both.png", bg = "white")
 
 barplot_cause_both
 ```

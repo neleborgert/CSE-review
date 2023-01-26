@@ -207,6 +207,9 @@ single_study <- single_study[single_study$id!=569 | single_study$study_samples!=
 
 #exclude ID 607 study_sample B (only second sample: mobile)
 single_study <- single_study[single_study$id!=607 | single_study$study_samples!="B",]
+
+# write single_study as excel
+write_csv2(single_study,"../results/Single Study.csv")
 ```
 
 ## Subset for single sample size
