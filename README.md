@@ -10,7 +10,7 @@ This folder structure is compliant with the [psych-DS standard for psychological
 
 ## Github repo URL
 
-[Here](https://github.com/ianhussey/psychDS-compliant-repo-template).
+https://github.com/neleborgert/CSE-review.
 
 ## License
 
