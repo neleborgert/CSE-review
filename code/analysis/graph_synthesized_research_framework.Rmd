@@ -75,7 +75,7 @@ data_cause_short <- data_cause_short[complete.cases(data_cause_short), ]
 data_cause_short <- data_cause_short[order(data_cause_short$cause_variables_new),]
 
 # Save data
-write.csv2(data_cause_short, "../ListOfCauseVariables.csv")
+write.csv2(data_cause_short, "../../data/processed/ListOfCauseVariables.csv")
 
 ```
 
@@ -100,7 +100,7 @@ data_outcome <- data_outcome[complete.cases(data_outcome), ]
 data_outcome <- data_outcome[order(data_outcome$outcome_variables_new),]
 
 # Save dataframe
-write.csv2(data_outcome, "../ListOfOutcomeVariables.csv")
+write.csv2(data_outcome, "../../data/processed/ListOfOutcomeVariables.csv")
 ```
 
 
@@ -110,9 +110,9 @@ write.csv2(data_outcome, "../ListOfOutcomeVariables.csv")
 
 Read Dataframes with Cause Variables and their groups as well as Outcome Variables and their groups
 ```{r}
-data_outcome <- read.csv2("../ListOfOutcomeVariables.csv")
+data_outcome <- read.csv2("../../data/processed/ListOfOutcomeVariables.csv")
 
-data_cause <- read.csv2("../ListOfCauseVariables.csv")
+data_cause <- read.csv2("../../data/processed/ListOfCauseVariables.csv")
 
 # Delete ID columns
 data_outcome <- subset(data_outcome, select = -X)
@@ -221,7 +221,7 @@ barplot_outcome <-
   geom_text(aes(label = c("Behavior", "Control", "Intention", "Motivation", "Other")),family = "serif", 
             vjust = 0.3, size = 5, nudge_y = c(10,9,10,12,6), col = "black")
 
-ggsave("../outcome.png", bg = "white")
+ggsave("../results/outcome.png", bg = "white")
 
 barplot_outcome
 ```
@@ -241,7 +241,7 @@ barplot_cause <- ggplot(data = cause_frequency, aes(x = group, y = frequency))+
   scale_y_reverse(limits=c(100,0)) 
 
 
-ggsave("../cause.png", bg = "white")
+ggsave("../results/cause.png", bg = "white")
 
 barplot_cause
 ```
@@ -262,7 +262,7 @@ barplot_outcome_both <- ggplot(data = outcome_both_frequency, aes(x = group, y =
   #geom_text(aes(label = frequency), vjust = 0.3, size = 4, nudge_y = -2.5, col = "white", family = "serif")+ 
   geom_text(aes(label = c("Behavior", "Other")),family = "serif", vjust = 0.3, size = 5, nudge_y = c(9,10), col = "black")
 
-ggsave("../outcome_both.png", bg = "white")
+ggsave("../results/outcome_both.png", bg = "white")
 
 barplot_outcome_both
 ```
@@ -283,7 +283,7 @@ barplot_cause_both <- ggplot(data = cause_both_frequency, aes(x = group, y = fre
   scale_y_reverse(limits=c(100,0)) 
 
 
-ggsave("../cause_both.png", bg = "white")
+ggsave("../results/cause_both.png", bg = "white")
 
 barplot_cause_both
 ```
