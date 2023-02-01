@@ -38,7 +38,7 @@ for (i in 1:length(packages)){
 ```
 
 ## Reproducibility
-This code used R version 4.1.3 (2022-03-10)
+This code used R version 4.1.3 (2022-03-10) and later 4.2.2 (2022-10-31 ucrt)
 ```{r}
 #un-comment the following line to get R version
 #R.version
