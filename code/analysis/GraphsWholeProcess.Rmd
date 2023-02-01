@@ -18,6 +18,7 @@ library(ggpattern)
 library(dplyr)
 library(ggplot2)
 library(readxl)
+library(readr)
 library(data.table)
 library(tibble)
 library(tidyr)
@@ -131,6 +132,9 @@ data_cause_multiple <-
   separate_rows(data_cause, Group, sep = ",")
 data_cause_multiple$Group <- 
   gsub(" ", "", data_cause_multiple$Group)
+
+# Create Frequency Table 
+table(data_cause_multiple$Group)
 
 # Sum up "other" category
 data_cause_multiple$GroupNew <-
