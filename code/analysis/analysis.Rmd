@@ -803,18 +803,57 @@ edges <- edges %>%
 ## Interactive network graph
 Create network objects (networkD3)
 (includes authors that did not cite any other authors as sources for their scale development [single points in graph] and all that did both [cited and did not cite] for two different measures [single points in graph with *])
+
+### top ten in degree centrality
 ```{r}
 #library(networkD3)
+#change nodes data to only print selected node labels
+##top ten for in_degree centrality
+topten_degrees <- which(Centrality$InDegree>4)
+Centrality$InDegree[topten_degrees] #ids and count
+nodes[c(topten_degrees),2] #only ids, use column = 2 to print labels
+nodes$label[nodes$id != 12
+               & nodes$id != 79
+               & nodes$id != 163
+               & nodes$id != 164
+               & nodes$id != 168
+               & nodes$id != 169
+               & nodes$id != 171
+               & nodes$id != 177
+               & nodes$id != 179
+               & nodes$id != 185]=''
 #IDs must be a series of numeric integers beginning with 0
 nodes_d3 <- mutate(nodes, id = id -1)
 edges_d3 <- mutate(edges, from = from -1, to = to-1)
 #group argument: no groups = each node be its own group / own color
-fancy_network <- forceNetwork(Links = edges_d3, Nodes = nodes_d3, Source = "from", Target = "to", 
+fancy_network_top <- forceNetwork(Links = edges_d3, Nodes = nodes_d3, Source = "from", Target = "to", 
              NodeID = "label", Group = "id", Value = "weight",
-             opacity = 1, fontSize = 16, zoom = T, arrows = T)
-fancy_network
+             opacity = 1, fontSize = 50, zoom = T, arrows = T,
+             opacityNoHover = 1) #no hover over node necessary
+fancy_network_top
 #library(htmlwidgets)
-saveWidget(fancy_network, "../results/authors_network_graph.html") #save html widget
+saveWidget(fancy_network_top, "../results/authors_network_graph_topten.html") #save html widget
+```
+
+### all without hovering
+```{r}
+#library(networkD3)
+#change nodes data back
+#include all unique authors and scale_authors
+nodes <- full_join(sources, destinations, by = "label")
+#add IDs to nodes data frame for each unique author
+nodes <- nodes %>% rowid_to_column("id")
+#IDs must be a series of numeric integers beginning with 0
+nodes_d3 <- mutate(nodes, id = id -1)
+edges_d3 <- mutate(edges, from = from -1, to = to-1)
+#group argument: no groups = each node be its own group / own color
+fancy_network_all <- forceNetwork(Links = edges_d3, Nodes = nodes_d3, Source = "from", Target = "to", 
+             NodeID = "label", Group = "id", Value = "weight",
+             opacity = 1, fontSize = 12, zoom = T, arrows = T,
+             opacityNoHover = 1) #no hover over node necessary
+fancy_network_all
+#library(htmlwidgets)
+saveWidget(fancy_network_all, "../results/authors_network_graph.html") #save html widget
 ```
 
 ## Network analysis
