@@ -1,6 +1,5 @@
 ---
 title: "Graph_New"
-author: "Luisa Jansen"
 date: "`r Sys.Date()`"
 output: html_document
 ---

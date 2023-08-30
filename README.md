@@ -10,7 +10,7 @@ This folder structure is compliant with the [psych-DS standard for psychological
 
 ## Github repo URL
 
-https://github.com/neleborgert/CSE-review.
+Removed for anonymization.
 
 ## License
 
