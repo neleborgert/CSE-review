@@ -62,8 +62,17 @@ demographics_true_sample <- sapply(demographics_true_sample, as.numeric)
 #get descriptive statistics
 #library("psych")
 description_review <- describe(demographics_review[,1])
+demographics_review[,1]
 description_sample <- describe(demographics_sample[,1:6])
 description_true_sample <- describe(demographics_true_sample)
+
+#mode of publication year
+find_mode <- function(x) {
+  u <- unique(x)
+  tab <- tabulate(match(x, u))
+  u[tab == max(tab)]
+}
+find_mode(demographics_review[,1])
 
 #set row name to first column
 #library(tibble)
@@ -110,6 +119,10 @@ median_single_sample
 weighted.mean(codebook1$sample_age_new, codebook1$sample_size_new, na.rm = TRUE) #NA values in x (=age) stripped before computation
 #library(jtools)
 wtd.sd(codebook1$sample_age_new, codebook1$sample_size_new)
+
+#median age
+library(spatstat)
+weighted.median(codebook1$sample_age_new, codebook1$sample_size_new, na.rm = TRUE)
 ```
 
 
