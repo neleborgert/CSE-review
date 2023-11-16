@@ -113,6 +113,14 @@ median_single_sample <- median(single_sample$sample_size_new, na.rm = T)
 median_single_sample
 ```
 
+Calculate range sample size
+```{r}
+#total sample size
+min(codebook1$sample_size_new, na.rm = T)
+max(codebook1$sample_size_new, na.rm = T)
+```
+
+
 ## Weighted age
 ```{r}
 #age weighted for sample size
