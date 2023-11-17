@@ -283,6 +283,38 @@ colnames(s_proportions) <- c("development","Freq",
 write_csv2(s_proportions,"../results/Conditional Proportions of Factor Scale Variables (incl. NA).csv")
 ```
 
+### Scales with reliability information
+```{r}
+#create sub data frame if any information provided in reliability variables (alpha, composite, split-half, test-retest) for a row
+#to know how many studies provided info
+
+#create data frame
+scale_reliable <- data.frame(selfdeveloped_scale$id,
+                          selfdeveloped_scale$scale_number_new,
+                          selfdeveloped_scale$reliability_alpha_new,
+                          selfdeveloped_scale$reliability_composite_new,
+                          selfdeveloped_scale$reliability_testretest,
+                          selfdeveloped_scale$reliability_splithalf)
+colnames(scale_reliable) <- c("id","scale_number","alpha", "composite","testretest","splithalf")
+
+#change content factor labels: 0 = NA
+#scale_valid["content"][scale_valid["content"] == 0] <- NA
+
+#keep rows with at least one value
+#library(dplyr)
+scale_reliable_with_info <- scale_reliable %>% filter_at(vars(alpha, composite, testretest, splithalf),any_vars(!is.na(.)))
+
+#count rows
+nrow(scale_reliable_with_info)
+
+#check if same id has multiple studies with single_study data frame
+#id 56: 4 scales but only 1 study
+#id 94: 3 scales but only 1 study
+#id 129: 2 scales and 2 studies
+#id 180: 3 scales and 3 studies
+nrow(scale_reliable_with_info)-5
+```
+
 ### Scales with validity information
 ```{r}
 #create sub data frame if any information provided in validity variables (content, factor, discriminant, convergent, criterion, incremental) for a row
