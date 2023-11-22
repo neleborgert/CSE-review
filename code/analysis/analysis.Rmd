@@ -1472,10 +1472,38 @@ doublets_data_role_not_peer <- data.frame(double_freq1_not_peer[, 1], double_fre
 doublets_data_role_not_peer
 ```
 
-Number of interventions
+## Number of interventions
 
+```{r}
+#make data frame
+id_intervention_peer <- single_study_peer$id[single_study_peer$intervention==1]
+id_intervention_peer
 
-Mean sample size
+id_intervention_not_peer <- single_study_not_peer$id[single_study_not_peer$intervention==1]
+id_intervention_not_peer
+```
+
+## Sample size peer and not peer
+
+peer 
+```{r}
+#median
+median_sample_peer <- median(codebook1_peer$sample_size_new, na.rm = T)
+median_sample_peer
+#range
+min(codebook1_peer$sample_size_new, na.rm = T)
+max(codebook1_peer$sample_size_new, na.rm = T)
+```
+
+not peer 
+```{r}
+#median
+median_sample_not_peer <- median(codebook1_not_peer$sample_size_new, na.rm = T)
+median_sample_not_peer
+#range
+min(codebook1_not_peer$sample_size_new, na.rm = T)
+max(codebook1_not_peer$sample_size_new, na.rm = T)
+```
 
 
 
