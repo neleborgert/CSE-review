@@ -1291,11 +1291,59 @@ Check out codebook1_smarthome and codebook2_smarthome
 
 # 8. Peer-reviewed vs. non-peer-reviewed differences
 
+## Sample size peer and not peer
+
+peer 
+```{r}
+#median
+median_sample_peer <- median(codebook1_peer$sample_size_new, na.rm = T)
+median_sample_peer
+#range
+min(codebook1_peer$sample_size_new, na.rm = T)
+max(codebook1_peer$sample_size_new, na.rm = T)
+```
+
+not peer 
+```{r}
+#median
+median_sample_not_peer <- median(codebook1_not_peer$sample_size_new, na.rm = T)
+median_sample_not_peer
+#range
+min(codebook1_not_peer$sample_size_new, na.rm = T)
+max(codebook1_not_peer$sample_size_new, na.rm = T)
+```
+
+## Number of scales
+
+```{r}
+#nrow codebook2 subset matched by id codebook1peer
+
+#peer: 129
+common_ids_single_scale_peer <- intersect(codebook1_peer$id, codebook2$id) #identify common ids
+all_scales_peer <- codebook2[codebook2$id %in% common_ids_single_scale_peer,] #select only common ids
+
+#not peer: 25
+common_ids_single_scale_not_peer <- intersect(codebook1_not_peer$id, codebook2$id) #identify common ids
+all_scales_not_peer <- codebook2[codebook2$id %in% common_ids_single_scale_not_peer,] #select only common ids
+
+#none: 19
+common_ids_single_scale_none <- intersect(codebook1_none$id, codebook2$id) #identify common ids
+all_scales_none <- codebook2[codebook2$id %in% common_ids_single_scale_none,] #select only common ids
+
+#number of scales
+## peer: codebook1_peer nrows-7 doubelts
+## not peer: codebook1_peer nrows-2 doublets
+## none: scale number 13 in codebook1_none (id#124) and in codebook1_peer (id#123), but belongs only in peer ->therefore one row too many in none
+```
+
+
+
 ## Number of first use scales
 ```{r}
 #peer-reviewed = 1; non-peer-reviewed = 2
 # split self_developed_scale by subsets
 # selfdeveloped_scale <- subset(codebook2, scale_changes!="none" | is.na(scale_changes)) 
+
 
 #peer-reviewed number of self-developed scales (122 out of 136)
 common_ids_peer <- intersect(codebook1_peer$id, selfdeveloped_scale$id) #identify common ids
@@ -1481,29 +1529,12 @@ id_intervention_peer
 
 id_intervention_not_peer <- single_study_not_peer$id[single_study_not_peer$intervention==1]
 id_intervention_not_peer
+
+id_intervention_none <- single_study_none$id[single_study_none$intervention==1]
+id_intervention_none
 ```
 
-## Sample size peer and not peer
 
-peer 
-```{r}
-#median
-median_sample_peer <- median(codebook1_peer$sample_size_new, na.rm = T)
-median_sample_peer
-#range
-min(codebook1_peer$sample_size_new, na.rm = T)
-max(codebook1_peer$sample_size_new, na.rm = T)
-```
-
-not peer 
-```{r}
-#median
-median_sample_not_peer <- median(codebook1_not_peer$sample_size_new, na.rm = T)
-median_sample_not_peer
-#range
-min(codebook1_not_peer$sample_size_new, na.rm = T)
-max(codebook1_not_peer$sample_size_new, na.rm = T)
-```
 
 
 

@@ -723,6 +723,10 @@ single_study_peer <- single_study[single_study$id %in% common_id2_peer,]
 #single_study_not_peer
 common_id2_not_peer <- intersect(codebook1_not_peer$id, single_study$id)
 single_study_not_peer <- single_study[single_study$id %in% common_id2_not_peer,]
+
+#single_study_no_info
+common_id2_none <- intersect(codebook1_none$id, single_study$id)
+single_study_none <- single_study[single_study$id %in% common_id2_none,]
 ```
 
 
