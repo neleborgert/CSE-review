@@ -263,7 +263,7 @@ We are reporting studies (single_study and single_sample) and single_id (records
 Create new variables in excel: sample_size_new, sample_age_new, sample_sex_male, sample_sex_female, sample_sex_nonbinary, sample_sex_noresponse
 ```{r}
 #data sets for demographics
-demographics_review <- data.frame(single_id$year, single_id$publication_type)
+demographics_review <- data.frame(single_id$year, single_id$publication_type, single_id$peer_reviewed) #included peer_reviewed
 
 demographics_sample <- data.frame(codebook1$sample_size_new, codebook1$sample_age_new, 
                                   codebook1$sample_sex_male, codebook1$sample_sex_female, codebook1$sample_sex_nonbinary, codebook1$sample_sex_noresponse,
@@ -704,6 +704,14 @@ smarthome_ids <- codebook1_smarthome$id
 codebook2_smarthome <- subset(codebook2, id %in% smarthome_ids) 
 ```
 
+# 8. Subset for peer-reviewed
+
+```{r}
+#subsets sorted for peer-reviewed
+codebook1_peer <- subset(codebook1, peer_reviewed==1)
+codebook1_not_peer <- subset(codebook1, peer_reviewed==2)
+codebook1_none <- subset(codebook1, peer_reviewed==0)
+```
 
 
 

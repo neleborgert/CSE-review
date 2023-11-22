@@ -172,12 +172,13 @@ noresponse_percentage
 Variables: publication, type, setting, smarthome, profession, recruitment, country
 ```{r}
 #set as vector
-demographics_review[,2] <- sapply(demographics_review[,2] , as.vector)
+demographics_review[,2] <- sapply(demographics_review[,2:3] , as.vector)
 demographics_sample[,7:9] <- sapply(demographics_sample[,7:9] , as.vector)
 demographics_study <- sapply(demographics_study, as.vector)
 
 #distribution (incl NA and only percentages)
 pubtype <- data.frame(prop.table(table(demographics_review[,2], exclude = NULL)))
+peer <- data.frame(prop.table(table(demographics_review[,3], exclude = NULL)))
 stutype <- data.frame(prop.table(table(demographics_study[,1], exclude = NULL)))
 setting <- data.frame(prop.table(table(demographics_study[,2], exclude = NULL)))
 smart <- data.frame(prop.table(table(demographics_study[,3], exclude = NULL)))
@@ -187,6 +188,7 @@ country <- data.frame(prop.table(table(demographics_sample[,9], exclude = NULL))
 
 #get totals of distribution
 table(demographics_review[,2], exclude = NULL)
+table(demographics_review[,3], exclude = NULL)
 table(demographics_study[,1], exclude = NULL)
 table(demographics_study[,2], exclude = NULL)
 table(demographics_study[,3], exclude = NULL)
@@ -203,8 +205,11 @@ prop3 <- merge(data.frame(prof, row.names=NULL), data.frame(recruit, row.names=N
   by = 0, all = TRUE)[-1]
 prop_merg1 <- merge(data.frame(prop1, row.names=NULL), data.frame(prop2, row.names=NULL), 
   by = 0, all = TRUE)[-1]
-prop_merg2 <- merge(data.frame(prop_merg1, row.names=NULL), data.frame(prop3, row.names=NULL),   by = 0, all = TRUE)[-1]
-proportions <- merge(data.frame(prop_merg2, row.names=NULL), data.frame(country, row.names=NULL), 
+prop_merg2 <- merge(data.frame(prop_merg1, row.names=NULL), data.frame(prop3, row.names=NULL),   
+  by = 0, all = TRUE)[-1]
+prop_merg3 <- merge(data.frame(prop_merg2, row.names=NULL), data.frame(peer, row.names=NULL), 
+  by = 0, all = TRUE)[-1]
+proportions <- merge(data.frame(prop_merg3, row.names=NULL), data.frame(country, row.names=NULL), 
   by = 0, all = TRUE)[-1]
 
 #rename columns 
@@ -214,12 +219,14 @@ colnames(proportions) <- c("publication_type","Freq",
                            "smarthome","Freq",
                            "sample_profession","Freq",
                            "sample_recruitment","Freq",
+                           "peer_reviewed", "Freq",
                            "sample_country","Freq")
 
 #save descriptive values in table
 #library("readr")
 write_csv2(proportions,"../results/Conditional Proportions of Factor Demographics (incl. NA).csv")
 ```
+
 
 # 3. Scale
 
@@ -1281,6 +1288,101 @@ Check out codebook1_smarthome and codebook2_smarthome
 #visual inspection of data sets
 #View(codebook1_smarthome$outcome_variables_new)
 ```
+
+# 8. Peer-reviewed vs. non-peer-reviewed differences
+
+## Number of first use scales
+```{r}
+#peer-reviewed = 1; non-peer-reviewed = 2
+# split self_developed_scale by subsets
+# selfdeveloped_scale <- subset(codebook2, scale_changes!="none" | is.na(scale_changes)) 
+
+#peer-reviewed number of self-developed scales (122 out of 136)
+common_ids_peer <- intersect(codebook1_peer$id, selfdeveloped_scale$id) #identify common ids
+selfdeveloped_scale_peer <- selfdeveloped_scale[selfdeveloped_scale$id %in% common_ids_peer,] #select only common ids
+
+#not-peer-reviewed number of self-developed scales (21 out of 27)
+common_ids_not_peer <- intersect(codebook1_not_peer$id, selfdeveloped_scale$id)
+selfdeveloped_scale_not_peer <- selfdeveloped_scale[selfdeveloped_scale$id %in% common_ids_not_peer,]
+
+#zur prüfung ob numbers stimmen (18 out of 20)
+common_ids_none <- intersect(codebook1_none$id, selfdeveloped_scale$id)
+selfdeveloped_scale_none <- selfdeveloped_scale[selfdeveloped_scale$id %in% common_ids_none,]
+
+#sums 161 self-developed scales
+```
+
+## Reliability alpha for first use scales
+```{r}
+# new subsets from reliability_size_data
+## peer-reviewed
+common_scalenumber_peer <- intersect(codebook1_peer$scale_number_new, reliability_size_data$scale_number)
+reliability_size_data_peer <- reliability_size_data[reliability_size_data$scale_number %in% common_scalenumber_peer,]
+## not-peer-reviewed
+common_scalenumber_not_peer <- intersect(codebook1_not_peer$scale_number_new, reliability_size_data$scale_number)
+reliability_size_data_not_peer <- reliability_size_data[reliability_size_data$scale_number %in% common_scalenumber_not_peer,]
+
+# weighted alpha with sample size
+## without NA in data frame
+alpha_data_peer <- subset(reliability_size_data_peer, !is.na(reliability_size_data_peer$reliability_alpha))
+alpha_data_peer <- subset(alpha_data_peer, !is.na(alpha_data_peer$sample_size))
+
+alpha_data_not_peer <- subset(reliability_size_data_not_peer, !is.na(reliability_size_data_not_peer$reliability_alpha))
+alpha_data_not_peer <- subset(alpha_data_not_peer, !is.na(alpha_data_not_peer$sample_size))
+
+# weighted mean alpha peer-reviewed (M = 0.87, SD = 0.06)
+weighted.mean(alpha_data_peer$reliability_alpha, alpha_data_peer$sample_size) 
+wtd.sd(alpha_data_peer$reliability_alpha, alpha_data_peer$sample_size)#library(jtools)
+
+# weighted mean alpha not peer-reviewed (M = 0.85, SD = 0.06)
+weighted.mean(alpha_data_not_peer$reliability_alpha, alpha_data_not_peer$sample_size) 
+wtd.sd(alpha_data_not_peer$reliability_alpha, alpha_data_not_peer$sample_size)#library(jtools)
+```
+
+## Validity of first use scales
+```{r}
+#use scale_valid_with_info and only take common scale_number
+
+## peer-reviewed
+### common scale number
+common_scalenumber2_peer <- intersect(codebook1_peer$scale_number_new, scale_valid_with_info$scale_number)
+scale_valid_with_info_peer <- scale_valid_with_info[scale_valid_with_info$scale_number %in% common_scalenumber2_peer,] 
+### check if same id has multiple studies with single_study data frame
+### none
+nrow(scale_valid_with_info_peer) #90 studies reported
+
+## not peer-reviewed
+### common scale number
+common_scalenumber2_not_peer <- intersect(codebook1_not_peer$scale_number_new, scale_valid_with_info$scale_number)
+scale_valid_with_info_not_peer <- scale_valid_with_info[scale_valid_with_info$scale_number %in% common_scalenumber2_not_peer,] 
+### check if same id has multiple studies with single_study data frame
+# id 43: 2 scales  and 2 studies
+# id 56: 4 scales but only 1 study
+# id 180: 3 scales and 3 studies
+nrow(scale_valid_with_info_not_peer)-3 #15 studies reported
+```
+
+## Number of unique cause and outcome variables
+```{r}
+
+```
+
+
+, number of interventions, mean sample size
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
