@@ -1362,13 +1362,120 @@ scale_valid_with_info_not_peer <- scale_valid_with_info[scale_valid_with_info$sc
 nrow(scale_valid_with_info_not_peer)-3 #15 studies reported
 ```
 
-## Number of unique cause and outcome variables
+## Number of unique cause and outcome variables peer
+### Cause variables (original) peer
+Create data frame with construct and count/frequency
 ```{r}
+#as factor
+cause_long_data_peer_clean$cause_variables <- as.factor(cause_long_data_peer_clean$cause_variables)
+cause_data_peer <- data.frame(unclass(summary(cause_long_data_peer_clean$cause_variables, maxsum = 335))) #335 number of observations in cause_long_data_clean
+setDT(cause_data_peer, keep.rownames = TRUE)[] #convert row names into first column
 
+#rename columns
+colnames(cause_data_peer)[1] <- "construct_name"
+colnames(cause_data_peer)[2] <- "construct_frequency"
+cause_data_peer
+#check for spelling mistakes
+
+
+#save as cause construct counts
+#library("readr")
+write_csv2(cause_data_peer,"../results/Counts of All Cause Constructs - Single_Study_Peer.csv")
 ```
 
+### Outcome variables (original) peer
+Create data frame with construct and count/frequency
+```{r}
+#as factor
+outcome_long_data_peer_clean$outcome_variables <- as.factor(outcome_long_data_peer_clean$outcome_variables)
+outcome_data_peer <- data.frame(unclass(summary(outcome_long_data_peer_clean$outcome_variables, maxsum = 229))) #229 number of observations in outcome_long_data_peer_clean
+setDT(outcome_data_peer, keep.rownames = TRUE)[] #convert row names into first column
 
-, number of interventions, mean sample size
+#rename columns
+colnames(outcome_data_peer)[1] <- "construct_name"
+colnames(outcome_data_peer)[2] <- "construct_frequency"
+outcome_data_peer
+#check for spelling mistakes
+
+
+#save as outcome construct counts
+#library("readr")
+write_csv2(outcome_data_peer,"../results/Counts of All Outcome Constructs - Single_Study_Peer.csv")
+```
+
+### Doublets for role (original) peer
+```{r}
+#as an index to cause_data2$construct_name
+#doublets
+double_peer <- data.frame(cause_data_peer$construct_name[cause_data_peer$construct_name %in% outcome_data_peer$construct_name]) #save returned values in dou2
+as.vector(double_peer)
+copy_cause_data_peer <- cause_data_peer
+copy_outcome_data_peer <- outcome_data_peer
+double_freq1_peer <- setDT(copy_cause_data_peer, key = 'construct_name')[double_peer]
+double_freq2_peer <- setDT(copy_outcome_data_peer, key = 'construct_name')[double_peer]
+doublets_data_role_peer <- data.frame(double_freq1_peer[, 1], double_freq1_peer[, 2] + double_freq2_peer[, 2]) #make new data frame: take freq1 construct_name and sum freq1 + freq1 construct_frequency
+doublets_data_role_peer
+```
+
+## Number of unique cause and outcome variables not_peer
+### Cause variables (original) not_peer
+Create data frame with construct and count/frequency
+```{r}
+#as factor
+cause_long_data_not_peer_clean$cause_variables <- as.factor(cause_long_data_not_peer_clean$cause_variables)
+cause_data_not_peer <- data.frame(unclass(summary(cause_long_data_not_peer_clean$cause_variables, maxsum = 335))) #335 number of observations in cause_long_data_clean
+setDT(cause_data_not_peer, keep.rownames = TRUE)[] #convert row names into first column
+
+#rename columns
+colnames(cause_data_not_peer)[1] <- "construct_name"
+colnames(cause_data_not_peer)[2] <- "construct_frequency"
+cause_data_not_peer
+#check for spelling mistakes
+
+
+#save as cause construct counts
+#library("readr")
+write_csv2(cause_data_not_peer,"../results/Counts of All Cause Constructs - Single_Study_not_peer.csv")
+```
+
+### Outcome variables (original) not_peer
+Create data frame with construct and count/frequency
+```{r}
+#as factor
+outcome_long_data_not_peer_clean$outcome_variables <- as.factor(outcome_long_data_not_peer_clean$outcome_variables)
+outcome_data_not_peer <- data.frame(unclass(summary(outcome_long_data_not_peer_clean$outcome_variables, maxsum = 229))) #229 number of observations in outcome_long_data_not_peer_clean
+setDT(outcome_data_not_peer, keep.rownames = TRUE)[] #convert row names into first column
+
+#rename columns
+colnames(outcome_data_not_peer)[1] <- "construct_name"
+colnames(outcome_data_not_peer)[2] <- "construct_frequency"
+outcome_data_not_peer
+#check for spelling mistakes
+
+
+#save as outcome construct counts
+#library("readr")
+write_csv2(outcome_data_not_peer,"../results/Counts of All Outcome Constructs - Single_Study_not_peer.csv")
+```
+
+### Doublets for role (original) not_peer
+```{r}
+#as an index to cause_data2$construct_name
+#doublets
+double_not_peer <- data.frame(cause_data_not_peer$construct_name[cause_data_not_peer$construct_name %in% outcome_data_not_peer$construct_name]) #save returned values in dou2
+as.vector(double_not_peer)
+copy_cause_data_not_peer <- cause_data_not_peer
+copy_outcome_data_not_peer <- outcome_data_not_peer
+double_freq1_not_peer <- setDT(copy_cause_data_not_peer, key = 'construct_name')[double_not_peer]
+double_freq2_not_peer <- setDT(copy_outcome_data_not_peer, key = 'construct_name')[double_not_peer]
+doublets_data_role_not_peer <- data.frame(double_freq1_not_peer[, 1], double_freq1_not_peer[, 2] + double_freq2_not_peer[, 2]) #make new data frame: take freq1 construct_name and sum freq1 + freq1 construct_frequency
+doublets_data_role_not_peer
+```
+
+Number of interventions
+
+
+Mean sample size
 
 
 

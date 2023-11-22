@@ -706,6 +706,7 @@ codebook2_smarthome <- subset(codebook2, id %in% smarthome_ids)
 
 # 8. Subset for peer-reviewed
 
+## codebook1 subset
 ```{r}
 #subsets sorted for peer-reviewed
 codebook1_peer <- subset(codebook1, peer_reviewed==1)
@@ -713,9 +714,166 @@ codebook1_not_peer <- subset(codebook1, peer_reviewed==2)
 codebook1_none <- subset(codebook1, peer_reviewed==0)
 ```
 
+## single study subset
+```{r}
+#single_study_peer
+common_id2_peer <- intersect(codebook1_peer$id, single_study$id)
+single_study_peer <- single_study[single_study$id %in% common_id2_peer,]
+
+#single_study_not_peer
+common_id2_not_peer <- intersect(codebook1_not_peer$id, single_study$id)
+single_study_not_peer <- single_study[single_study$id %in% common_id2_not_peer,]
+```
 
 
+## SE role prep work peer
+### Cause variables (original)
+String split into several columns (where you don't know the number of output columns)
+```{r}
+before_cause_peer <- data.frame(single_study_peer$cause_variables)
 
+#rename columns
+colnames(before_cause_peer)[1] <- "cause_variables"
+
+max(lengths(strsplit(as.character(before_cause_peer$cause_variables), '; ')))
+#library(data.table)
+setDT(before_cause_peer)[, paste0("cause_variables", 1:5) := tstrsplit(single_study_peer$cause_variables, "; ")] #5 = number of columns (items are assigned to) 
+before_cause_peer
+```
+
+Change data format (into long format)
+```{r}
+#new data set (with added ID)
+mc2 <- nrow(single_study_peer) #where mc2 is the number of rows
+cause_wide_data_peer <- data.frame(id = 1:mc2, before_cause_peer$cause_variables,
+                              before_cause_peer$cause_variables1, 
+                              before_cause_peer$cause_variables2,
+                              before_cause_peer$cause_variables3,
+                              before_cause_peer$cause_variables4,
+                              before_cause_peer$cause_variables5)
+
+#making sure ID column is a factor
+cause_wide_data_peer$id <- as.factor(cause_wide_data_peer$id)
+
+#changing into long format
+#library(tidyr)
+cause_long_data_peer <- gather(cause_wide_data_peer, cause_variables_number, cause_variables, before_cause_peer.cause_variables1:before_cause_peer.cause_variables5, factor_key = T) 
+cause_long_data_peer
+
+#delete NAs in data frame
+cause_long_data_peer_clean <- subset(cause_long_data_peer, !is.na(cause_long_data_peer[,4])) #column 4 
+```
+
+### Outcome variables (original)
+String split into several columns (where you don't know the number of output columns)
+```{r}
+before_outcome_peer <- data.frame(single_study_peer$outcome_variables)
+
+#rename columns
+colnames(before_outcome_peer)[1] <- "outcome_variables"
+
+max(lengths(strsplit(as.character(before_outcome_peer$outcome_variables), '; ')))
+#library(data.table)
+setDT(before_outcome_peer)[, paste0("outcome_variables", 1:5) := tstrsplit(single_study_peer$outcome_variables, "; ")] #6 = number of columns (items are assigned to) 
+before_outcome_peer
+```
+
+Change data format (into long format)
+```{r}
+#new data set (with added ID)
+mo2 <- nrow(single_study_peer) #where mo2 is the number of rows
+outcome_wide_data_peer <- data.frame(id = 1:mo2, before_outcome_peer$outcome_variables,
+                              before_outcome_peer$outcome_variables1, 
+                              before_outcome_peer$outcome_variables2,
+                              before_outcome_peer$outcome_variables3,
+                              before_outcome_peer$outcome_variables4,
+                              before_outcome_peer$outcome_variables5)
+
+#making sure ID column is a factor
+outcome_wide_data_peer$id <- as.factor(outcome_wide_data_peer$id)
+
+#changing into long format
+#library(tidyr)
+outcome_long_data_peer <- gather(outcome_wide_data_peer, outcome_variables_number, outcome_variables, before_outcome_peer.outcome_variables1:before_outcome_peer.outcome_variables5, factor_key = T) 
+outcome_long_data_peer
+
+#delete NAs in data frame
+outcome_long_data_peer_clean <- subset(outcome_long_data_peer, !is.na(outcome_long_data_peer[,4])) #column 4 
+```
+
+## SE role prep work not_peer
+### Cause variables (original)
+String split into several columns (where you don't know the number of output columns)
+```{r}
+before_cause_not_peer <- data.frame(single_study_not_peer$cause_variables)
+
+#rename columns
+colnames(before_cause_not_peer)[1] <- "cause_variables"
+
+max(lengths(strsplit(as.character(before_cause_not_peer$cause_variables), '; ')))
+#library(data.table)
+setDT(before_cause_not_peer)[, paste0("cause_variables", 1:4) := tstrsplit(single_study_not_peer$cause_variables, "; ")] #4 = number of columns (items are assigned to) 
+before_cause_not_peer
+```
+
+Change data format (into long format)
+```{r}
+#new data set (with added ID)
+mc3 <- nrow(single_study_not_peer) #where mc2 is the number of rows
+cause_wide_data_not_peer <- data.frame(id = 1:mc3, before_cause_not_peer$cause_variables,
+                              before_cause_not_peer$cause_variables1, 
+                              before_cause_not_peer$cause_variables2,
+                              before_cause_not_peer$cause_variables3,
+                              before_cause_not_peer$cause_variables4)
+
+#making sure ID column is a factor
+cause_wide_data_not_peer$id <- as.factor(cause_wide_data_not_peer$id)
+
+#changing into long format
+#library(tidyr)
+cause_long_data_not_peer <- gather(cause_wide_data_not_peer, cause_variables_number, cause_variables, before_cause_not_peer.cause_variables1:before_cause_not_peer.cause_variables4, factor_key = T) 
+cause_long_data_not_peer
+
+#delete NAs in data frame
+cause_long_data_not_peer_clean <- subset(cause_long_data_not_peer, !is.na(cause_long_data_not_peer[,4])) #column 4 
+```
+
+### Outcome variables (original)
+String split into several columns (where you don't know the number of output columns)
+```{r}
+before_outcome_not_peer <- data.frame(single_study_not_peer$outcome_variables)
+
+#rename columns
+colnames(before_outcome_not_peer)[1] <- "outcome_variables"
+
+max(lengths(strsplit(as.character(before_outcome_not_peer$outcome_variables), '; ')))
+#library(data.table)
+setDT(before_outcome_not_peer)[, paste0("outcome_variables", 1:5) := tstrsplit(single_study_not_peer$outcome_variables, "; ")] #5 = number of columns (items are assigned to) 
+before_outcome_not_peer
+```
+
+Change data format (into long format)
+```{r}
+#new data set (with added ID)
+mo3 <- nrow(single_study_not_peer) #where mo2 is the number of rows
+outcome_wide_data_not_peer <- data.frame(id = 1:mo3, before_outcome_not_peer$outcome_variables,
+                              before_outcome_not_peer$outcome_variables1, 
+                              before_outcome_not_peer$outcome_variables2,
+                              before_outcome_not_peer$outcome_variables3,
+                              before_outcome_not_peer$outcome_variables4,
+                              before_outcome_not_peer$outcome_variables5)
+
+#making sure ID column is a factor
+outcome_wide_data_not_peer$id <- as.factor(outcome_wide_data_not_peer$id)
+
+#changing into long format
+#library(tidyr)
+outcome_long_data_not_peer <- gather(outcome_wide_data_not_peer, outcome_variables_number, outcome_variables, before_outcome_not_peer.outcome_variables1:before_outcome_not_peer.outcome_variables5, factor_key = T) 
+outcome_long_data_not_peer
+
+#delete NAs in data frame
+outcome_long_data_not_peer_clean <- subset(outcome_long_data_not_peer, !is.na(outcome_long_data_not_peer[,4])) #column 4 
+```
 
 
 
