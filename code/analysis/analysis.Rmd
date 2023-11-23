@@ -288,6 +288,9 @@ colnames(s_proportions) <- c("development","Freq",
 #save descriptive values in table
 #library("readr")
 write_csv2(s_proportions,"../results/Conditional Proportions of Factor Scale Variables (incl. NA).csv")
+
+#content validity experts
+table(codebook2$validity_content_experts)
 ```
 
 ### Scales with reliability information
