@@ -436,6 +436,9 @@ write_csv2(description_scale_studypaper,"../results/Descriptive Values of Numeri
 write_csv2(description_all_scales,"../results/Descriptive Values of Numeric Scale Variables - All Scales.csv")
 write_csv2(description_selfdeveloped,"../results/Descriptive Values of Numeric Scale Variables - Selfdeveloped Scales.csv")
 
+#distribution of factor numbers
+table(codebook2$factors)
+
 #median of codebook2.item_number
 median(codebook2$item_number, na.rm = T)
 ```
