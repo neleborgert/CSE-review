@@ -314,6 +314,11 @@ Identify IDs of those papers (were included in codebook 2 because the referencin
 selfdeveloped_scale <- subset(codebook2, scale_changes!="none" | is.na(scale_changes)) 
 ```
 
+## Include papers from codebook 2 if recurring 
+```{r}
+external_recurring_scale <- subset(codebook2, scale_changes=="none") 
+```
+
 ## Discriminant constructs
 String split into several columns (where you don't know the number of output columns)
 ```{r}

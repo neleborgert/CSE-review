@@ -324,11 +324,13 @@ nrow(scale_reliable_with_info)
 #id 180: 3 scales and 3 studies
 nrow(scale_reliable_with_info)-5
 
+
+
 #keep rows only if alpha_new and composite_new have values
 scale_reliable_two_infos <- scale_reliable_with_info %>%
   filter(!is.na(alpha) & !is.na(composite))
 nrow(scale_reliable_two_infos)
-#check if same id has multiple studies with ids single_sutdy
+#check if same id has multiple studies with ids single_study
 #id 56: 4 scales but only 1 study
 #id 180: 3 scales and 3 studies
 nrow(scale_reliable_two_infos)-3
@@ -364,6 +366,48 @@ nrow(scale_valid_with_info)
 #id 56: 4 scales but only 1 study
 #id 180: 3 scales and 3 studies
 nrow(scale_valid_with_info)-3
+
+
+
+
+#keep rows only if only certain number of columns have values
+#first use
+
+##to check for correct sum number of studies
+scale_valid_with_one_infos <- scale_valid_with_info[rowSums(!is.na(scale_valid_with_info[, 3:8])) == 1, ]
+nrow(scale_valid_with_one_infos)
+
+## Subset df where exactly two out of the six specified columns are not NA
+scale_valid_with_two_infos <- scale_valid_with_info[rowSums(!is.na(scale_valid_with_info[, 3:8])) == 2, ]
+## check if same id has multiple studies with ids single_study
+## id 56: 3 scales out of four but only 1 study
+nrow(scale_valid_with_two_infos)-3
+## Subset df where exactly three out of the six specified columns are not NA
+scale_valid_with_three_infos <- scale_valid_with_info[rowSums(!is.na(scale_valid_with_info[, 3:8])) == 3, ]
+#id 180: 3 scales and 3 studies
+## id 56: 1 scale out of four but only 1 study
+#includes criterion validity study
+nrow(scale_valid_with_three_infos)
+## Subset df where exactly four out of the six specified columns are not NA
+scale_valid_with_four_infos <- scale_valid_with_info[rowSums(!is.na(scale_valid_with_info[, 3:8])) == 4, ]
+nrow(scale_valid_with_four_infos)
+## Subset df where exactly five out of the six specified columns are not NA
+scale_valid_with_five_infos <- scale_valid_with_info[rowSums(!is.na(scale_valid_with_info[, 3:8])) == 5, ]
+nrow(scale_valid_with_five_infos)
+
+#recurring external
+
+##prep
+external_recurring_scale["validity_content"][external_recurring_scale["validity_content"] == 0] <- NA
+
+##check
+rec_scale_valid_with_one_info <- external_recurring_scale[rowSums(!is.na(external_recurring_scale[, c("validity_content","validity_construct_factor_new","validity_construct_discriminant_type","validity_construct_convergent_type","validity_criterion_type","validity_incremental")])) == 1, ] #2
+
+##analyse
+rec_scale_valid_with_two_infos <- external_recurring_scale[rowSums(!is.na(external_recurring_scale[, c("validity_content","validity_construct_factor_new","validity_construct_discriminant_type","validity_construct_convergent_type","validity_criterion_type","validity_incremental")])) == 2, ] #2 + 1 from recurring within (codebook1)
+rec_scale_valid_with_three_infos <- external_recurring_scale[rowSums(!is.na(external_recurring_scale[, c("validity_content","validity_construct_factor_new","validity_construct_discriminant_type","validity_construct_convergent_type","validity_criterion_type","validity_incremental")])) == 3, ] #4 + 1 from recurring within (codebook1)
+rec_scale_valid_with_four_infos <- external_recurring_scale[rowSums(!is.na(external_recurring_scale[, c("validity_content","validity_construct_factor_new","validity_construct_discriminant_type","validity_construct_convergent_type","validity_criterion_type","validity_incremental")])) == 4, ] #0
+#five and six out of six = 0 
 ```
 
 ### Scale variables (factor) 2
