@@ -493,8 +493,122 @@ overview_scales_recurring[,4:17] <- sapply(overview_scales_recurring[,4:17], as.
 overview_scales_recurring[is.na(overview_scales_recurring)] <- 0
 
 # add within recurring scales: scale number: 13,74,98,104,71A & scale_origin = 0 ->6 studies/5 scales
+id124 <- data.frame(
+  id = 124,
+  authors = "Cavus et al.",
+  scale_number_new = 13,
+  item_list=1,
+  facets=1,
+  reliability_alpha_new=1,
+  reliability_composite_new=0,
+  reliability_testretest=0,
+  reliability_splithalf=0,
+  validity_content=0,
+  validity_content_experts=0,
+  validity_construct_factor_new=0,
+  validity_construct_factor_fitindices=0,
+  validity_construct_discriminant_type=0,
+  validity_construct_convergent_type=0,
+  validity_criterion_type =0,
+  validity_incremental=0)
+id527 <- data.frame(
+  id = 527,
+  authors = "Sharma",
+  scale_number_new = 104,
+  item_list=1,
+  facets=0,
+  reliability_alpha_new=1,
+  reliability_composite_new=1,
+  reliability_testretest=0,
+  reliability_splithalf=0,
+  validity_content=1,
+  validity_content_experts=0,
+  validity_construct_factor_new=0,
+  validity_construct_factor_fitindices=0,
+  validity_construct_discriminant_type=1,
+  validity_construct_convergent_type=1,
+  validity_criterion_type =0,
+  validity_incremental=0)
+id607 <- data.frame(
+  id = 607,
+  authors = "Thompson et al.",
+  scale_number_new = "71A",
+  item_list=1,
+  facets=0,
+  reliability_alpha_new=1,
+  reliability_composite_new=1,
+  reliability_testretest=0,
+  reliability_splithalf=0,
+  validity_content=1,
+  validity_content_experts=0,
+  validity_construct_factor_new=0,
+  validity_construct_factor_fitindices=0,
+  validity_construct_discriminant_type=1,
+  validity_construct_convergent_type=1,
+  validity_criterion_type =0,
+  validity_incremental=0)
+id612 <- data.frame(
+  id = 612,
+  authors = "Torten et al.",
+  scale_number_new = 74,
+  item_list=0,
+  facets=0,
+  reliability_alpha_new=0,
+  reliability_composite_new=0,
+  reliability_testretest=0,
+  reliability_splithalf=0,
+  validity_content=0,
+  validity_content_experts=0,
+  validity_construct_factor_new=0,
+  validity_construct_factor_fitindices=0,
+  validity_construct_discriminant_type=0,
+  validity_construct_convergent_type=0,
+  validity_criterion_type =0,
+  validity_incremental=0)
+id648 <- data.frame(
+  id = 648,
+  authors = "Weinberger et al. ",
+  scale_number_new = 98,
+  item_list=1,
+  facets=0,
+  reliability_alpha_new=0,
+  reliability_composite_new=0,
+  reliability_testretest=0,
+  reliability_splithalf=0,
+  validity_content=0,
+  validity_content_experts=0,
+  validity_construct_factor_new=0,
+  validity_construct_factor_fitindices=0,
+  validity_construct_discriminant_type=0,
+  validity_construct_convergent_type=0,
+  validity_criterion_type =0,
+  validity_incremental=0)
+id649 <- data.frame(
+  id = 649,
+  authors = "Weinberger et al. ",
+  scale_number_new = 98,
+  item_list=1,
+  facets=0,
+  reliability_alpha_new=0,
+  reliability_composite_new=0,
+  reliability_testretest=0,
+  reliability_splithalf=0,
+  validity_content=0,
+  validity_content_experts=0,
+  validity_construct_factor_new=0,
+  validity_construct_factor_fitindices=0,
+  validity_construct_discriminant_type=0,
+  validity_construct_convergent_type=0,
+  validity_criterion_type =0,
+  validity_incremental=0)
 
-
+# add the new row to the data frame
+overview_scales_recurring <- rbind(overview_scales_recurring, id124)
+overview_scales_recurring <- rbind(overview_scales_recurring, id527)
+overview_scales_recurring <- rbind(overview_scales_recurring, id607)
+overview_scales_recurring <- rbind(overview_scales_recurring, id612)
+overview_scales_recurring <- rbind(overview_scales_recurring, id648)
+overview_scales_recurring <- rbind(overview_scales_recurring, id649)
 
 # save as excel sheet
 #1 = reported
