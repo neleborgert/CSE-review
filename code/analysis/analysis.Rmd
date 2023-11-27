@@ -412,18 +412,17 @@ rec_scale_valid_with_four_infos <- external_recurring_scale[rowSums(!is.na(exter
 
 ### Scale overview of main quality criteria
 
-Reporting rigor of methodological scale criteria
+Reporting rigor of methodological scale criteria:
+- id, authors, scale_number_new
+- item_list, facets
+- reliability_alpha_new, reliability_composite_new, reliability_testretest, reliability_splithalf
+- validity_content, validity_content_experts, validity_construct_factor_new, validity_construct_factor_fitindices, validity_construct_discriminant_type, validity_construct_convergent_type, validity_criterion_type, validity_incremental
+
+TO DO: include definition and possibly pre/pilot testing
+
+#### First use scales
+
 ```{r}
-# id, authors, scale_number_new
-# item_list, facets
-# reliability_alpha_new, reliability_composite_new, reliability_testretest, reliability_splithalf
-# validity_content, validity_content_experts, validity_construct_factor_new, validity_construct_factor_fitindices, validity_construct_discriminant_type, validity_construct_convergent_type, validity_criterion_type, validity_incremental
-
-# new: definition, pre/pilot testing
-# how to include: sample size?
-
-## first use
-
 # create subset
 overview_scales_firstuse <- selfdeveloped_scale[,c("id","authors","scale_number_new",
                                                    "item_list", "facets",
@@ -458,8 +457,10 @@ overview_scales_firstuse[is.na(overview_scales_firstuse)] <- 0
 #1 = reported
 #0 = not reported
 write_csv2(overview_scales_firstuse,"../results/Scale overview of main quality criteria - First Use.csv")
+```
 
-
+#### Recurring use scales
+```{r}
 ## recurring (changes = none + codebook 1 manually)
 
 # create subset
@@ -614,9 +615,7 @@ overview_scales_recurring <- rbind(overview_scales_recurring, id649)
 #1 = reported
 #0 = not reported
 write_csv2(overview_scales_recurring,"../results/Scale overview of main quality criteria - Recurring.csv")
-
 ```
-
 
 
 
