@@ -410,6 +410,102 @@ rec_scale_valid_with_four_infos <- external_recurring_scale[rowSums(!is.na(exter
 #five and six out of six = 0 
 ```
 
+### Scale overview of main quality criteria
+
+Reporting rigor of methodological scale criteria
+```{r}
+# id, authors, scale_number_new
+# item_list, facets
+# reliability_alpha_new, reliability_composite_new, reliability_testretest, reliability_splithalf
+# validity_content, validity_content_experts, validity_construct_factor_new, validity_construct_factor_fitindices, validity_construct_discriminant_type, validity_construct_convergent_type, validity_criterion_type, validity_incremental
+
+# new: definition, pre/pilot testing
+# how to include: sample size?
+
+## first use
+
+# create subset
+overview_scales_firstuse <- selfdeveloped_scale[,c("id","authors","scale_number_new",
+                                                   "item_list", "facets",
+                                                   "reliability_alpha_new", "reliability_composite_new", "reliability_testretest", "reliability_splithalf",
+                                                   "validity_content", "validity_content_experts","validity_construct_factor_new","validity_construct_factor_fitindices", "validity_construct_discriminant_type", "validity_construct_convergent_type", "validity_criterion_type", "validity_incremental")] 
+
+# replace 0 with NA in a specific column
+overview_scales_firstuse$validity_content[overview_scales_firstuse$validity_content == 0] <- NA
+overview_scales_firstuse$validity_content_experts[overview_scales_firstuse$validity_content_experts == 0] <- NA
+
+# replace non-NA values in specific columns with 1
+overview_scales_firstuse$item_list[!is.na(overview_scales_firstuse$item_list)] <- 1
+overview_scales_firstuse$facets[!is.na(overview_scales_firstuse$facets)] <- 1
+overview_scales_firstuse$reliability_alpha_new[!is.na(overview_scales_firstuse$reliability_alpha_new)] <- 1
+overview_scales_firstuse$reliability_composite_new[!is.na(overview_scales_firstuse$reliability_composite_new)] <- 1
+overview_scales_firstuse$reliability_testretest[!is.na(overview_scales_firstuse$reliability_testretest)] <- 1
+overview_scales_firstuse$reliability_splithalf[!is.na(overview_scales_firstuse$reliability_splithalf)] <- 1
+overview_scales_firstuse$validity_content[!is.na(overview_scales_firstuse$validity_content)] <- 1
+overview_scales_firstuse$validity_content_experts[!is.na(overview_scales_firstuse$facets)] <- 1
+overview_scales_firstuse$validity_construct_factor_new[!is.na(overview_scales_firstuse$validity_construct_factor_new)] <- 1
+overview_scales_firstuse$validity_construct_factor_fitindices[!is.na(overview_scales_firstuse$validity_construct_factor_fitindices)] <- 1
+overview_scales_firstuse$validity_construct_discriminant_type[!is.na(overview_scales_firstuse$validity_construct_discriminant_type)] <- 1
+overview_scales_firstuse$validity_construct_convergent_type[!is.na(overview_scales_firstuse$validity_construct_convergent_type)] <- 1
+overview_scales_firstuse$validity_criterion_type[!is.na(overview_scales_firstuse$validity_criterion_type)] <- 1
+overview_scales_firstuse$validity_incremental[!is.na(overview_scales_firstuse$validity_incremental)] <- 1
+
+# Replace all NA values in the data frame with 0
+overview_scales_firstuse[,4:17] <- sapply(overview_scales_firstuse[,4:17], as.numeric)
+overview_scales_firstuse[is.na(overview_scales_firstuse)] <- 0
+
+# save as excel sheet
+#1 = reported
+#0 = not reported
+write_csv2(overview_scales_firstuse,"../results/Scale overview of main quality criteria - First Use.csv")
+
+
+## recurring (changes = none + codebook 1 manually)
+
+# create subset
+overview_scales_recurring <- external_recurring_scale[,c("id","authors","scale_number_new",
+                                                   "item_list", "facets",
+                                                   "reliability_alpha_new", "reliability_composite_new", "reliability_testretest", "reliability_splithalf",
+                                                   "validity_content", "validity_content_experts","validity_construct_factor_new","validity_construct_factor_fitindices", "validity_construct_discriminant_type", "validity_construct_convergent_type", "validity_criterion_type", "validity_incremental")] 
+
+# replace 0 with NA in a specific column
+overview_scales_recurring$validity_content[overview_scales_recurring$validity_content == 0] <- NA
+overview_scales_recurring$validity_content_experts[overview_scales_recurring$validity_content_experts == 0] <- NA
+
+# replace non-NA values in specific columns with 1
+overview_scales_recurring$item_list[!is.na(overview_scales_recurring$item_list)] <- 1
+overview_scales_recurring$facets[!is.na(overview_scales_recurring$facets)] <- 1
+overview_scales_recurring$reliability_alpha_new[!is.na(overview_scales_recurring$reliability_alpha_new)] <- 1
+overview_scales_recurring$reliability_composite_new[!is.na(overview_scales_recurring$reliability_composite_new)] <- 1
+overview_scales_recurring$reliability_testretest[!is.na(overview_scales_recurring$reliability_testretest)] <- 1
+overview_scales_recurring$reliability_splithalf[!is.na(overview_scales_recurring$reliability_splithalf)] <- 1
+overview_scales_recurring$validity_content[!is.na(overview_scales_recurring$validity_content)] <- 1
+overview_scales_recurring$validity_content_experts[!is.na(overview_scales_recurring$facets)] <- 1
+overview_scales_recurring$validity_construct_factor_new[!is.na(overview_scales_recurring$validity_construct_factor_new)] <- 1
+overview_scales_recurring$validity_construct_factor_fitindices[!is.na(overview_scales_recurring$validity_construct_factor_fitindices)] <- 1
+overview_scales_recurring$validity_construct_discriminant_type[!is.na(overview_scales_recurring$validity_construct_discriminant_type)] <- 1
+overview_scales_recurring$validity_construct_convergent_type[!is.na(overview_scales_recurring$validity_construct_convergent_type)] <- 1
+overview_scales_recurring$validity_criterion_type[!is.na(overview_scales_recurring$validity_criterion_type)] <- 1
+overview_scales_recurring$validity_incremental[!is.na(overview_scales_recurring$validity_incremental)] <- 1
+
+# replace all NA values in the data frame with 0
+overview_scales_recurring[,4:17] <- sapply(overview_scales_recurring[,4:17], as.numeric)
+overview_scales_recurring[is.na(overview_scales_recurring)] <- 0
+
+# add within recurring scales: scale number: 13,74,98,104,71A & scale_origin = 0 ->6 studies/5 scales
+
+
+
+# save as excel sheet
+#1 = reported
+#0 = not reported
+write_csv2(overview_scales_recurring,"../results/Scale overview of main quality criteria - Recurring.csv")
+
+```
+
+
+
+
 ### Scale variables (factor) 2
 ```{r}
 #create data frame
