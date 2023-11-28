@@ -404,8 +404,8 @@ external_recurring_scale["validity_content"][external_recurring_scale["validity_
 rec_scale_valid_with_one_info <- external_recurring_scale[rowSums(!is.na(external_recurring_scale[, c("validity_content","validity_construct_factor_new","validity_construct_discriminant_type","validity_construct_convergent_type","validity_criterion_type","validity_incremental")])) == 1, ] #2
 
 ##analyse
-rec_scale_valid_with_two_infos <- external_recurring_scale[rowSums(!is.na(external_recurring_scale[, c("validity_content","validity_construct_factor_new","validity_construct_discriminant_type","validity_construct_convergent_type","validity_criterion_type","validity_incremental")])) == 2, ] #2 + 1 from recurring within (codebook1)
-rec_scale_valid_with_three_infos <- external_recurring_scale[rowSums(!is.na(external_recurring_scale[, c("validity_content","validity_construct_factor_new","validity_construct_discriminant_type","validity_construct_convergent_type","validity_criterion_type","validity_incremental")])) == 3, ] #4 + 1 from recurring within (codebook1)
+rec_scale_valid_with_two_infos <- external_recurring_scale[rowSums(!is.na(external_recurring_scale[, c("validity_content","validity_construct_factor_new","validity_construct_discriminant_type","validity_construct_convergent_type","validity_criterion_type","validity_incremental")])) == 2, ] #2 
+rec_scale_valid_with_three_infos <- external_recurring_scale[rowSums(!is.na(external_recurring_scale[, c("validity_content","validity_construct_factor_new","validity_construct_discriminant_type","validity_construct_convergent_type","validity_criterion_type","validity_incremental")])) == 3, ] #4 + 2 from recurring within (codebook1)
 rec_scale_valid_with_four_infos <- external_recurring_scale[rowSums(!is.na(external_recurring_scale[, c("validity_content","validity_construct_factor_new","validity_construct_discriminant_type","validity_construct_convergent_type","validity_criterion_type","validity_incremental")])) == 4, ] #0
 #five and six out of six = 0 
 ```
