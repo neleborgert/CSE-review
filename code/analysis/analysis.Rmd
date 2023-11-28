@@ -441,7 +441,7 @@ overview_scales_firstuse$reliability_composite_new[!is.na(overview_scales_firstu
 overview_scales_firstuse$reliability_testretest[!is.na(overview_scales_firstuse$reliability_testretest)] <- 1
 overview_scales_firstuse$reliability_splithalf[!is.na(overview_scales_firstuse$reliability_splithalf)] <- 1
 overview_scales_firstuse$validity_content[!is.na(overview_scales_firstuse$validity_content)] <- 1
-overview_scales_firstuse$validity_content_experts[!is.na(overview_scales_firstuse$facets)] <- 1
+overview_scales_firstuse$validity_content_experts[!is.na(overview_scales_firstuse$validity_content_experts)] <- 1
 overview_scales_firstuse$validity_construct_factor_new[!is.na(overview_scales_firstuse$validity_construct_factor_new)] <- 1
 overview_scales_firstuse$validity_construct_factor_fitindices[!is.na(overview_scales_firstuse$validity_construct_factor_fitindices)] <- 1
 overview_scales_firstuse$validity_construct_discriminant_type[!is.na(overview_scales_firstuse$validity_construct_discriminant_type)] <- 1
@@ -481,7 +481,7 @@ overview_scales_recurring$reliability_composite_new[!is.na(overview_scales_recur
 overview_scales_recurring$reliability_testretest[!is.na(overview_scales_recurring$reliability_testretest)] <- 1
 overview_scales_recurring$reliability_splithalf[!is.na(overview_scales_recurring$reliability_splithalf)] <- 1
 overview_scales_recurring$validity_content[!is.na(overview_scales_recurring$validity_content)] <- 1
-overview_scales_recurring$validity_content_experts[!is.na(overview_scales_recurring$facets)] <- 1
+overview_scales_recurring$validity_content_experts[!is.na(overview_scales_recurring$validity_content_experts)] <- 1
 overview_scales_recurring$validity_construct_factor_new[!is.na(overview_scales_recurring$validity_construct_factor_new)] <- 1
 overview_scales_recurring$validity_construct_factor_fitindices[!is.na(overview_scales_recurring$validity_construct_factor_fitindices)] <- 1
 overview_scales_recurring$validity_construct_discriminant_type[!is.na(overview_scales_recurring$validity_construct_discriminant_type)] <- 1
