@@ -319,6 +319,38 @@ selfdeveloped_scale <- subset(codebook2, scale_changes!="none" | is.na(scale_cha
 external_recurring_scale <- subset(codebook2, scale_changes=="none") 
 ```
 
+## Technologies
+String split into several columns (where you don't know the number of output columns)
+```{r}
+before_tech <- data.frame(codebook1$technology)
+
+#rename columns
+colnames(before_tech)[1] <- "technology"
+
+max(lengths(strsplit(as.character(before_tech$technology), '; ')))
+#library(data.table)
+setDT(before_tech)[, paste0("technology", 1:3) := tstrsplit(codebook1$technology, "; ")] #3 = number of columns (items are assigned to) 
+before_tech
+```
+
+Change data format (into long format)
+```{r}
+#new data set (with added ID)
+mt <- nrow(codebook1) #where mt is the number of rows
+tech_wide_data <- data.frame(id = 1:mt, before_tech$technology1, before_tech$technology2, before_tech$technology3)
+
+#making sure ID column is a factor
+tech_wide_data$id <- as.factor(tech_wide_data$id)
+
+#changing into long format
+#library(tidyr)
+tech_long_data <- gather(tech_wide_data, technology_number, technology, before_tech.technology1:before_tech.technology3, factor_key = T) 
+tech_long_data
+
+#delete NAs in data frame
+tech_long_data_clean <- subset(tech_long_data, !is.na(tech_long_data[,3])) #column 3 = technology
+```
+
 ## Discriminant constructs
 String split into several columns (where you don't know the number of output columns)
 ```{r}

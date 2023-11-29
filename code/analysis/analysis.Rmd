@@ -996,6 +996,28 @@ codebook1$sample_size_new[codebook1$id == "438" & codebook1$study_samples == "A"
 codebook1$sample_size_new[codebook1$id == "569" & codebook1$study_samples == "A"] <- (169)
 ```
 
+## Technology
+
+create data frame with construct and count/frequency
+->summary macht nur bis 100 constructs
+```{r}
+#as factor
+tech_long_data_clean$technology <- as.factor(tech_long_data_clean$technology)
+
+#data frame
+tech_data <- data.frame(unclass(summary(tech_long_data_clean$technology, maxsum = 306))) #306 number of observations in tech_long_data_clean
+setDT(tech_data, keep.rownames = TRUE)[] #convert row names into first column
+
+#rename columns
+colnames(tech_data)[1] <- "technology_name"
+colnames(tech_data)[2] <- "technology_frequency"
+tech_data
+#check for spelling mistakes
+
+#save as discriminant construct counts
+#library("readr")
+write_csv2(tech_data,"../results/Counts of All Technologies - Codebook1.csv")
+```
 
 ## Validity construct (discriminant)
 How many papers studied discriminant validity and what methods were used?
