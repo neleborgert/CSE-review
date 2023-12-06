@@ -630,8 +630,6 @@ overview_scales_recurring <- rbind(overview_scales_recurring, id649)
 write_csv2(overview_scales_recurring,"../results/Scale overview of main quality criteria - Recurring.csv")
 ```
 
-
-
 ### Scale variables (factor) 2
 ```{r}
 #create data frame
@@ -1837,12 +1835,18 @@ id_intervention_none <- single_study_none$id[single_study_none$intervention==1]
 id_intervention_none
 ```
 
-# Newly created vs modified scales
+# 9. Newly created vs modified scales
 
 ## Subset for newly created scales vs modified scales
 
 Both in selfdeveloped_scale
 Newly_created defined as scale_authors = NA (look into subset first)
+
+ID 56: overwrite for all same scale_authors
+ID 94: all already have the same scale_authors
+ID 129: both NA
+ID 180: all already have the same scale_authors
+ID 372: field notes = NA, transcripts = NA, scale = author
 
 ```{r}
 #ID 56: overwrite for all same scale_authors
@@ -1854,12 +1858,6 @@ new_scales <- subset(selfdeveloped_scale, is.na(scale_authors))
 #exclude papers if scale_authors has no entry
 modified_scales <- subset(selfdeveloped_scale, !is.na(scale_authors))
 ```
-
-ID 56: overwrite for all same scale_authors
-ID 94: all already have the same scale_authors
-ID 129: both NA
-ID 180: all already have the same scale_authors
-ID 372: field notes = NA, transcripts = NA, scale = author
 
 ## Number of ... (first use totals)
 number of scales (161)
@@ -1884,13 +1882,42 @@ nrow(modified_scales)-5
 ```
 
 number of studies reporting reliability infos (123)
+-total
+-two out of four reliability estimates (47)
 ```{r}
+## new scales
+new_scale_reliable <- data.frame(new_scales$id,
+                          new_scales$scale_number_new,
+                          new_scales$reliability_alpha_new,
+                          new_scales$reliability_composite_new,
+                          new_scales$reliability_testretest,
+                          new_scales$reliability_splithalf)
+colnames(new_scale_reliable) <- c("id","scale_number","alpha", "composite","testretest","splithalf")
+new_scale_reliable_with_info <- new_scale_reliable %>% filter_at(vars(alpha, composite, testretest, splithalf),any_vars(!is.na(.)))
+nrow(new_scale_reliable_with_info) #29
+#keep rows only if alpha_new and composite_new have values
+new_scale_reliable_two_infos <- new_scale_reliable_with_info %>%
+  filter(!is.na(alpha) & !is.na(composite))
+nrow(new_scale_reliable_two_infos) #8
 
+## modified scales
+modified_scale_reliable <- data.frame(modified_scales$id,
+                          modified_scales$scale_number_new,
+                          modified_scales$reliability_alpha_new,
+                          modified_scales$reliability_composite_new,
+                          modified_scales$reliability_testretest,
+                          modified_scales$reliability_splithalf)
+colnames(modified_scale_reliable) <- c("id","scale_number","alpha", "composite","testretest","splithalf")
+modified_scale_reliable_with_info <- modified_scale_reliable %>% filter_at(vars(alpha, composite, testretest, splithalf),any_vars(!is.na(.)))
+nrow(modified_scale_reliable_with_info)-5 #94
+#keep rows only if alpha_new and composite_new have values
+modified_scale_reliable_two_infos <- modified_scale_reliable_with_info %>%
+  filter(!is.na(alpha) & !is.na(composite))
+nrow(modified_scale_reliable_two_infos)-3 #39
+#4x56
+#2x180
 ```
 
--alpha (102)
--composite (76)
--two out of four reliability estimates (47)
 number of studies reporting validity information (117)
 -content (85)
 -factor (11)
@@ -1906,10 +1933,117 @@ number of studies reporting validity information (117)
 ```
 
 ## Reliability 
-alpha (.868)
-composite (.897)
+studies reporting
+-alpha (102)
+-composite (76)
 ```{r}
+#count
 
+## first use
+non_na_alpha_firstuse <- sum(!is.na(scale_reliable_with_info$alpha))
+non_na_alpha_firstuse # 102
+non_na_composite_firstuse <- sum(!is.na(scale_reliable_with_info$composite))
+non_na_composite_firstuse # 76
+
+##new scales
+non_na_alpha_new <- sum(!is.na(new_scale_reliable_with_info$alpha))
+non_na_alpha_new # 25
+non_na_composite_new <- sum(!is.na(new_scale_reliable_with_info$composite))
+non_na_composite_new # 12
+
+##modified scales
+non_na_alpha_modified <- sum(!is.na(modified_scale_reliable_with_info$alpha))
+non_na_alpha_modified # 77
+non_na_composite_modified <- sum(!is.na(modified_scale_reliable_with_info$composite))
+non_na_composite_modified # 64
+```
+
+Estimation of 
+-alpha (.868)
+-composite (.897)
+```{r}
+#use data set scale_reliable_with_info and combine with new_scales, match scale_number with new_scale_number
+#match via id
+
+## new scale
+codebook1_id_size <- codebook1[,c("id","sample_size_new")] #select only relevant columns
+codebook1_id_size_unique <- codebook1_id_size[!duplicated(codebook1_id_size$id), ]# delete multiple ids
+new_scale_rel_size<- merge(new_scale_reliable_with_info, codebook1_id_size_unique, by = "id", all.x=T)
+
+## modified scale
+modified_scale_rel_size<- merge(modified_scale_reliable_with_info, codebook1_id_size_unique, by = "id", all.x=T)
+
+#manual changes
+##new
+#id 129 -> 64B change N to 1131
+new_scale_rel_size$sample_size_new[new_scale_rel_size$scale_number == "64B"] <- 1131
+
+##modified
+
+#id 56 -> mean alpha 0.96 + 0.964 +0.972 +0.977 because only one N
+modified_scale_rel_size$alpha[modified_scale_rel_size$scale_number == "12C"] <- ((0.96 + 0.964 +0.972 +0.977)/4)
+modified_scale_rel_size$composite[modified_scale_rel_size$scale_number == "12C"] <- ((0.972+0.960+0.963+0.977)/4)
+#12E,12D,12F out
+modified_scale_rel_size <- subset(modified_scale_rel_size, scale_number!="12E" & scale_number!="12D" & scale_number!="12F")
+
+#id 94 -> mean alpha 0.84 + 0.84 + 0.85 because only one N
+modified_scale_rel_size$alpha[modified_scale_rel_size$scale_number == "61A"] <- ((0.84 + 0.84 + 0.85)/3)
+#no composite
+#61B,61C out
+modified_scale_rel_size <- subset(modified_scale_rel_size, scale_number!="61B" & scale_number!="61C")
+
+#id 180 -> mean alpha 0.821 + 0.8485 because only one N change to (353+329+362)
+modified_scale_rel_size$sample_size_new[modified_scale_rel_size$scale_number == "119A"] <- 353
+modified_scale_rel_size$sample_size_new[modified_scale_rel_size$scale_number == "119B"] <- 329
+modified_scale_rel_size$sample_size_new[modified_scale_rel_size$scale_number == "119C"] <- 362
+
+## weighted alpha
+
+### new scales
+
+#without NA in data frame
+new_scales_alpha_data <- subset(new_scale_rel_size, !is.na(new_scale_rel_size$alpha))
+new_scales_alpha_data <- subset(new_scales_alpha_data, !is.na(new_scales_alpha_data$sample_size_new))
+
+#weighted mean
+weighted.mean(new_scales_alpha_data$alpha, new_scales_alpha_data$sample_size_new) #0.8728921
+#library(jtools)
+wtd.sd(new_scales_alpha_data$alpha, new_scales_alpha_data$sample_size_new) #0.0600094
+
+### modified scales
+
+#without NA in data frame
+modified_scales_alpha_data <- subset(modified_scale_rel_size, !is.na(modified_scale_rel_size$alpha))
+modified_scales_alpha_data <- subset(modified_scales_alpha_data, !is.na(modified_scales_alpha_data$sample_size_new))
+
+#weighted mean
+weighted.mean(modified_scales_alpha_data$alpha, modified_scales_alpha_data$sample_size_new) #0.8617814
+#library(jtools)
+wtd.sd(modified_scales_alpha_data$alpha, modified_scales_alpha_data$sample_size_new) #0.0619277
+
+## weighted composite
+
+### new scales
+#without NA in data frame
+new_scales_composite_data <- subset(new_scale_rel_size, !is.na(new_scale_rel_size$composite))
+new_scales_composite_data <- subset(new_scales_composite_data, !is.na(new_scales_composite_data$sample_size_new))
+
+#weighted mean
+weighted.mean(new_scales_composite_data$composite, new_scales_composite_data$sample_size_new) #0.8879505
+#library(jtools)
+wtd.sd(new_scales_composite_data$composite, new_scales_composite_data$sample_size_new) #0.04771964
+
+
+### modified scales
+
+#without NA in data frame
+modified_scales_composite_data <- subset(modified_scale_rel_size, !is.na(modified_scale_rel_size$composite))
+modified_scales_composite_data <- subset(modified_scales_composite_data, !is.na(modified_scales_composite_data$sample_size_new))
+
+#weighted mean
+weighted.mean(modified_scales_composite_data$composite, modified_scales_composite_data$sample_size_new) #0.9050664
+#library(jtools)
+wtd.sd(modified_scales_composite_data$composite, modified_scales_composite_data$sample_size_new) #0.05653042
 ```
 
 ## Validity
