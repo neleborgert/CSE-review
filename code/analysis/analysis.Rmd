@@ -1837,8 +1837,43 @@ id_intervention_none <- single_study_none$id[single_study_none$intervention==1]
 id_intervention_none
 ```
 
+# Newly created vs modified scales
 
+Both in selfdeveloped_scale
+Newly_created defined as scale_authors = NA (look into subset first)
 
+## Number of ... (first use totals)
+number of scales (161)
+number of studies (156)
+number of studies reporting reliability infos (123)
+-alpha (102)
+-composite (76)
+-two out of four reliability estimates (47)
+number of studies reporting validity information (117)
+-content (85)
+-factor (11)
+-discriminant (96)
+-convergent (93)
+-criterion (1)
+-two out of six validity types (31)
+-three out of six validity types (56)
+-four out of six validity types (7)
+```{r}
+
+```
+
+## Reliability 
+alpha (.868)
+composite (.897)
+```{r}
+
+```
+
+## Validity
+total different constructs (330 - all or first use?)
+```{r}
+
+```
 
 
 

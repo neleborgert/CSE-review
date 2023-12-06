@@ -916,6 +916,14 @@ outcome_long_data_not_peer
 outcome_long_data_not_peer_clean <- subset(outcome_long_data_not_peer, !is.na(outcome_long_data_not_peer[,4])) #column 4 
 ```
 
+# Subset for newly created scales vs modified scales
+
+Both in selfdeveloped_scale
+Newly_created defined as scale_authors = NA (look into subset first)
+
+```{r}
+
+```
 
 
 
