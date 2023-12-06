@@ -1839,13 +1839,55 @@ id_intervention_none
 
 # Newly created vs modified scales
 
+## Subset for newly created scales vs modified scales
+
 Both in selfdeveloped_scale
 Newly_created defined as scale_authors = NA (look into subset first)
 
+```{r}
+#ID 56: overwrite for all same scale_authors
+selfdeveloped_scale$scale_authors[selfdeveloped_scale$id == 56] <- "Herath et al. (2009); Peace et al. (2003)"
+
+#exclude papers if scale_authors has an entry
+new_scales <- subset(selfdeveloped_scale, is.na(scale_authors))
+
+#exclude papers if scale_authors has no entry
+modified_scales <- subset(selfdeveloped_scale, !is.na(scale_authors))
+```
+
+ID 56: overwrite for all same scale_authors
+ID 94: all already have the same scale_authors
+ID 129: both NA
+ID 180: all already have the same scale_authors
+ID 372: field notes = NA, transcripts = NA, scale = author
+
 ## Number of ... (first use totals)
 number of scales (161)
+```{r}
+nrow(new_scales)
+nrow(modified_scales)
+```
+
 number of studies (156)
+```{r}
+#check double IDs with codebook 1
+## new
+#129 x 2 and 2 studies -ok
+#372 x2 -ok
+nrow(new_scales)
+
+## modified
+#56 x 4 but only 1 study -3
+#94 x 3 but only 1 study = -2
+#180 x 3 and 3 studies -ok
+nrow(modified_scales)-5
+```
+
 number of studies reporting reliability infos (123)
+```{r}
+
+```
+
 -alpha (102)
 -composite (76)
 -two out of four reliability estimates (47)
@@ -1858,6 +1900,7 @@ number of studies reporting validity information (117)
 -two out of six validity types (31)
 -three out of six validity types (56)
 -four out of six validity types (7)
+
 ```{r}
 
 ```
