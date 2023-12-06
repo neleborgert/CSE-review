@@ -291,6 +291,9 @@ write_csv2(s_proportions,"../results/Conditional Proportions of Factor Scale Var
 
 #content validity experts
 table(codebook2$validity_content_experts)
+
+#definition
+table(codebook2$definition)
 ```
 
 ### Scales with reliability information
@@ -425,15 +428,17 @@ TO DO: include definition and possibly pre/pilot testing
 ```{r}
 # create subset
 overview_scales_firstuse <- selfdeveloped_scale[,c("id","authors","scale_number_new",
-                                                   "item_list", "facets",
+                                                   "definition","item_list", "facets",
                                                    "reliability_alpha_new", "reliability_composite_new", "reliability_testretest", "reliability_splithalf",
                                                    "validity_content", "validity_content_experts","validity_construct_factor_new","validity_construct_factor_fitindices", "validity_construct_discriminant_type", "validity_construct_convergent_type", "validity_criterion_type", "validity_incremental")] 
 
 # replace 0 with NA in a specific column
+overview_scales_firstuse$definition[overview_scales_firstuse$definition == 0] <- NA
 overview_scales_firstuse$validity_content[overview_scales_firstuse$validity_content == 0] <- NA
 overview_scales_firstuse$validity_content_experts[overview_scales_firstuse$validity_content_experts == 0] <- NA
 
 # replace non-NA values in specific columns with 1
+overview_scales_firstuse$definition[!is.na(overview_scales_firstuse$definition)] <- 1
 overview_scales_firstuse$item_list[!is.na(overview_scales_firstuse$item_list)] <- 1
 overview_scales_firstuse$facets[!is.na(overview_scales_firstuse$facets)] <- 1
 overview_scales_firstuse$reliability_alpha_new[!is.na(overview_scales_firstuse$reliability_alpha_new)] <- 1
@@ -450,7 +455,7 @@ overview_scales_firstuse$validity_criterion_type[!is.na(overview_scales_firstuse
 overview_scales_firstuse$validity_incremental[!is.na(overview_scales_firstuse$validity_incremental)] <- 1
 
 # Replace all NA values in the data frame with 0
-overview_scales_firstuse[,4:17] <- sapply(overview_scales_firstuse[,4:17], as.numeric)
+overview_scales_firstuse[,4:18] <- sapply(overview_scales_firstuse[,4:18], as.numeric)
 overview_scales_firstuse[is.na(overview_scales_firstuse)] <- 0
 
 # save as excel sheet
@@ -465,15 +470,17 @@ write_csv2(overview_scales_firstuse,"../results/Scale overview of main quality c
 
 # create subset
 overview_scales_recurring <- external_recurring_scale[,c("id","authors","scale_number_new",
-                                                   "item_list", "facets",
+                                                   "definition","item_list", "facets",
                                                    "reliability_alpha_new", "reliability_composite_new", "reliability_testretest", "reliability_splithalf",
                                                    "validity_content", "validity_content_experts","validity_construct_factor_new","validity_construct_factor_fitindices", "validity_construct_discriminant_type", "validity_construct_convergent_type", "validity_criterion_type", "validity_incremental")] 
 
 # replace 0 with NA in a specific column
+overview_scales_recurring$definition[overview_scales_recurring$definition == 0] <- NA
 overview_scales_recurring$validity_content[overview_scales_recurring$validity_content == 0] <- NA
 overview_scales_recurring$validity_content_experts[overview_scales_recurring$validity_content_experts == 0] <- NA
 
 # replace non-NA values in specific columns with 1
+overview_scales_recurring$definition[!is.na(overview_scales_recurring$definition)] <- 1
 overview_scales_recurring$item_list[!is.na(overview_scales_recurring$item_list)] <- 1
 overview_scales_recurring$facets[!is.na(overview_scales_recurring$facets)] <- 1
 overview_scales_recurring$reliability_alpha_new[!is.na(overview_scales_recurring$reliability_alpha_new)] <- 1
@@ -490,7 +497,7 @@ overview_scales_recurring$validity_criterion_type[!is.na(overview_scales_recurri
 overview_scales_recurring$validity_incremental[!is.na(overview_scales_recurring$validity_incremental)] <- 1
 
 # replace all NA values in the data frame with 0
-overview_scales_recurring[,4:17] <- sapply(overview_scales_recurring[,4:17], as.numeric)
+overview_scales_recurring[,4:18] <- sapply(overview_scales_recurring[,4:18], as.numeric)
 overview_scales_recurring[is.na(overview_scales_recurring)] <- 0
 
 # add within recurring scales: scale number: 13,74,98,104,71A & scale_origin = 0 ->6 studies/5 scales
@@ -498,6 +505,7 @@ id124 <- data.frame(
   id = 124,
   authors = "Cavus et al.",
   scale_number_new = 13,
+  definition = 0,
   item_list=1,
   facets=1,
   reliability_alpha_new=1,
@@ -516,6 +524,7 @@ id527 <- data.frame(
   id = 527,
   authors = "Sharma",
   scale_number_new = 104,
+  definition = 1,
   item_list=1,
   facets=0,
   reliability_alpha_new=1,
@@ -534,6 +543,7 @@ id607 <- data.frame(
   id = 607,
   authors = "Thompson et al.",
   scale_number_new = "71A",
+  definition = 0,
   item_list=1,
   facets=0,
   reliability_alpha_new=1,
@@ -552,6 +562,7 @@ id612 <- data.frame(
   id = 612,
   authors = "Torten et al.",
   scale_number_new = 74,
+  definition = 0,
   item_list=0,
   facets=0,
   reliability_alpha_new=0,
@@ -570,6 +581,7 @@ id648 <- data.frame(
   id = 648,
   authors = "Weinberger et al. ",
   scale_number_new = 98,
+  definition = 1,
   item_list=1,
   facets=0,
   reliability_alpha_new=0,
@@ -588,6 +600,7 @@ id649 <- data.frame(
   id = 649,
   authors = "Weinberger et al. ",
   scale_number_new = 98,
+  definition = 1,
   item_list=1,
   facets=0,
   reliability_alpha_new=0,

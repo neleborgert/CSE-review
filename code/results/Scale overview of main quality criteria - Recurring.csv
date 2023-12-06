@@ -1,19 +1,19 @@
-id;authors;scale_number_new;item_list;facets;reliability_alpha_new;reliability_composite_new;reliability_testretest;reliability_splithalf;validity_content;validity_content_experts;validity_construct_factor_new;validity_construct_factor_fitindices;validity_construct_discriminant_type;validity_construct_convergent_type;validity_criterion_type;validity_incremental
-34;Alqarni;6;1;0;1;0;0;0;1;0;0;0;1;1;0;0
-95;Bojmaeh;10;0;1;0;0;0;0;0;0;0;0;0;0;0;0
-164;Day;17;0;0;1;1;0;0;0;0;1;0;1;1;0;0
-174;Dorsey-Lockett;19;0;0;1;0;0;0;1;0;0;0;0;0;0;0
-210;Gagne;20;0;0;0;0;0;0;0;0;0;0;1;1;0;0
-219;Gillam et al.;23;0;0;0;0;0;0;1;0;0;0;0;0;0;0
-352;Amo;32;1;1;1;0;0;0;0;0;0;0;0;0;0;0
-523;Aurigemma et al.;42;0;0;0;1;0;0;1;0;0;0;1;1;0;0
-87;Beugré;60;0;0;0;0;0;0;1;0;0;0;1;1;0;0
-418;McGill et al.;84;0;0;1;0;0;0;0;0;0;0;0;0;0;0
-574;Smith et al.;147;0;0;1;0;0;0;0;0;0;0;0;0;0;0
-501;Ranzini et al.;89B;1;0;1;1;0;0;0;0;1;0;1;0;0;0
-124;Cavus et al.;13;1;1;1;0;0;0;0;0;0;0;0;0;0;0
-527;Sharma;104;1;0;1;1;0;0;1;0;0;0;1;1;0;0
-607;Thompson et al.;71A;1;0;1;1;0;0;1;0;0;0;1;1;0;0
-612;Torten et al.;74;0;0;0;0;0;0;0;0;0;0;0;0;0;0
-648;Weinberger et al. ;98;1;0;0;0;0;0;0;0;0;0;0;0;0;0
-649;Weinberger et al. ;98;1;0;0;0;0;0;0;0;0;0;0;0;0;0
+id;authors;scale_number_new;definition;item_list;facets;reliability_alpha_new;reliability_composite_new;reliability_testretest;reliability_splithalf;validity_content;validity_content_experts;validity_construct_factor_new;validity_construct_factor_fitindices;validity_construct_discriminant_type;validity_construct_convergent_type;validity_criterion_type;validity_incremental
+34;Alqarni;6;1;1;0;1;0;0;0;1;0;0;0;1;1;0;0
+87;Beugré;60;0;0;0;0;0;0;0;1;0;0;0;1;1;0;0
+95;Bojmaeh;10;0;0;1;0;0;0;0;0;0;0;0;0;0;0;0
+164;Day;17;1;0;0;1;1;0;0;0;0;1;0;1;1;0;0
+174;Dorsey-Lockett;19;1;0;0;1;0;0;0;1;0;0;0;0;0;0;0
+210;Gagne;20;1;0;0;0;0;0;0;0;0;0;0;1;1;0;0
+219;Gillam et al.;23;1;0;0;0;0;0;0;1;0;0;0;0;0;0;0
+352;Amo;32;0;1;1;1;0;0;0;0;0;0;0;0;0;0;0
+418;McGill et al.;84;0;0;0;1;0;0;0;0;0;0;0;0;0;0;0
+501;Ranzini et al.;89B;1;1;0;1;1;0;0;0;0;1;0;1;0;0;0
+523;Aurigemma et al.;42;1;0;0;0;1;0;0;1;0;0;0;1;1;0;0
+574;Smith et al.;147;1;0;0;1;0;0;0;0;0;0;0;0;0;0;0
+124;Cavus et al.;13;0;1;1;1;0;0;0;0;0;0;0;0;0;0;0
+527;Sharma;104;1;1;0;1;1;0;0;1;0;0;0;1;1;0;0
+607;Thompson et al.;71A;0;1;0;1;1;0;0;1;0;0;0;1;1;0;0
+612;Torten et al.;74;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0
+648;Weinberger et al. ;98;1;1;0;0;0;0;0;0;0;0;0;0;0;0;0
+649;Weinberger et al. ;98;1;1;0;0;0;0;0;0;0;0;0;0;0;0;0
