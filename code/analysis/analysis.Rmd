@@ -1859,14 +1859,14 @@ new_scales <- subset(selfdeveloped_scale, is.na(scale_authors))
 modified_scales <- subset(selfdeveloped_scale, !is.na(scale_authors))
 ```
 
-## Number of ... (first use totals)
-number of scales (161)
+## Number of first use measures totals
+number of measures (161)
 ```{r}
 nrow(new_scales)
 nrow(modified_scales)
 ```
 
-number of studies (156)
+## Number of studies (156)
 ```{r}
 #check double IDs with codebook 1
 ## new
@@ -1881,7 +1881,9 @@ nrow(new_scales)
 nrow(modified_scales)-5
 ```
 
-number of studies reporting reliability infos (123)
+## Reliability 
+
+### Number of studies reporting reliability infos (123)
 -total
 -two out of four reliability estimates (47)
 ```{r}
@@ -1932,8 +1934,8 @@ number of studies reporting validity information (117)
 
 ```
 
-## Reliability 
-studies reporting
+
+### Number of studies reporting alpha and composite
 -alpha (102)
 -composite (76)
 ```{r}
@@ -1958,7 +1960,7 @@ non_na_composite_modified <- sum(!is.na(modified_scale_reliable_with_info$compos
 non_na_composite_modified # 64
 ```
 
-Estimation of 
+### Estimation of alpha and composite
 -alpha (.868)
 -composite (.897)
 ```{r}
@@ -2047,12 +2049,187 @@ wtd.sd(modified_scales_composite_data$composite, modified_scales_composite_data$
 ```
 
 ## Validity
-total different constructs (330 - all or first use?)
+
+### Number of studies reporting validity info
+-validity info (117)
+-two out of six (31)
+-three out of six (56)
+-four out of six (7)
 ```{r}
+### new scales
+
+#create data frame
+new_scale_valid <- data.frame(new_scales$id,
+                          new_scales$scale_number_new,
+                          new_scales$validity_content,
+                          new_scales$validity_construct_factor_new,
+                          new_scales$validity_construct_discriminant_type,
+                          new_scales$validity_construct_convergent_type,
+                          new_scales$validity_criterion_type,
+                          new_scales$validity_incremental)
+colnames(new_scale_valid) <- c("id","scale_number","content", "factor","discriminant","convergent","criterion","incremental")
+
+#change content factor labels: 0 = NA
+new_scale_valid["content"][new_scale_valid["content"] == 0] <- NA
+
+#keep rows with at least one value
+#library(dplyr)
+new_scale_valid_with_info <- new_scale_valid %>% filter_at(vars(content, factor, discriminant, convergent, criterion, incremental),any_vars(!is.na(.)))
+
+#count rows
+#check if same id has multiple studies with single_study data frame: no double IDs
+nrow(new_scale_valid_with_info) #26
+
+
+#keep rows only if only certain number of columns have values
+#first use
+
+##to check for correct sum number of studies
+new_scale_valid_with_one_infos <- new_scale_valid_with_info[rowSums(!is.na(new_scale_valid_with_info[, 3:8])) == 1, ]
+nrow(new_scale_valid_with_one_infos) #9
+
+## Subset df where exactly two out of the six specified columns are not NA
+new_scale_valid_with_two_infos <- new_scale_valid_with_info[rowSums(!is.na(new_scale_valid_with_info[, 3:8])) == 2, ]
+nrow(new_scale_valid_with_two_infos) #6
+
+## Subset df where exactly three out of the six specified columns are not NA
+new_scale_valid_with_three_infos <- new_scale_valid_with_info[rowSums(!is.na(new_scale_valid_with_info[, 3:8])) == 3, ]
+nrow(new_scale_valid_with_three_infos) #9
+
+## Subset df where exactly four out of the six specified columns are not NA
+new_scale_valid_with_four_infos <- new_scale_valid_with_info[rowSums(!is.na(new_scale_valid_with_info[, 3:8])) == 4, ]
+nrow(new_scale_valid_with_four_infos) #2
+
+
+
+
+### modified scales
+
+#create data frame
+modified_scale_valid <- data.frame(modified_scales$id,
+                          modified_scales$scale_number_new,
+                          modified_scales$validity_content,
+                          modified_scales$validity_construct_factor_new,
+                          modified_scales$validity_construct_discriminant_type,
+                          modified_scales$validity_construct_convergent_type,
+                          modified_scales$validity_criterion_type,
+                          modified_scales$validity_incremental)
+colnames(modified_scale_valid) <- c("id","scale_number","content", "factor","discriminant","convergent","criterion","incremental")
+
+#change content factor labels: 0 = NA
+modified_scale_valid["content"][modified_scale_valid["content"] == 0] <- NA
+
+#keep rows with at least one value
+#library(dplyr)
+modified_scale_valid_with_info <- modified_scale_valid %>% filter_at(vars(content, factor, discriminant, convergent, criterion, incremental),any_vars(!is.na(.)))
+
+#count rows
+#check if same id has multiple studies with single_study data frame:
+#id 56: 4 scales but only 1 study
+#id 180: 3 scales and 3 studies
+
+nrow(modified_scale_valid_with_info)-3 #91
+
+
+#keep rows only if only certain number of columns have values
+#first use
+
+##to check for correct sum number of studies
+modified_scale_valid_with_one_infos <- modified_scale_valid_with_info[rowSums(!is.na(modified_scale_valid_with_info[, 3:8])) == 1, ]
+nrow(modified_scale_valid_with_one_infos) #14
+
+## Subset df where exactly two out of the six specified columns are not NA
+modified_scale_valid_with_two_infos <- modified_scale_valid_with_info[rowSums(!is.na(modified_scale_valid_with_info[, 3:8])) == 2, ]
+## check if same id has multiple studies with ids single_study
+## id 56: 3 scales out of four but only 1 study
+nrow(modified_scale_valid_with_two_infos)-3 #25
+
+## Subset df where exactly three out of the six specified columns are not NA
+modified_scale_valid_with_three_infos <- modified_scale_valid_with_info[rowSums(!is.na(modified_scale_valid_with_info[, 3:8])) == 3, ]
+nrow(modified_scale_valid_with_three_infos) #47
+
+## Subset df where exactly four out of the six specified columns are not NA
+modified_scale_valid_with_four_infos <- modified_scale_valid_with_info[rowSums(!is.na(modified_scale_valid_with_info[, 3:8])) == 4, ]
+nrow(modified_scale_valid_with_four_infos) #5
 
 ```
 
+### Number of studies reporting which validity types
+-content (86)
+-factor (11)
+-discriminant (96)
+-convergent (93)
+-criterion (1)
+```{r}
+## new
 
+#create data frame
+new_scale_factors <- data.frame(new_scales$validity_content,
+                            new_scales$validity_construct_factor_new,
+                            new_scales$validity_construct_discriminant_type,
+                            new_scales$validity_construct_convergent_type,
+                            new_scales$validity_criterion_type,
+                            new_scales$validity_incremental)
+
+#set as vector
+new_scale_factors <- sapply(new_scale_factors, as.vector)
+
+#distribution (incl NA and only percentages)
+new_content <- data.frame(prop.table(table(new_scale_factors[,1], exclude = NULL)))
+new_factor_type <- data.frame(prop.table(table(new_scale_factors[,2], exclude = NULL)))
+new_discr_type <- data.frame(prop.table(table(new_scale_factors[,3], exclude = NULL)))
+new_conv_type <- data.frame(prop.table(table(new_scale_factors[,4], exclude = NULL)))
+new_criterion_type <- data.frame(prop.table(table(new_scale_factors[,5], exclude = NULL)))
+new_incremental <- data.frame(prop.table(table(new_scale_factors[,6], exclude = NULL)))
+
+#get totals of distribution
+table(new_scale_factors[,1], exclude = NULL) #18
+table(new_scale_factors[,2], exclude = NULL) #3
+table(new_scale_factors[,3], exclude = NULL) #17
+table(new_scale_factors[,4], exclude = NULL) #18
+table(new_scale_factors[,5], exclude = NULL) #0
+table(new_scale_factors[,6], exclude = NULL) #0
+
+## modified
+
+#create data frame
+modified_scale_factors <- data.frame(modified_scales$validity_content,
+                            modified_scales$validity_construct_factor_new,
+                            modified_scales$validity_construct_discriminant_type,
+                            modified_scales$validity_construct_convergent_type,
+                            modified_scales$validity_criterion_type,
+                            modified_scales$validity_incremental)
+
+#set as vector
+modified_scale_factors <- sapply(modified_scale_factors, as.vector)
+
+#distribution (incl NA and only percentages)
+modified_content <- data.frame(prop.table(table(modified_scale_factors[,1], exclude = NULL)))
+modified_factor_type <- data.frame(prop.table(table(modified_scale_factors[,2], exclude = NULL)))
+modified_discr_type <- data.frame(prop.table(table(modified_scale_factors[,3], exclude = NULL)))
+modified_conv_type <- data.frame(prop.table(table(modified_scale_factors[,4], exclude = NULL)))
+modified_criterion_type <- data.frame(prop.table(table(modified_scale_factors[,5], exclude = NULL)))
+modified_incremental <- data.frame(prop.table(table(modified_scale_factors[,6], exclude = NULL)))
+
+#get totals of distribution
+table(modified_scale_factors[,1], exclude = NULL) #68
+table(modified_scale_factors[,2], exclude = NULL) #8
+table(modified_scale_factors[,3], exclude = NULL) #79
+table(modified_scale_factors[,4], exclude = NULL) #75
+table(modified_scale_factors[,5], exclude = NULL) #1
+table(modified_scale_factors[,6], exclude = NULL) #0
+```
+
+
+
+
+### Number of total validity constructs 
+```{r}
+
+
+
+
+```
 
 
 
