@@ -2221,22 +2221,154 @@ table(modified_scale_factors[,6], exclude = NULL) #0
 ```
 
 
-
-
 ### Number of total validity constructs 
+[1] 13 discriminant only
+[1] 19 convergent only
+[1] 298 doublets
+
+#### Validity construct (discriminant): new
 ```{r}
+#as factor
+new_scales_discriminant_long_data_clean$discriminant_description <- as.factor(new_scales_discriminant_long_data_clean$discriminant_description)
 
+#data frame
+new_scales_discriminant_data <- data.frame(unclass(summary(new_scales_discriminant_long_data_clean$discriminant_description, maxsum = 579))) #579 number of observations in discriminant_long_data_clean
+setDT(new_scales_discriminant_data, keep.rownames = TRUE)[] #convert row names into first column
 
+#rename columns
+colnames(new_scales_discriminant_data)[1] <- "construct_name"
+colnames(new_scales_discriminant_data)[2] <- "construct_frequency"
+new_scales_discriminant_data
+#check for spelling mistakes
 
-
+#save as discriminant construct counts
+#library("readr")
+write_csv2(new_scales_discriminant_data,"../results/Counts of All Discriminant Constructs - Only Selfdeveloped Scales: Newly Created Scales.csv")
 ```
 
+#### Validity construct (discriminant): modified
+```{r}
+#as factor
+modified_scales_discriminant_long_data_clean$discriminant_description <- as.factor(modified_scales_discriminant_long_data_clean$discriminant_description)
 
+#data frame
+modified_scales_discriminant_data <- data.frame(unclass(summary(modified_scales_discriminant_long_data_clean$discriminant_description, maxsum = 579))) #579 number of observations in discriminant_long_data_clean
+setDT(modified_scales_discriminant_data, keep.rownames = TRUE)[] #convert row names into first column
 
+#rename columns
+colnames(modified_scales_discriminant_data)[1] <- "construct_name"
+colnames(modified_scales_discriminant_data)[2] <- "construct_frequency"
+modified_scales_discriminant_data
+#check for spelling mistakes
 
+#save as discriminant construct counts
+#library("readr")
+write_csv2(modified_scales_discriminant_data,"../results/Counts of All Discriminant Constructs - Only Selfdeveloped Scales: Modified Scales.csv")
+```
 
+#### Validity construct (convergent): new
+```{r}
+#as factor
+new_scales_convergent_long_data_clean$convergent_description <- as.factor(new_scales_convergent_long_data_clean$convergent_description)
+new_scales_convergent_data <- data.frame(unclass(summary(new_scales_convergent_long_data_clean$convergent_description, maxsum = 577))) #577 number of observations in convergent_long_data_clean
+setDT(new_scales_convergent_data, keep.rownames = TRUE)[] #convert row names into first column
 
+#rename columns
+colnames(new_scales_convergent_data)[1] <- "construct_name"
+colnames(new_scales_convergent_data)[2] <- "construct_frequency"
+new_scales_convergent_data
+#check for spelling mistakes
 
+#save as convergent construct counts
+#library("readr")
+write_csv2(new_scales_convergent_data,"../results/Counts of All Convergent Constructs - Only Selfdeveloped Scales: Newly Created Scales.csv")
+```
+
+#### Validity construct (convergent): modified
+```{r}
+#as factor
+modified_scales_convergent_long_data_clean$convergent_description <- as.factor(modified_scales_convergent_long_data_clean$convergent_description)
+modified_scales_convergent_data <- data.frame(unclass(summary(modified_scales_convergent_long_data_clean$convergent_description, maxsum = 577))) #577 number of observations in convergent_long_data_clean
+setDT(modified_scales_convergent_data, keep.rownames = TRUE)[] #convert row names into first column
+
+#rename columns
+colnames(modified_scales_convergent_data)[1] <- "construct_name"
+colnames(modified_scales_convergent_data)[2] <- "construct_frequency"
+modified_scales_convergent_data
+#check for spelling mistakes
+
+#save as convergent construct counts
+#library("readr")
+write_csv2(modified_scales_convergent_data,"../results/Counts of All Convergent Constructs - Only Selfdeveloped Scales: Modified Scales.csv")
+```
+
+#### Find doublets (with frequency): new
+```{r}
+#as an index to discriminant_data$construct_name
+#doublets
+dou_split_new <- data.frame(new_scales_discriminant_data$construct_name[new_scales_discriminant_data$construct_name %in% new_scales_convergent_data$construct_name]) #save returned values in dou
+as.vector(dou_split_new)
+copy_new_scales_discriminant_data <- new_scales_discriminant_data
+copy_new_scales_convergent_data <- new_scales_convergent_data
+new_scales_d_freq1 <- setDT(copy_new_scales_discriminant_data, key = 'construct_name')[dou_split_new]
+new_scales_d_freq2 <- setDT(copy_new_scales_convergent_data, key = 'construct_name')[dou_split_new]
+new_scales_doublets_data <- data.frame(new_scales_d_freq1[, 1], new_scales_d_freq1[, 2] + new_scales_d_freq2[, 2]) #make new data frame: take freq1 country_name and sum frq1 + freq1 construct_frequency
+new_scales_doublets_data
+
+#only discriminant data
+new_scales_dis <- data.frame(new_scales_discriminant_data$construct_name[!new_scales_discriminant_data$construct_name %in% new_scales_convergent_data$construct_name]) #save returned values in dis
+as.vector(new_scales_dis)
+new_scales_only_discriminant_data <- setDT(copy_new_scales_discriminant_data, key = 'construct_name')[new_scales_dis] #select row based on dis (for discriminant_data) #only when the key is a factor/character variable
+
+#only convergent data
+new_scales_con <- data.frame(new_scales_convergent_data$construct_name[!new_scales_convergent_data$construct_name %in% new_scales_discriminant_data$construct_name]) #save returned values in con
+as.vector(new_scales_con)
+new_scales_only_convergent_data <- setDT(copy_new_scales_convergent_data, key = 'construct_name')[new_scales_con] #select row based on con (for convergent data) #only when the key is a factor/character variable
+```
+
+Number of constructs
+```{r}
+#only_discriminant: 4
+nrow(new_scales_only_discriminant_data)
+#only convergent: 15
+nrow(new_scales_only_convergent_data)
+#doublets: 64
+nrow(new_scales_doublets_data)
+```
+
+#### Find doublets (with frequency): modified
+```{r}
+#as an index to discriminant_data$construct_name
+#doublets
+dou_split_modified <- data.frame(modified_scales_discriminant_data$construct_name[modified_scales_discriminant_data$construct_name %in% modified_scales_convergent_data$construct_name]) #save returned values in dou
+as.vector(dou_split_modified)
+copy_modified_scales_discriminant_data <- modified_scales_discriminant_data
+copy_modified_scales_convergent_data <- modified_scales_convergent_data
+modified_scales_d_freq1 <- setDT(copy_modified_scales_discriminant_data, key = 'construct_name')[dou_split_modified]
+modified_scales_d_freq2 <- setDT(copy_modified_scales_convergent_data, key = 'construct_name')[dou_split_modified]
+modified_scales_doublets_data <- data.frame(modified_scales_d_freq1[, 1], modified_scales_d_freq1[, 2] + modified_scales_d_freq2[, 2]) #make new data frame: take freq1 country_name and sum frq1 + freq1 construct_frequency
+modified_scales_doublets_data
+
+#only discriminant data
+modified_scales_dis <- data.frame(modified_scales_discriminant_data$construct_name[!modified_scales_discriminant_data$construct_name %in% modified_scales_convergent_data$construct_name]) #save returned values in dis
+as.vector(modified_scales_dis)
+modified_scales_only_discriminant_data <- setDT(copy_modified_scales_discriminant_data, key = 'construct_name')[modified_scales_dis] #select row based on dis (for discriminant_data) #only when the key is a factor/character variable
+
+#only convergent data
+modified_scales_con <- data.frame(modified_scales_convergent_data$construct_name[!modified_scales_convergent_data$construct_name %in% modified_scales_discriminant_data$construct_name]) #save returned values in con
+as.vector(modified_scales_con)
+modified_scales_only_convergent_data <- setDT(copy_modified_scales_convergent_data, key = 'construct_name')[modified_scales_con] #select row based on con (for convergent data) #only when the key is a factor/character variable
+```
+
+Number of constructs
+```{r}
+#only_discriminant: 11
+nrow(modified_scales_only_discriminant_data)
+#only convergent: 6
+nrow(modified_scales_only_convergent_data)
+#doublets: 258
+nrow(modified_scales_doublets_data)
+```
 
 
 

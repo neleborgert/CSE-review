@@ -916,10 +916,212 @@ outcome_long_data_not_peer
 outcome_long_data_not_peer_clean <- subset(outcome_long_data_not_peer, !is.na(outcome_long_data_not_peer[,4])) #column 4 
 ```
 
+# 9. Newly created vs modified scales
+
+## New scales
+
+### Discriminant constructs: new
+String split into several columns (where you don't know the number of output columns)
+```{r}
+new_scales_before_discriminant <- data.frame(new_scales$validity_construct_discriminant_type, new_scales$validity_construct_discriminant_description_new)
+
+#rename columns
+colnames(new_scales_before_discriminant)[1] <- "discriminant_type"
+colnames(new_scales_before_discriminant)[2] <- "discriminant_description"
+
+max(lengths(strsplit(as.character(new_scales_before_discriminant$discriminant_description), '; ')))
+#library(data.table)
+setDT(new_scales_before_discriminant)[, paste0("discriminant_description", 1:15) := tstrsplit(new_scales$validity_construct_discriminant_description_new, "; ")] #15 = number of columns (items are assigned to) 
+new_scales_before_discriminant
+```
+
+Change data format (into long format)
+```{r}
+#new data set (with added ID)
+new_scales_m <- nrow(new_scales) #where new_scales_m is the number of rows
+new_scales_discriminant_wide_data <- data.frame(id = 1:new_scales_m, 
+                                                new_scales_before_discriminant$discriminant_type, 
+                                                new_scales_before_discriminant$discriminant_description1, 
+                                     new_scales_before_discriminant$discriminant_description2, 
+                                     new_scales_before_discriminant$discriminant_description3, 
+                                     new_scales_before_discriminant$discriminant_description4, 
+                                     new_scales_before_discriminant$discriminant_description5,
+new_scales_before_discriminant$discriminant_description6,
+new_scales_before_discriminant$discriminant_description7,
+new_scales_before_discriminant$discriminant_description8,
+new_scales_before_discriminant$discriminant_description9,
+new_scales_before_discriminant$discriminant_description10,
+new_scales_before_discriminant$discriminant_description11,
+new_scales_before_discriminant$discriminant_description12,
+new_scales_before_discriminant$discriminant_description13,
+new_scales_before_discriminant$discriminant_description14,
+new_scales_before_discriminant$discriminant_description15)
+
+#making sure ID column is a factor
+new_scales_discriminant_wide_data$id <- as.factor(new_scales_discriminant_wide_data$id)
+
+#changing into long format
+#library(tidyr)
+new_scales_discriminant_long_data <- gather(new_scales_discriminant_wide_data, 
+                                            discriminant_description_number, 
+                                            discriminant_description, new_scales_before_discriminant.discriminant_description1:new_scales_before_discriminant.discriminant_description15, factor_key = T) 
+new_scales_discriminant_long_data
+new_scales_discriminant_long_data <- rename(new_scales_discriminant_long_data, 
+                                            discriminant_type = new_scales_before_discriminant.discriminant_type) # rename column
+
+#delete NAs in data frame
+new_scales_discriminant_long_data_clean <- subset(new_scales_discriminant_long_data, !is.na(new_scales_discriminant_long_data[,4])) #column 4 = discriminant description
+```
+
+### Convergent constructs: new
+String split into several columns (where you don't know the number of output columns)
+```{r}
+new_scales_before_convergent <- data.frame(new_scales$validity_construct_convergent_type, new_scales$validity_construct_convergent_description_new)
+
+#rename columns
+colnames(new_scales_before_convergent)[1] <- "convergent_type"
+colnames(new_scales_before_convergent)[2] <- "convergent_description"
+
+max(lengths(strsplit(as.character(new_scales_before_convergent$convergent_description), '; ')))
+#library(data.table)
+setDT(new_scales_before_convergent)[, paste0("convergent_description", 1:15) := tstrsplit(new_scales$validity_construct_convergent_description_new, "; ")] #15 = number of columns (items are assigned to) 
+new_scales_before_convergent
+```
+
+Change data format (into long format)
+```{r}
+#new data set (with added ID)
+new_scales_m <- nrow(new_scales) #where new_scales_m is the number of rows
+new_scales_convergent_wide_data <- data.frame(id = 1:new_scales_m, new_scales_before_convergent$convergent_type,
+                                              new_scales_before_convergent$convergent_description1, 
+                                              new_scales_before_convergent$convergent_description2, 
+                                              new_scales_before_convergent$convergent_description3, 
+                                              new_scales_before_convergent$convergent_description4, 
+                                              new_scales_before_convergent$convergent_description5,
+new_scales_before_convergent$convergent_description6,
+new_scales_before_convergent$convergent_description7,
+new_scales_before_convergent$convergent_description8,
+new_scales_before_convergent$convergent_description9,
+new_scales_before_convergent$convergent_description10,
+new_scales_before_convergent$convergent_description11,
+new_scales_before_convergent$convergent_description12,
+new_scales_before_convergent$convergent_description13,
+new_scales_before_convergent$convergent_description14,
+new_scales_before_convergent$convergent_description15)
+
+#making sure ID column is a factor
+new_scales_convergent_wide_data$id <- as.factor(new_scales_convergent_wide_data$id)
+
+#changing into long format
+#library(tidyr)
+new_scales_convergent_long_data <- gather(new_scales_convergent_wide_data, 
+                                          convergent_description_number, convergent_description, new_scales_before_convergent.convergent_description1:new_scales_before_convergent.convergent_description15, factor_key = T) 
+new_scales_convergent_long_data
+new_scales_convergent_long_data <- rename(new_scales_convergent_long_data, convergent_type = new_scales_before_convergent.convergent_type) # rename column
+
+#delete NAs in data frame
+new_scales_convergent_long_data_clean <- subset(new_scales_convergent_long_data, !is.na(new_scales_convergent_long_data[,4])) #column 4 = convergent description
+```
 
 
+## Modified scales
 
+### Discriminant constructs: modified
+String split into several columns (where you don't know the number of output columns)
+```{r}
+modified_scales_before_discriminant <- data.frame(modified_scales$validity_construct_discriminant_type, modified_scales$validity_construct_discriminant_description_new)
 
+#rename columns
+colnames(modified_scales_before_discriminant)[1] <- "discriminant_type"
+colnames(modified_scales_before_discriminant)[2] <- "discriminant_description"
+
+max(lengths(strsplit(as.character(modified_scales_before_discriminant$discriminant_description), '; ')))
+#library(data.table)
+setDT(modified_scales_before_discriminant)[, paste0("discriminant_description", 1:12) := tstrsplit(modified_scales$validity_construct_discriminant_description_new, "; ")] #12 = number of columns (items are assigned to) 
+modified_scales_before_discriminant
+```
+
+Change data format (into long format)
+```{r}
+#new data set (with added ID)
+modified_scales_m <- nrow(modified_scales) #where modified_scales_m is the number of rows
+modified_scales_discriminant_wide_data <- data.frame(id = 1:modified_scales_m, 
+                                                modified_scales_before_discriminant$discriminant_type, 
+                                                modified_scales_before_discriminant$discriminant_description1, 
+                                     modified_scales_before_discriminant$discriminant_description2, 
+                                     modified_scales_before_discriminant$discriminant_description3, 
+                                     modified_scales_before_discriminant$discriminant_description4, 
+                                     modified_scales_before_discriminant$discriminant_description5,
+modified_scales_before_discriminant$discriminant_description6,
+modified_scales_before_discriminant$discriminant_description7,
+modified_scales_before_discriminant$discriminant_description8,
+modified_scales_before_discriminant$discriminant_description9,
+modified_scales_before_discriminant$discriminant_description10,
+modified_scales_before_discriminant$discriminant_description11,
+modified_scales_before_discriminant$discriminant_description12)
+
+#making sure ID column is a factor
+modified_scales_discriminant_wide_data$id <- as.factor(modified_scales_discriminant_wide_data$id)
+
+#changing into long format
+#library(tidyr)
+modified_scales_discriminant_long_data <- gather(modified_scales_discriminant_wide_data, 
+                                            discriminant_description_number, 
+                                            discriminant_description, modified_scales_before_discriminant.discriminant_description1:modified_scales_before_discriminant.discriminant_description12, factor_key = T) 
+modified_scales_discriminant_long_data
+modified_scales_discriminant_long_data <- rename(modified_scales_discriminant_long_data, 
+                                            discriminant_type = modified_scales_before_discriminant.discriminant_type) # rename column
+
+#delete NAs in data frame
+modified_scales_discriminant_long_data_clean <- subset(modified_scales_discriminant_long_data, !is.na(modified_scales_discriminant_long_data[,4])) #column 4 = discriminant description
+```
+
+### Convergent constructs: modified
+String split into several columns (where you don't know the number of output columns)
+```{r}
+modified_scales_before_convergent <- data.frame(modified_scales$validity_construct_convergent_type, modified_scales$validity_construct_convergent_description_new)
+
+#rename columns
+colnames(modified_scales_before_convergent)[1] <- "convergent_type"
+colnames(modified_scales_before_convergent)[2] <- "convergent_description"
+
+max(lengths(strsplit(as.character(modified_scales_before_convergent$convergent_description), '; ')))
+#library(data.table)
+setDT(modified_scales_before_convergent)[, paste0("convergent_description", 1:12) := tstrsplit(modified_scales$validity_construct_convergent_description_new, "; ")] #12 = number of columns (items are assigned to) 
+modified_scales_before_convergent
+```
+
+Change data format (into long format)
+```{r}
+#new data set (with added ID)
+modified_scales_m <- nrow(modified_scales) #where modified_scales_m is the number of rows
+modified_scales_convergent_wide_data <- data.frame(id = 1:modified_scales_m, modified_scales_before_convergent$convergent_type,
+                                              modified_scales_before_convergent$convergent_description1, 
+                                              modified_scales_before_convergent$convergent_description2, 
+                                              modified_scales_before_convergent$convergent_description3, 
+                                              modified_scales_before_convergent$convergent_description4, 
+                                              modified_scales_before_convergent$convergent_description5,
+modified_scales_before_convergent$convergent_description6,
+modified_scales_before_convergent$convergent_description7,
+modified_scales_before_convergent$convergent_description8,
+modified_scales_before_convergent$convergent_description9,
+modified_scales_before_convergent$convergent_description10,
+modified_scales_before_convergent$convergent_description11,
+modified_scales_before_convergent$convergent_description12)
+
+#making sure ID column is a factor
+modified_scales_convergent_wide_data$id <- as.factor(modified_scales_convergent_wide_data$id)
+
+#changing into long format
+#library(tidyr)
+modified_scales_convergent_long_data <- gather(modified_scales_convergent_wide_data, 
+                                          convergent_description_number, convergent_description, modified_scales_before_convergent.convergent_description1:modified_scales_before_convergent.convergent_description12, factor_key = T) 
+modified_scales_convergent_long_data
+modified_scales_convergent_long_data <- rename(modified_scales_convergent_long_data, convergent_type = modified_scales_before_convergent.convergent_type) # rename column
+
+#delete NAs in data frame
+modified_scales_convergent_long_data_clean <- subset(modified_scales_convergent_long_data, !is.na(modified_scales_convergent_long_data[,4])) #column 4 = convergent description
+```
 
 
 
